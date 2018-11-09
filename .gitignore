@@ -1,0 +1,8 @@
+__pycache__
+*.png
+*.pyc
+bug_and_optimize
+plan
+reports/
+Logs/
+test.py
