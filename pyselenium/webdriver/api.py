@@ -1,4 +1,5 @@
-#coding:utf-8
+from time import sleep, time
+import re, functools
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
@@ -11,24 +12,20 @@ from selenium.common.exceptions import  TimeoutException,
                                         ElementNotVisibleException,
                                         InvalidElementStateException
 from selenium.webdriver.support.select import Select
-from models.logs import Log
-from time import sleep, time
-import sys, re, functools
-sys.path.append('./models')
-form pyselenium.data.selenium_dict import LOCATORS
-from models import function
-from models.config import Config
+from SelenPyTest.pyselenium.models.logs import Log
+from SelenPyTest.pyselenium.data.selenium_dict import LOCATORS
+from SelenPyTest.pyselenium.models import function
+from SelenPyTest.pyselenium.models.configs.config import Config
 NO_POPBOX = '一般性错误!'
 
 
 class ApiDriver:
-
     def open(self):
         self.driver.get(self.url)
     def get_driver(self):
         return self.driver
 
-    @function.wait
+    @function.wait(5)
     def waits_for(self, fn, *args):
         return fn(*args)
 
@@ -61,11 +58,11 @@ class ApiDriver:
     def find_element(self, *args, **kwargs={}):
         return self._find_elements(*self._get_locs(args, kwargs))
 
-    @function.wait
+    @function.wait(5)
     def _find_element(self, *location):
         return self.driver.find_element(*location)
 
-    @function.wait
+    @function.wait(5)
     def _find_elements(self, *location):
         return self.driver.find_elements(*location)
 

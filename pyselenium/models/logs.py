@@ -3,7 +3,7 @@ import logging
 import os
 import time
 import threading
-from .config import Config, LOG_PATH
+from SelenPyTest.pyselenium.configs.config import Config, LOG_PATH
 from logging.handlers import TimedRotatingFileHandler
 
 

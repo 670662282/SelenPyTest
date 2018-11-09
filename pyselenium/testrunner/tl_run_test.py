@@ -1,17 +1,14 @@
 #coding:utf-8
 #!/usr/bin/env python3
-#from HTMLTestRunner import HTMLTestRunner
-#from HTML_test_runner import HTMLTestRunner
-from htmlrunner.ExtentHTMLTestRunner import HTMLTestRunner
+from .ExtentHTMLTestRunner import HTMLTestRunner
+from SelenPyTest.pyselenium.models.ssh import myssh
+from SelenPyTest.pyselenium.configs.config import Config, BASE_PATH, REPORT_PATH, TL_WEBLOG_PATH, IMAGE_PATH, CASE_PATH
+from SelenPyTest.pyselenium.models.logs import Log
+from SelenPyTest.pyselenium.models.email import Email
 import unittest
 import time
 import os, sys
 import smtplib
-sys.path.append('./case/models')
-from case.models import myssh
-from case.models.config import Config, BASE_PATH, REPORT_PATH, TL_WEBLOG_PATH, IMAGE_PATH, CASE_PATH
-from case.models.logs import Log
-from case.models.email import Email
 
 class TL_TestRunner:
     def __init__(self, casecls_re='*_tl.py'):

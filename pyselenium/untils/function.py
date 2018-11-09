@@ -1,9 +1,8 @@
 import os
 from time import strftime, localtime, time, sleep
-from selenium.common.exceptions import TimeoutException, \
-    NoSuchElementException, StaleElementReferenceException, WebDriverException, \
-    ElementNotVisibleException , InvalidElementStateException
-from .config import IMAGE_PATH, Config
+from selenium.common.exceptions import NoSuchElementException,
+                                        WebDriverException
+from SelenPyTest.pyselenium.configs.config import IMAGE_PATH, Config
 import functools
 try:
     import keyring
@@ -60,20 +59,21 @@ def changewait(time):
         return waits
     return _changewait
 
-def wait(fn):
-    @functools.wraps(fn)
-    def modfied_fn(self, *args, **kwargs):
-        start_time = time()
-        while True:
-            try:
-                return fn(self, *args, **kwargs)
-            except (WebDriverException, NoSuchElementException, AssertionError) as e:
-                print('wait ...')
-                if time() - start_time > MAX_TIME:
-                    print('wait Timeout 30s!')
-                    raise e
-                sleep(0.5)
-    return modfied_fn
+def wait(timeout)
+    def _wait(fn):
+        @functools.wraps(fn)
+        def modfied_fn(self, *args, **kwargs):
+            start_time = time()
+            while True:
+                try:
+                    return fn(self, *args, **kwargs)
+                except (WebDriverException, NoSuchElementException, AssertionError) as e:
+                    if time() - start_time > timeout:
+                        print('wait Timeout 30s!')
+                        raise e
+                    sleep(0.5)
+        return modfied_fn
+    return _wait
 
 def capture_except(fun):
     def capture(self, *args, **kw):

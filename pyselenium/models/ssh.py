@@ -1,6 +1,5 @@
 import paramiko
 
-
 class Tl_ssh():
 
     def __init__(self, ip='10.10.50.7', passwd=''):

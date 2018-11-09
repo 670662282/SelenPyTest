@@ -16,4 +16,7 @@
 # under the License.
 
 
-__version__ = "1.0"
+from .running.test_runner import TestRunner
+from .pyse_api import WebDriver
+from .models.unittest import unit, unitback
+from .driver import Pyse

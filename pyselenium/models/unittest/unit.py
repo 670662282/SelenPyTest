@@ -13,8 +13,8 @@ class MyTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         timeout = Config().get('IMP_TIME')
-        self.driver = browser()
-        #self.driver.maximize_window()
+        self.driver = browser('chrome')
+        self.driver.maximize_window()
         self.driver.implicitly_wait(timeout if timeout else 15)
         self.logger = Log().get_logger()
 
@@ -30,6 +30,3 @@ class MyTest(unittest.TestCase):
             self.fail(displayfield)
         else:
             self.fail(ACCIDET_POPBOX + displayfield)
-
-    if __name__ == "__main__":
-        unittest.main()
