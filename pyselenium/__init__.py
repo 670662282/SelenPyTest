@@ -16,7 +16,7 @@
 # under the License.
 
 
-from .running.test_runner import TestRunner
-from .pyse_api import WebDriver
+from .testrunner.run_test import TestRunner
+from .webdriver import api
 from .models.unittest import unit, unitback
-from .driver import Pyse
+from .models.driver import browser

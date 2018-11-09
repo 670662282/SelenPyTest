@@ -10,7 +10,7 @@ import time
 import os, sys
 import smtplib
 
-class TL_TestRunner:
+class TestRunner:
     def __init__(self, casecls_re='*_tl.py'):
         cf = Config()
         self.casecls_re = casecls_re
@@ -108,6 +108,6 @@ class TL_TestRunner:
 if __name__ == '__main__':
     casecls_re = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1].endswith('.py') else '*_tl.py'
     print('UIAutotest is start')
-    tl_runner = TL_TestRunner(casecls_re)
+    tl_runner = TestRunner(casecls_re)
     tl_runner.debug() if len(sys.argv) > 2 and sys.argv[2] == 'debug' else tl_runner.normal()
     print('UIAutotest is end')
