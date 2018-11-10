@@ -15,8 +15,10 @@
 # specific language governing permissions and limitations
 # under the License.
 
+__version__ = "1.0"
+__author__ = "jiangchen"
 
 from .testrunner.run_test import TestRunner
-from .webdriver import api
+from .webdriver import sele_api
 from .models.unittest import unit, unitback
 from .models.driver import browser

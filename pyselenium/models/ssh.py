@@ -1,4 +1,7 @@
-import paramiko
+try:
+    import paramiko
+except (NameError, ImportError, RuntimeError):
+    pass
 
 class Tl_ssh():
 
@@ -6,8 +9,11 @@ class Tl_ssh():
         self.host = (ip, 22)
         self.user = 'root'
         self.passwd = passwd
-        self.ssh = paramiko.SSHClient()
-
+        try:
+            self.ssh = paramiko.SSHClient()
+        except NameError as e:
+            print('paramiko 加载失败 尝试命令‘pip install paramiko’安装，或者离开')
+            raise e
     def connect(self):
         ts = paramiko.Transport(self.host)
         ts.connect(username=self.user, password=self.passwd)

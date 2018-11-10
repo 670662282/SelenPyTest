@@ -1,0 +1,209 @@
+2018-11-10 15:28:03,867 - run_test.py [line:37] - INFO:list : ['2018-11-10_15-22-47UITest.html', '2018-11-10_15-23-28UITest.html', '2018-11-10_15-23-55UITest.html', '2018-11-10_15-28-03UITest.html']
+2018-11-10 15:28:03,870 - run_test.py [line:46] - INFO:new reports_path:2018-11-10_15-28-03UITest.html
+2018-11-10 15:28:03,871 - run_test.py [line:56] - INFO:del report : []
+2018-11-10 15:33:27,808 - run_test.py [line:37] - INFO:list : ['2018-11-10_15-22-47UITest.html', '2018-11-10_15-23-28UITest.html', '2018-11-10_15-23-55UITest.html', '2018-11-10_15-28-03UITest.html', '2018-11-10_15-33-27UITest.html']
+2018-11-10 15:33:27,811 - run_test.py [line:46] - INFO:new reports_path:2018-11-10_15-33-27UITest.html
+2018-11-10 15:33:27,811 - run_test.py [line:56] - INFO:del report : []
+2018-11-10 15:35:52,003 - run_test.py [line:37] - INFO:list : ['2018-11-10_15-22-47UITest.html', '2018-11-10_15-23-28UITest.html', '2018-11-10_15-23-55UITest.html', '2018-11-10_15-28-03UITest.html', '2018-11-10_15-33-27UITest.html', '2018-11-10_15-35-51UITest.html']
+2018-11-10 15:35:52,068 - run_test.py [line:37] - INFO:list : ['2018-11-10_15-22-47UITest.html', '2018-11-10_15-23-28UITest.html', '2018-11-10_15-23-55UITest.html', '2018-11-10_15-28-03UITest.html', '2018-11-10_15-33-27UITest.html', '2018-11-10_15-35-51UITest.html']
+2018-11-10 15:38:09,121 - run_test.py [line:38] - INFO:list : ['2018-11-10_15-22-47UITest.html', '2018-11-10_15-23-28UITest.html', '2018-11-10_15-23-55UITest.html', '2018-11-10_15-28-03UITest.html', '2018-11-10_15-33-27UITest.html', '2018-11-10_15-35-51UITest.html', '2018-11-10_15-38-09UITest.html']
+2018-11-10 15:38:09,125 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_15-38-09UITest.html
+2018-11-10 15:38:09,133 - run_test.py [line:57] - INFO:del report : ['2018-11-10_15-22-47UITest.html', '2018-11-10_15-23-28UITest.html']
+2018-11-10 15:42:03,829 - run_test.py [line:37] - INFO:list : ['aa_a_login_tl.py', 'report', 'test.log', '__pycache__']
+2018-11-10 15:42:03,875 - run_test.py [line:37] - INFO:list : ['aa_a_login_tl.py', 'report', 'test.log', '__pycache__']
+2018-11-10 15:42:27,112 - run_test.py [line:37] - INFO:list : ['2018-11-10_15-23-55UITest.html', '2018-11-10_15-28-03UITest.html', '2018-11-10_15-33-27UITest.html', '2018-11-10_15-35-51UITest.html', '2018-11-10_15-38-09UITest.html', '2018-11-10_15-42-03UITest.html', '2018-11-10_15-42-27UITest.html']
+2018-11-10 15:42:27,126 - run_test.py [line:46] - INFO:new reports_path:2018-11-10_15-42-27UITest.html
+2018-11-10 15:42:27,131 - run_test.py [line:56] - INFO:del report : ['2018-11-10_15-23-55UITest.html', '2018-11-10_15-28-03UITest.html']
+2018-11-10 15:43:45,116 - run_test.py [line:37] - INFO:list : ['aa_a_login_tl.py', 'report', 'test.log', '__pycache__']
+2018-11-10 15:43:45,145 - run_test.py [line:37] - INFO:list : ['aa_a_login_tl.py', 'report', 'test.log', '__pycache__']
+2018-11-10 15:44:06,022 - run_test.py [line:37] - INFO:list : ['2018-11-10_15-33-27UITest.html', '2018-11-10_15-35-51UITest.html', '2018-11-10_15-38-09UITest.html', '2018-11-10_15-42-03UITest.html', '2018-11-10_15-42-27UITest.html', '2018-11-10_15-43-45UITest.html', '2018-11-10_15-44-05UITest.html']
+2018-11-10 15:44:06,027 - run_test.py [line:46] - INFO:new reports_path:2018-11-10_15-44-05UITest.html
+2018-11-10 15:44:06,035 - run_test.py [line:56] - INFO:del report : ['2018-11-10_15-33-27UITest.html', '2018-11-10_15-35-51UITest.html']
+2018-11-10 15:46:25,668 - run_test.py [line:41] - INFO:list : ['2018-11-10_15-38-09UITest.html', '2018-11-10_15-42-03UITest.html', '2018-11-10_15-42-27UITest.html', '2018-11-10_15-43-45UITest.html', '2018-11-10_15-44-05UITest.html', '2018-11-10_15-46-25UITest.html']
+2018-11-10 15:46:25,678 - run_test.py [line:50] - INFO:new reports_path:2018-11-10_15-46-25UITest.html
+2018-11-10 15:46:25,682 - run_test.py [line:60] - INFO:del report : ['2018-11-10_15-38-09UITest.html']
+2018-11-10 15:46:33,485 - run_test.py [line:41] - INFO:list : ['2018-11-10_15-42-03UITest.html', '2018-11-10_15-42-27UITest.html', '2018-11-10_15-43-45UITest.html', '2018-11-10_15-44-05UITest.html', '2018-11-10_15-46-25UITest.html']
+2018-11-10 15:46:33,502 - run_test.py [line:50] - INFO:new reports_path:2018-11-10_15-46-25UITest.html
+2018-11-10 15:46:33,508 - run_test.py [line:60] - INFO:del report : []
+2018-11-10 15:47:50,369 - run_test.py [line:41] - INFO:list : ['2018-11-10_15-42-03UITest.html', '2018-11-10_15-42-27UITest.html', '2018-11-10_15-43-45UITest.html', '2018-11-10_15-44-05UITest.html', '2018-11-10_15-46-25UITest.html', '2018-11-10_15-47-50UITest.html']
+2018-11-10 15:47:50,380 - run_test.py [line:50] - INFO:new reports_path:2018-11-10_15-47-50UITest.html
+2018-11-10 15:47:50,386 - run_test.py [line:60] - INFO:del report : ['2018-11-10_15-42-03UITest.html', '2018-11-10_15-42-27UITest.html', '2018-11-10_15-43-45UITest.html']
+2018-11-10 15:47:58,253 - run_test.py [line:41] - INFO:list : ['2018-11-10_15-44-05UITest.html', '2018-11-10_15-46-25UITest.html', '2018-11-10_15-47-50UITest.html']
+2018-11-10 15:47:58,255 - run_test.py [line:50] - INFO:new reports_path:2018-11-10_15-47-50UITest.html
+2018-11-10 15:47:58,260 - run_test.py [line:60] - INFO:del report : []
+2018-11-10 15:50:28,027 - run_test.py [line:41] - INFO:list : ['2018-11-10_15-44-05UITest.html', '2018-11-10_15-46-25UITest.html', '2018-11-10_15-47-50UITest.html', '2018-11-10_15-50-27UITest.html']
+2018-11-10 15:50:28,029 - run_test.py [line:50] - INFO:new reports_path:2018-11-10_15-50-27UITest.html
+2018-11-10 15:50:28,034 - run_test.py [line:60] - INFO:del report : ['2018-11-10_15-44-05UITest.html']
+2018-11-10 15:50:36,893 - run_test.py [line:41] - INFO:list : ['2018-11-10_15-46-25UITest.html', '2018-11-10_15-47-50UITest.html', '2018-11-10_15-50-27UITest.html']
+2018-11-10 15:50:36,895 - run_test.py [line:50] - INFO:new reports_path:2018-11-10_15-50-27UITest.html
+2018-11-10 15:50:36,899 - run_test.py [line:60] - INFO:del report : []
+2018-11-10 15:52:40,496 - run_test.py [line:41] - INFO:list : ['2018-11-10_15-46-25UITest.html', '2018-11-10_15-47-50UITest.html', '2018-11-10_15-50-27UITest.html', '2018-11-10_15-52-33UITest.html']
+2018-11-10 15:52:40,506 - run_test.py [line:50] - INFO:new reports_path:2018-11-10_15-52-33UITest.html
+2018-11-10 15:52:40,512 - run_test.py [line:60] - INFO:del report : ['2018-11-10_15-46-25UITest.html']
+2018-11-10 16:01:15,791 - run_test.py [line:38] - INFO:list : ['2018-11-10_15-47-50UITest.html', '2018-11-10_15-50-27UITest.html', '2018-11-10_15-52-33UITest.html', '2018-11-10_16-01-07UITest.html']
+2018-11-10 16:01:15,793 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-01-07UITest.html
+2018-11-10 16:01:15,807 - run_test.py [line:57] - INFO:del report : ['2018-11-10_15-47-50UITest.html']
+2018-11-10 16:02:41,169 - run_test.py [line:38] - INFO:list : ['2018-11-10_15-50-27UITest.html', '2018-11-10_15-52-33UITest.html', '2018-11-10_16-01-07UITest.html', '2018-11-10_16-02-41UITest.html']
+2018-11-10 16:02:41,171 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-02-41UITest.html
+2018-11-10 16:02:41,174 - run_test.py [line:57] - INFO:del report : ['2018-11-10_15-50-27UITest.html']
+2018-11-10 16:02:49,019 - run_test.py [line:38] - INFO:list : ['2018-11-10_15-52-33UITest.html', '2018-11-10_16-01-07UITest.html', '2018-11-10_16-02-41UITest.html']
+2018-11-10 16:02:49,020 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-02-41UITest.html
+2018-11-10 16:02:49,021 - run_test.py [line:57] - INFO:del report : []
+2018-11-10 16:12:32,181 - run_test.py [line:38] - INFO:list : ['2018-11-10_15-52-33UITest.html', '2018-11-10_16-01-07UITest.html', '2018-11-10_16-02-41UITest.html', '2018-11-10_16-12-24UITest.html']
+2018-11-10 16:12:32,183 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-12-24UITest.html
+2018-11-10 16:12:32,186 - run_test.py [line:57] - INFO:del report : ['2018-11-10_15-52-33UITest.html']
+2018-11-10 16:13:39,843 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-01-07UITest.html', '2018-11-10_16-02-41UITest.html', '2018-11-10_16-12-24UITest.html', '2018-11-10_16-13-32UITest.html']
+2018-11-10 16:13:39,846 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-13-32UITest.html
+2018-11-10 16:13:39,857 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-01-07UITest.html']
+2018-11-10 16:13:50,167 - email.py [line:127] - ERROR:用户名密码验证失败！(535, b'Error: authentication failed')
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 123, in send
+    self._login(self.pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 107, in _login
+    self.smtp.login(self.usr, pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 730, in login
+    raise last_exception
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 721, in login
+    initial_response_ok=initial_response_ok)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 642, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (535, b'Error: authentication failed')
+2018-11-10 16:17:54,130 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-02-41UITest.html', '2018-11-10_16-12-24UITest.html', '2018-11-10_16-13-32UITest.html', '2018-11-10_16-17-46UITest.html']
+2018-11-10 16:17:54,132 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-17-46UITest.html
+2018-11-10 16:17:54,137 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-02-41UITest.html']
+2018-11-10 16:17:54,512 - email.py [line:127] - ERROR:用户名密码验证失败！(535, b'Error: authentication failed')
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 123, in send
+    self._login(self.pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 107, in _login
+    self.smtp.login(self.usr, pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 730, in login
+    raise last_exception
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 721, in login
+    initial_response_ok=initial_response_ok)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 642, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (535, b'Error: authentication failed')
+2018-11-10 16:17:54,538 - email.py [line:133] - INFO:邮件发送给 ['a6706622@163.com']
+2018-11-10 16:18:19,275 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-12-24UITest.html', '2018-11-10_16-13-32UITest.html', '2018-11-10_16-17-46UITest.html', '2018-11-10_16-18-11UITest.html']
+2018-11-10 16:18:19,277 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-18-11UITest.html
+2018-11-10 16:18:19,279 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-12-24UITest.html']
+2018-11-10 16:18:34,539 - email.py [line:127] - ERROR:用户名密码验证失败！(535, b'Error: authentication failed')
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 123, in send
+    self._login(self.pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 107, in _login
+    self.smtp.login(self.usr, pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 730, in login
+    raise last_exception
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 721, in login
+    initial_response_ok=initial_response_ok)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 642, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (535, b'Error: authentication failed')
+2018-11-10 16:24:42,036 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-13-32UITest.html', '2018-11-10_16-17-46UITest.html', '2018-11-10_16-18-11UITest.html', '2018-11-10_16-24-33UITest.html']
+2018-11-10 16:24:42,038 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-24-33UITest.html
+2018-11-10 16:24:42,040 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-13-32UITest.html']
+2018-11-10 16:24:54,652 - email.py [line:127] - ERROR:用户名密码验证失败！(535, b'Error: authentication failed')
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 123, in send
+    self._login(self.pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 107, in _login
+    self.smtp.login(self.usr, pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 730, in login
+    raise last_exception
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 721, in login
+    initial_response_ok=initial_response_ok)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 642, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (535, b'Error: authentication failed')
+2018-11-10 16:24:54,665 - email.py [line:133] - INFO:邮件发送给 ['a6706622@163.com']
+2018-11-10 16:27:25,286 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-17-46UITest.html', '2018-11-10_16-18-11UITest.html', '2018-11-10_16-24-33UITest.html', '2018-11-10_16-27-17UITest.html']
+2018-11-10 16:27:25,289 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-27-17UITest.html
+2018-11-10 16:27:25,293 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-17-46UITest.html']
+2018-11-10 16:27:34,341 - email.py [line:127] - ERROR:用户名密码验证失败！(535, b'Error: authentication failed')
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 123, in send
+    self._login(self.pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 107, in _login
+    self.smtp.login(self.usr, pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 730, in login
+    raise last_exception
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 721, in login
+    initial_response_ok=initial_response_ok)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 642, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (535, b'Error: authentication failed')
+2018-11-10 16:27:34,361 - email.py [line:133] - INFO:邮件发送给 ['a670662282@163.com']
+2018-11-10 16:29:49,707 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-18-11UITest.html', '2018-11-10_16-24-33UITest.html', '2018-11-10_16-27-17UITest.html', '2018-11-10_16-29-41UITest.html']
+2018-11-10 16:29:49,709 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-29-41UITest.html
+2018-11-10 16:29:49,718 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-18-11UITest.html']
+2018-11-10 16:29:50,261 - email.py [line:127] - ERROR:用户名密码验证失败！(535, b'Error: authentication failed')
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 123, in send
+    self._login(self.pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 107, in _login
+    self.smtp.login(self.usr, pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 730, in login
+    raise last_exception
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 721, in login
+    initial_response_ok=initial_response_ok)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 642, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (535, b'Error: authentication failed')
+2018-11-10 16:29:50,272 - email.py [line:133] - INFO:邮件发送给 ['a670662282@163.com']
+2018-11-10 16:36:18,630 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-24-33UITest.html', '2018-11-10_16-27-17UITest.html', '2018-11-10_16-29-41UITest.html', '2018-11-10_16-36-10UITest.html']
+2018-11-10 16:36:18,632 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-36-10UITest.html
+2018-11-10 16:36:18,634 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-24-33UITest.html']
+2018-11-10 16:36:19,296 - email.py [line:127] - ERROR:用户名密码验证失败！(550, b'User has no permission')
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 123, in send
+    self._login(self.pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 107, in _login
+    self.smtp.login(self.usr, pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 730, in login
+    raise last_exception
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 721, in login
+    initial_response_ok=initial_response_ok)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 642, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (550, b'User has no permission')
+2018-11-10 16:36:19,303 - email.py [line:133] - INFO:邮件发送给 ['a670662282@163.com']
+2018-11-10 16:38:16,681 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-27-17UITest.html', '2018-11-10_16-29-41UITest.html', '2018-11-10_16-36-10UITest.html', '2018-11-10_16-38-05UITest.html']
+2018-11-10 16:38:16,682 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-38-05UITest.html
+2018-11-10 16:38:16,684 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-27-17UITest.html']
+2018-11-10 16:42:17,614 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-29-41UITest.html', '2018-11-10_16-36-10UITest.html', '2018-11-10_16-38-05UITest.html', '2018-11-10_16-42-09UITest.html']
+2018-11-10 16:42:17,616 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-42-09UITest.html
+2018-11-10 16:42:17,628 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-29-41UITest.html']
+2018-11-10 16:44:37,178 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-36-10UITest.html', '2018-11-10_16-38-05UITest.html', '2018-11-10_16-42-09UITest.html', '2018-11-10_16-44-13UITest.html']
+2018-11-10 16:44:37,182 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-44-13UITest.html
+2018-11-10 16:44:37,186 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-36-10UITest.html']
+2018-11-10 16:44:40,902 - email.py [line:150] - INFO:email content:C:\Users\Administrator\AppData\Local\Programs\Python\Python36\Lib\site-packages\SelenPyTest\demo\report\2018-11-10_16-44-13UITest.html is file, type: html
+2018-11-10 16:44:42,257 - email.py [line:133] - INFO:邮件发送给 ['a670662282@163.com']
+2018-11-10 16:53:22,602 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-38-05UITest.html', '2018-11-10_16-42-09UITest.html', '2018-11-10_16-44-13UITest.html', '2018-11-10_16-53-14UITest.html']
+2018-11-10 16:53:22,604 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-53-14UITest.html
+2018-11-10 16:53:22,615 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-38-05UITest.html']
+2018-11-10 16:53:31,374 - email.py [line:127] - ERROR:用户名密码验证失败！(535, b'Error: authentication failed')
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 123, in send
+    self._login(self.pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 107, in _login
+    self.smtp.login(self.usr, pwd)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 730, in login
+    raise last_exception
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 721, in login
+    initial_response_ok=initial_response_ok)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 642, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (535, b'Error: authentication failed')
+2018-11-10 16:53:31,395 - email.py [line:133] - INFO:邮件发送给 ['a670662282@163.com']
+2018-11-10 16:54:41,021 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-42-09UITest.html', '2018-11-10_16-44-13UITest.html', '2018-11-10_16-53-14UITest.html', '2018-11-10_16-54-32UITest.html']
+2018-11-10 16:54:41,023 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-54-32UITest.html
+2018-11-10 16:54:41,028 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-42-09UITest.html']
+2018-11-10 16:54:54,145 - email.py [line:150] - INFO:email content:C:\Users\Administrator\AppData\Local\Programs\Python\Python36\Lib\site-packages\SelenPyTest\demo\report\2018-11-10_16-54-32UITest.html is file, type: html
+2018-11-10 16:54:54,493 - email.py [line:133] - INFO:邮件发送给 ['a670662282@163.com']
+2018-11-10 16:55:11,941 - run_test.py [line:38] - INFO:list : ['2018-11-10_16-44-13UITest.html', '2018-11-10_16-53-14UITest.html', '2018-11-10_16-54-32UITest.html', '2018-11-10_16-55-03UITest.html']
+2018-11-10 16:55:11,944 - run_test.py [line:47] - INFO:new reports_path:2018-11-10_16-55-03UITest.html
+2018-11-10 16:55:11,949 - run_test.py [line:57] - INFO:del report : ['2018-11-10_16-44-13UITest.html']
+2018-11-10 16:55:20,123 - email.py [line:150] - INFO:email content:C:\Users\Administrator\AppData\Local\Programs\Python\Python36\Lib\site-packages\SelenPyTest\demo\report\2018-11-10_16-55-03UITest.html is file, type: html
+2018-11-10 16:55:20,485 - email.py [line:133] - INFO:邮件发送给 ['a670662282@163.com']

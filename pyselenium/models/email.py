@@ -126,7 +126,7 @@ class Email:
         except (smtplib.SMTPAuthenticationError, smtplib.SMTPRecipientsRefused) as e:
             self.logger.exception('用户名密码验证失败！%s', e)
             if self.pwd is None:
-                print('登陆失败 清除钥匙环中{}密码'.format(self.usr))
+                print('登陆失败 {}'.format(self.usr))
                 unregister(usr=self.usr)
         else:
             print('"{}"邮件发送给{}成功'.format(subject, recipients))

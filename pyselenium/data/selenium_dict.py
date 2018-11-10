@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 
 LOCATORS = {
     'css': By.CSS_SELECTOR,
@@ -18,10 +19,10 @@ def chrome_headless():
     return webdriver.Chrome(chrome_options=ops)
 
 BROWSERS = {
-    'chrome':           webdriver.Chrome(),
-    'chrome_headless':  chrome_headless(),
-    'firebox':          webdriver.Firebox(),
-    'ie':               webdriver.Ie(),
-    'opera':            webdriver.Opera(),
-    'edge':             webdriver.Edge(),
+    'chrome':           webdriver.Chrome,
+    'chrome_headless':  chrome_headless,
+    'firefox':          webdriver.Firefox,
+    'ie':               webdriver.Ie,
+    'opera':            webdriver.Opera,
+    'edge':             webdriver.Edge,
 }

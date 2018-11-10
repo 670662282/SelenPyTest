@@ -5,23 +5,23 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import  TimeoutException,
-                                        NoSuchElementException,
-                                        StaleElementReferenceException,
-                                        WebDriverException,
-                                        ElementNotVisibleException,
+from selenium.common.exceptions import  TimeoutException,\
+                                        NoSuchElementException,\
+                                        StaleElementReferenceException,\
+                                        WebDriverException,\
+                                        ElementNotVisibleException,\
                                         InvalidElementStateException
 from selenium.webdriver.support.select import Select
 from SelenPyTest.pyselenium.models.logs import Log
 from SelenPyTest.pyselenium.data.selenium_dict import LOCATORS
-from SelenPyTest.pyselenium.models import function
-from SelenPyTest.pyselenium.models.configs.config import Config
+from SelenPyTest.pyselenium.untils import function
 NO_POPBOX = '一般性错误!'
 
 
 class ApiDriver:
-    def open(self):
-        self.driver.get(self.url)
+
+    def open(self, url):
+        self.driver.get(url)
     def get_driver(self):
         return self.driver
 
@@ -37,13 +37,12 @@ class ApiDriver:
         self.driver.implicitly_wait(secs)
 
     def _get_locs(self, *args, **kwargs):
+        print(len(args))
         if len(args) == 1 or len(kwargs) == 1:
             if args and not kwargs:
-                if args[0] and isinstance(args[0], str):
-                    raise ValueError('invalidlocator')
                 return (LOCATORS['css'], args[0])
             if kwargs and not args:
-                k, v = kwargs.popitem():
+                k, v = kwargs.popitem()
                 try:
                     return (LOCATORS[k], v)
                 except KeyError:
@@ -53,10 +52,10 @@ class ApiDriver:
         raise ValueError("locator error, only one")
 
 
-    def find_element(self, *args, **kwargs={}):
-        return self._find_element(*self._get_locs(args, kwargs))
-    def find_element(self, *args, **kwargs={}):
-        return self._find_elements(*self._get_locs(args, kwargs))
+    def find_element(self, *args, **kwargs):
+        return self._find_element(*self._get_locs(*args, **kwargs))
+    def find_elements(self, *args, **kwargs):
+        return self._find_elements(*self._get_locs(*args, **kwargs))
 
     @function.wait(5)
     def _find_element(self, *location):
@@ -80,16 +79,8 @@ class ApiDriver:
         self.logger.info(loc)
         return (By.XPATH, loc)
 
-    def click_element(self, *loction):
-        num = len(self.find_elements(*loction))
-        self.logger.info('click_element num:{}, locs:{} {}'.format(num, *loction))
-        if num == 0:
-            self.logger.error('no find element')
-            raise NoSuchElementException
-        elif num == 1 :
-            self.find_element(*loction).click()
-        else:
-            raise AssertionError('elements num  > 1')
+    def click_element(self, *args, **kwargs):
+        self.find_element(*args, **kwargs).click()
 
     def send_value(self, obj, str):
         try:

@@ -1,26 +1,20 @@
 #coding:utf-8
-from selenium import webdriver
-from .driver import browser
-import os, sys
 import unittest
-from .logs import Log
-from .config import Config
+from SelenPyTest.pyselenium.models.driver import browser
+from SelenPyTest.pyselenium.models.logs import Log
+from SelenPyTest.pyselenium.webdriver.sele_api import ApiDriver
 
-
-
-class MyTest(unittest.TestCase):
-
-    @classmethod
-    def setUpClass(self):
-        timeout = Config().get('IMP_TIME')
-        self.driver = browser('chrome')
-        self.driver.maximize_window()
-        self.driver.implicitly_wait(timeout if timeout else 15)
-        self.logger = Log().get_logger()
+class TestCase(unittest.TestCase, ApiDriver):
 
     @classmethod
-    def tearDownClass(self):
-        self.driver.quit()
+    def setUpClass(cls):
+        cls.driver = browser('chrome')
+        #cls.driver.maximize_window()
+        cls.logger = Log().get_logger()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
 
     def except_parse(self, function, e):
         self.logger.exception(e)

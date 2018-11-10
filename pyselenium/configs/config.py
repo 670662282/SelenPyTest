@@ -2,11 +2,11 @@ import os
 from .cfread import YamlReader
 
 BASE_PATH = os.path.split(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))[0]
-CASE_PATH = os.path.join(BASE_PATH, 'case')
-CONFIG_FILE = os.path.join(BASE_PATH, 'data', 'config.yaml')
-LOG_PATH = os.path.join(BASE_PATH, 'Logs')
-REPORT_PATH = os.path.join(BASE_PATH, 'reports')
-IMAGE_PATH = os.path.join(REPORT_PATH, 'images')
+PYSELENIUM = os.path.join(BASE_PATH, 'pyselenium')
+CONFIG_FILE = os.path.join(PYSELENIUM, 'configs', 'config.yaml')
+LOG_PATH = os.path.join(BASE_PATH, 'demo')
+REPORT_PATH = os.path.join(LOG_PATH, 'reports')
+IMAGE_PATH = REPORT_PATH
 
 
 class Config:
