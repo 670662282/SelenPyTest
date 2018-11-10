@@ -45,7 +45,9 @@ def unregister(type='email', usr=None):
     try:
         keyring.delete_password(type, usr)
     except PasswordDeleteError:
-        pass
+        return False
+    else:
+        return True
 
 
 def changewait(time):
