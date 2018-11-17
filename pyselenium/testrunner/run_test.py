@@ -2,7 +2,7 @@
 #!/usr/bin/env python3
 from .ExtentHTMLTestRunner import HTMLTestRunner
 from SelenPyTest.pyselenium.models.ssh import Tl_ssh
-from SelenPyTest.pyselenium.configs.config import Config
+from SelenPyTest.pyselenium.configs.config import YamlConfig
 from SelenPyTest.pyselenium.models.logs import Log
 from SelenPyTest.pyselenium.models.email import Email
 import unittest
@@ -17,12 +17,13 @@ class TestRunner:
         self.description = description
         self.casecls_re = casecls_re
         self.logger = Log().get_logger()
+        cf = YamlConfig()
         #self.backup = cf.get('RESERVE_REPORTS_NUM')
-        #self.email_title = cf.get('MAIL_TITLE')
-        #self.email_server = cf.get('EMAIL_SERVER')
-        #self.email_usr = cf.get('EMAIL_USR')
+        self.email_title = cf.get('MAIL_TITLE')
+        self.email_server = cf.get('EMAIL_SERVER')
+        self.email_usr = cf.get('EMAIL_USR')
         #self.email_pwd = cf.get('EMAIL_PWD')
-        #self.email_receiver = cf.get('EMAIL_RECEIVE')
+        self.email_receiver = cf.get('EMAIL_RECEIVE')
 
     def handle_reports(self, reports_path, reserve_num=0):
         """
@@ -85,10 +86,10 @@ class TestRunner:
         #if logfile is not None:
             #att_list.append(logfile)
 
-        #Email(self.email_server, self.email_usr).send(
-        #    self.email_title, reportfile, self.email_receiver, att_list)
-        Email('smtp.163.com', 'a670662282@163.com').send(
-            '自动化测试邮件', reportfile, 'a670662282@163.com', att_list)
+        Email(self.email_server, self.email_usr).send(
+            self.email_title, reportfile, self.email_receiver, att_list)
+        #Email('smtp.163.com', 'a670662282@163.com').send(
+        #    '自动化测试邮件', reportfile, 'a670662282@163.com', att_list)
 
 """
 if __name__ == '__main__':

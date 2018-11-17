@@ -2,7 +2,7 @@ import os
 from time import strftime, localtime, time, sleep
 from keyring.errors import PasswordDeleteError
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from SelenPyTest.pyselenium.configs.config import IMAGE_PATH, Config
+from SelenPyTest.pyselenium.configs.config import IMAGE_PATH, YamlConfig
 from SelenPyTest.pyselenium.models.ssh import Tl_ssh
 import functools
 try:
@@ -10,7 +10,7 @@ try:
 except (NameError, ImportError, RuntimeError):
     pass
 
-MAX_TIME = Config().get('TIME_OUT')
+MAX_TIME = YamlConfig().get('TIME_OUT')
 
 def get_png(driver, file_name):
     pngname = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + file_name
@@ -77,12 +77,15 @@ def wait(timeout):
         return modfied_fn
     return _wait
 
-def capture_except(fun):
+def capture_except(fn):
+    @functools.wraps(fn)
     def capture(self, *args, **kw):
         try:
-            return fun(self, *args, **kw)
-        except BaseException as e:
-            self.except_parse(po.capture_error_closed, e)
+            fn(self, *args, **kw)
+        except (WebDriverException, AssertionError) as e:
+            get_png(self.driver, 'error.png')
+            self.except_parse()
+            raise
     return capture
 
 

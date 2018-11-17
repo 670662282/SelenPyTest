@@ -16,11 +16,5 @@ class TestCase(unittest.TestCase, ApiDriver):
     def tearDownClass(cls):
         cls.driver.quit()
 
-    def except_parse(self, function, e):
-        self.logger.exception(e)
-        displayfield = function()
-        self.logger.error(displayfield)
-        if displayfield in ERROR_LIST:
-            self.fail(displayfield)
-        else:
-            self.fail(ACCIDET_POPBOX + displayfield)
+    def except_parse(self):
+        print('这里进行错误处理')

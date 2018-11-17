@@ -3,7 +3,7 @@ import logging
 import os
 import time
 import threading
-from SelenPyTest.pyselenium.configs.config import Config, LOG_PATH
+from SelenPyTest.pyselenium.configs.config import YamlConfig, LOG_PATH
 from logging.handlers import TimedRotatingFileHandler
 
 
@@ -21,7 +21,7 @@ class Log(object):
         return Log._instance
 
     def __init__(self):
-        self.logs = Config().get('log')
+        self.logs = YamlConfig().get('log')
         if self.logs is None: raise KeyError
         self.backup = self.logs.get('backup', 5)
         self.console_level = self.logs.get('console_level', 'INFO')
