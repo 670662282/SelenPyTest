@@ -1,17 +1,288 @@
-2018-11-17 13:37:25,738 - run_test.py [line:39] - INFO:list : ['2018-11-15_21-04-38UITest.html', '2018-11-15_21-07-11UITest.html', '2018-11-15_21-10-32UITest.html', '2018-11-17_13-37-15UITest.html']
-2018-11-17 13:37:25,748 - run_test.py [line:48] - INFO:new reports_path:2018-11-17_13-37-15UITest.html
-2018-11-17 13:37:25,752 - run_test.py [line:58] - INFO:del report : ['2018-11-15_21-04-38UITest.html']
-2018-11-17 13:37:34,429 - email.py [line:127] - ERROR:用户名密码验证失败！(550, b'User has no permission')
-Traceback (most recent call last):
-  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 123, in send
-    self._login(self.pwd)
-  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\SelenPyTest\pyselenium\models\email.py", line 107, in _login
-    self.smtp.login(self.usr, pwd)
-  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 730, in login
-    raise last_exception
-  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 721, in login
-    initial_response_ok=initial_response_ok)
-  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\smtplib.py", line 642, in auth
-    raise SMTPAuthenticationError(code, resp)
-smtplib.SMTPAuthenticationError: (550, b'User has no permission')
-2018-11-17 13:37:34,465 - email.py [line:134] - INFO:邮件发送给 ['a670662282@163.com']
+2018-11-28 20:09:57,209 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:09:59,083 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:09:59,129 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:09:59,168 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2018-11-28 20:09:59,693 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:09:59,857 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:09:59,891 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:09:59,918 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2018-11-28 20:10:00,300 - listener.py [line:74] - INFO:页面即将关闭
+2018-11-28 20:10:02,701 - listener.py [line:77] - INFO:页面已经关闭
+2018-11-28 20:10:34,041 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:10:34,654 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:10:34,699 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:10:35,135 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:10:35,655 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:10:35,688 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:10:36,077 - listener.py [line:74] - INFO:页面即将关闭
+2018-11-28 20:10:38,435 - listener.py [line:77] - INFO:页面已经关闭
+2018-11-28 20:12:07,126 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:12:08,019 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:12:08,054 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:12:08,624 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:12:08,651 - listener.py [line:74] - INFO:页面即将关闭
+2018-11-28 20:12:11,084 - listener.py [line:77] - INFO:页面已经关闭
+2018-11-28 20:12:39,118 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:12:39,939 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:12:40,004 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:12:40,036 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:12:40,244 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:12:40,284 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:12:40,299 - listener.py [line:74] - INFO:页面即将关闭
+2018-11-28 20:12:42,614 - listener.py [line:77] - INFO:页面已经关闭
+2018-11-28 20:13:15,544 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:13:16,262 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:13:16,323 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:13:36,466 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:13:36,687 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:13:36,736 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:13:56,866 - listener.py [line:74] - INFO:页面即将关闭
+2018-11-28 20:13:59,141 - listener.py [line:77] - INFO:页面已经关闭
+2018-11-28 20:17:41,937 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:17:42,578 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:17:44,979 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:17:45,272 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:17:47,912 - listener.py [line:75] - INFO:页面即将关闭
+2018-11-28 20:17:50,244 - listener.py [line:78] - INFO:页面已经关闭
+2018-11-28 20:19:53,336 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:19:54,545 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:19:56,929 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:19:57,184 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:19:59,432 - listener.py [line:76] - INFO:页面即将关闭
+2018-11-28 20:20:01,766 - listener.py [line:79] - INFO:页面已经关闭
+2018-11-28 20:21:59,748 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:22:00,432 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:22:03,360 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:22:03,743 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:22:06,419 - listener.py [line:76] - INFO:页面即将关闭
+2018-11-28 20:22:08,737 - listener.py [line:79] - INFO:页面已经关闭
+2018-11-28 20:23:28,279 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:23:29,816 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:23:29,881 - listener.py [line:43] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:23:52,840 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:23:53,953 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:23:54,015 - listener.py [line:43] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:24:17,115 - listener.py [line:77] - INFO:页面即将关闭
+2018-11-28 20:24:19,445 - listener.py [line:80] - INFO:页面已经关闭
+2018-11-28 20:24:57,896 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:24:58,520 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:24:58,577 - listener.py [line:43] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:24:58,608 - listener.py [line:43] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:24:58,619 - listener.py [line:46] - INFO:before_change :value=
+2018-11-28 20:24:58,655 - listener.py [line:49] - INFO:after_change :value=
+2018-11-28 20:24:58,662 - listener.py [line:46] - INFO:before_change :value=
+2018-11-28 20:24:58,884 - listener.py [line:49] - INFO:after_change :value=selenium
+2018-11-28 20:24:58,947 - listener.py [line:43] - INFO:元素定位: (css selector, #su)
+2018-11-28 20:24:59,195 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:24:59,433 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:24:59,491 - listener.py [line:43] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:24:59,534 - listener.py [line:43] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:24:59,545 - listener.py [line:46] - INFO:before_change :value=
+2018-11-28 20:24:59,581 - listener.py [line:49] - INFO:after_change :value=
+2018-11-28 20:24:59,589 - listener.py [line:46] - INFO:before_change :value=
+2018-11-28 20:24:59,786 - listener.py [line:49] - INFO:after_change :value=selenium2
+2018-11-28 20:24:59,818 - listener.py [line:43] - INFO:元素定位: (css selector, #su)
+2018-11-28 20:25:00,082 - listener.py [line:77] - INFO:页面即将关闭
+2018-11-28 20:25:02,394 - listener.py [line:80] - INFO:页面已经关闭
+2018-11-28 20:26:01,737 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:26:02,355 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:26:02,412 - listener.py [line:42] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:26:02,440 - listener.py [line:42] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:26:02,451 - listener.py [line:45] - INFO:before_change :value=
+2018-11-28 20:26:02,486 - listener.py [line:48] - INFO:after_change :value=
+2018-11-28 20:26:02,511 - listener.py [line:45] - INFO:before_change :value=
+2018-11-28 20:26:02,730 - listener.py [line:48] - INFO:after_change :value=selenium
+2018-11-28 20:26:26,049 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:26:26,365 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:26:26,424 - listener.py [line:42] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:26:26,454 - listener.py [line:42] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:26:26,464 - listener.py [line:45] - INFO:before_change :value=
+2018-11-28 20:26:26,506 - listener.py [line:48] - INFO:after_change :value=
+2018-11-28 20:26:26,520 - listener.py [line:45] - INFO:before_change :value=
+2018-11-28 20:26:26,735 - listener.py [line:48] - INFO:after_change :value=selenium2
+2018-11-28 20:26:49,986 - listener.py [line:76] - INFO:页面即将关闭
+2018-11-28 20:26:52,273 - listener.py [line:79] - INFO:页面已经关闭
+2018-11-28 20:28:31,376 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:28:32,011 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:28:32,066 - listener.py [line:42] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:28:54,884 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:28:55,209 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:28:55,282 - listener.py [line:42] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:29:18,310 - listener.py [line:76] - INFO:页面即将关闭
+2018-11-28 20:29:20,630 - listener.py [line:79] - INFO:页面已经关闭
+2018-11-28 20:33:51,694 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:33:55,560 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:33:55,631 - listener.py [line:42] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:33:55,659 - listener.py [line:42] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:33:55,668 - listener.py [line:45] - INFO:before_change :value=
+2018-11-28 20:33:55,707 - listener.py [line:48] - INFO:after_change :value=
+2018-11-28 20:33:55,715 - listener.py [line:45] - INFO:before_change :value=
+2018-11-28 20:33:55,952 - listener.py [line:48] - INFO:after_change :value=selenium
+2018-11-28 20:33:56,013 - listener.py [line:42] - INFO:元素定位: (css selector, #su)
+2018-11-28 20:33:56,307 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:33:57,205 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:33:57,244 - listener.py [line:42] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:33:57,275 - listener.py [line:42] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:33:57,296 - listener.py [line:45] - INFO:before_change :value=
+2018-11-28 20:33:57,338 - listener.py [line:48] - INFO:after_change :value=
+2018-11-28 20:33:57,350 - listener.py [line:45] - INFO:before_change :value=
+2018-11-28 20:33:57,551 - listener.py [line:48] - INFO:after_change :value=selenium2
+2018-11-28 20:33:57,586 - listener.py [line:42] - INFO:元素定位: (css selector, #su)
+2018-11-28 20:33:57,804 - listener.py [line:76] - INFO:页面即将关闭
+2018-11-28 20:34:00,103 - listener.py [line:79] - INFO:页面已经关闭
+2018-11-28 20:44:06,867 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:44:08,616 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:44:08,629 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:44:09,050 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:44:09,056 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:44:11,406 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:44:37,864 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:44:38,592 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:44:38,604 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:44:38,818 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:44:38,825 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:44:41,146 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:45:50,376 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:45:51,937 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:45:51,944 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:45:52,354 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:45:52,361 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:45:54,654 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:48:33,335 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:48:34,091 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:48:34,101 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:48:34,353 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:48:34,361 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:48:36,682 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:49:12,148 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:49:12,762 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:49:12,772 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:49:12,970 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:49:12,979 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:49:15,290 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:50:25,598 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:50:26,265 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:50:26,272 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:50:26,572 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:50:26,580 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:50:28,894 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:51:16,295 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:51:22,206 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:51:22,213 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:51:22,466 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:51:22,473 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:51:24,792 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:51:38,358 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:51:39,738 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:51:39,744 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:51:40,158 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:51:40,164 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:51:42,460 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:51:57,621 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:51:58,799 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:51:58,806 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:51:59,021 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:51:59,029 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:52:01,317 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:52:24,097 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:52:24,803 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:52:24,808 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:52:25,008 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:52:25,027 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:52:27,342 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:52:42,445 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:52:43,085 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:52:43,092 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:52:43,282 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:52:43,289 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:52:45,601 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:53:10,911 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:53:11,591 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:53:11,599 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:53:11,808 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:53:11,818 - listener.py [line:84] - INFO:页面即将关闭
+2018-11-28 20:53:14,172 - listener.py [line:87] - INFO:页面已经关闭
+2018-11-28 20:53:44,920 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:53:45,542 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:53:45,549 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:53:45,751 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:53:45,758 - listener.py [line:84] - INFO:页面即将关闭
+2018-11-28 20:53:48,104 - listener.py [line:87] - INFO:页面已经关闭
+2018-11-28 20:54:00,703 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:54:01,900 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:54:01,909 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:54:02,119 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:54:02,127 - listener.py [line:84] - INFO:页面即将关闭
+2018-11-28 20:54:04,411 - listener.py [line:87] - INFO:页面已经关闭
+2018-11-28 20:55:37,198 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:55:38,640 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:55:38,648 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:55:38,868 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:55:38,873 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:55:41,212 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:56:09,509 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:56:10,164 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:56:10,170 - listener.py [line:14] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:56:10,365 - listener.py [line:16] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:56:10,371 - listener.py [line:83] - INFO:页面即将关闭
+2018-11-28 20:56:12,763 - listener.py [line:86] - INFO:页面已经关闭
+2018-11-28 20:59:48,875 - listener.py [line:18] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:59:49,484 - listener.py [line:20] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:59:49,551 - listener.py [line:47] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:59:49,581 - listener.py [line:47] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:59:49,591 - listener.py [line:50] - INFO:before_change :value=
+2018-11-28 20:59:49,627 - listener.py [line:53] - INFO:after_change :value=
+2018-11-28 20:59:49,634 - listener.py [line:50] - INFO:before_change :value=
+2018-11-28 20:59:49,867 - listener.py [line:53] - INFO:after_change :value=selenium
+2018-11-28 20:59:49,941 - listener.py [line:47] - INFO:元素定位: (css selector, #su)
+2018-11-28 20:59:50,183 - listener.py [line:18] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 20:59:50,639 - listener.py [line:20] - INFO:After navigate to https://www.baidu.com
+2018-11-28 20:59:50,670 - listener.py [line:47] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:59:50,698 - listener.py [line:47] - INFO:元素定位: (css selector, #kw)
+2018-11-28 20:59:50,707 - listener.py [line:50] - INFO:before_change :value=
+2018-11-28 20:59:50,741 - listener.py [line:53] - INFO:after_change :value=
+2018-11-28 20:59:50,748 - listener.py [line:50] - INFO:before_change :value=
+2018-11-28 20:59:50,957 - listener.py [line:53] - INFO:after_change :value=selenium2
+2018-11-28 20:59:50,986 - listener.py [line:47] - INFO:元素定位: (css selector, #su)
+2018-11-28 20:59:51,195 - listener.py [line:81] - INFO:页面即将关闭
+2018-11-28 20:59:53,831 - listener.py [line:84] - INFO:页面已经关闭
+2018-11-28 21:02:47,313 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 21:03:16,311 - listener.py [line:19] - INFO:After navigate to https://www.baidu.com
+2018-11-28 21:03:16,339 - listener.py [line:39] - INFO:元素定位: (css selector, #kw)
+2018-11-28 21:03:16,357 - listener.py [line:39] - INFO:元素定位: (css selector, #kw)
+2018-11-28 21:03:16,366 - listener.py [line:42] - INFO:before_change :value=
+2018-11-28 21:03:16,404 - listener.py [line:45] - INFO:after_change :value=
+2018-11-28 21:03:16,411 - listener.py [line:42] - INFO:before_change :value=
+2018-11-28 21:03:16,648 - listener.py [line:45] - INFO:after_change :value=selenium
+2018-11-28 21:03:16,686 - listener.py [line:39] - INFO:元素定位: (css selector, #su)
+2018-11-28 21:03:16,917 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 21:03:18,413 - listener.py [line:19] - INFO:After navigate to https://www.baidu.com
+2018-11-28 21:03:18,433 - listener.py [line:39] - INFO:元素定位: (css selector, #kw)
+2018-11-28 21:03:18,446 - listener.py [line:39] - INFO:元素定位: (css selector, #kw)
+2018-11-28 21:03:18,456 - listener.py [line:42] - INFO:before_change :value=
+2018-11-28 21:03:18,493 - listener.py [line:45] - INFO:after_change :value=
+2018-11-28 21:03:18,500 - listener.py [line:42] - INFO:before_change :value=
+2018-11-28 21:03:18,680 - listener.py [line:45] - INFO:after_change :value=selenium2
+2018-11-28 21:03:18,699 - listener.py [line:39] - INFO:元素定位: (css selector, #su)
+2018-11-28 21:03:18,906 - listener.py [line:73] - INFO:页面即将关闭
+2018-11-28 21:03:21,246 - listener.py [line:76] - INFO:页面已经关闭
+2018-11-28 21:03:47,246 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 21:03:54,581 - listener.py [line:19] - INFO:After navigate to https://www.baidu.com
+2018-11-28 21:03:54,642 - listener.py [line:39] - INFO:元素定位: (css selector, #kw)
+2018-11-28 21:03:54,669 - listener.py [line:39] - INFO:元素定位: (css selector, #kw)
+2018-11-28 21:03:54,679 - listener.py [line:42] - INFO:before_change :value=
+2018-11-28 21:03:54,720 - listener.py [line:45] - INFO:after_change :value=
+2018-11-28 21:03:54,726 - listener.py [line:42] - INFO:before_change :value=
+2018-11-28 21:03:54,943 - listener.py [line:45] - INFO:after_change :value=selenium
+2018-11-28 21:03:55,003 - listener.py [line:39] - INFO:元素定位: (css selector, #su)
+2018-11-28 21:03:55,220 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2018-11-28 21:03:56,597 - listener.py [line:19] - INFO:After navigate to https://www.baidu.com
+2018-11-28 21:03:56,629 - listener.py [line:39] - INFO:元素定位: (css selector, #kw)
+2018-11-28 21:03:56,655 - listener.py [line:39] - INFO:元素定位: (css selector, #kw)
+2018-11-28 21:03:56,663 - listener.py [line:42] - INFO:before_change :value=
+2018-11-28 21:03:56,700 - listener.py [line:45] - INFO:after_change :value=
+2018-11-28 21:03:56,707 - listener.py [line:42] - INFO:before_change :value=
+2018-11-28 21:03:56,886 - listener.py [line:45] - INFO:after_change :value=selenium2
+2018-11-28 21:03:56,914 - listener.py [line:39] - INFO:元素定位: (css selector, #su)
+2018-11-28 21:03:57,135 - listener.py [line:73] - INFO:页面即将关闭
+2018-11-28 21:03:59,454 - listener.py [line:76] - INFO:页面已经关闭

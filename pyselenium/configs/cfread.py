@@ -18,9 +18,9 @@ class Reader_Factory:
         if not os.path.exists(filepath):
             raise FileNotFoundError('{}配置文件不存在！'.format(filepath))
         if filepath.endswith('.xml'):
-            reader = XmlReader
+            reader = cls.XmlReader
         elif filepath.endswith('.json'):
-            reader = JsonReader
+            reader = cls.JsonReader
         elif filepath.endswith('.yaml'):
             reader = cls.YamlReader
         else:

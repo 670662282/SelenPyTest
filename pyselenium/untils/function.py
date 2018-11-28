@@ -14,8 +14,9 @@ MAX_TIME = YamlConfig().get('TIME_OUT')
 
 def get_png(driver, file_name):
     pngname = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + file_name
-    print('出错截图：', pngname)
     driver.get_screenshot_as_file(os.path.join(IMAGE_PATH, pngname))
+    print('出错截图：', os.path.join(IMAGE_PATH, pngname))
+    return os.path.join(IMAGE_PATH, pngname)
 
 def get_passwd(usr=None, pwd=None, type='email'):
     """ get password for keyring """
@@ -83,8 +84,8 @@ def capture_except(fn):
         try:
             fn(self, *args, **kw)
         except (WebDriverException, AssertionError) as e:
-            get_png(self.driver, 'error.png')
-            self.except_parse()
+            get_png(self.driver, '_error.png')
+            self.except_parse(self.driver)
             raise
     return capture
 
@@ -94,8 +95,10 @@ def get_weblog(ip, pwd, service_file=None, local_path=None):
     ssh = Tl_ssh(ip, pwd)
     ssh.connect()
     ssh.set_transport()
+
     if not os.path.isfile(service_file):
         raise TypeError(service_file, '不是一个合法文件')
+
     file_name = os.path.basename(service_file)
     local_file = None
     if local_path is None or os.path.isdir(local_path):
@@ -105,6 +108,7 @@ def get_weblog(ip, pwd, service_file=None, local_path=None):
         local_file = os.path.join(local_path, file_name)
     else:
         local_file = local_path
+
     try:
         ssh.down(service_file, local_file)
     except FileNotFoundError:

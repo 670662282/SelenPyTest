@@ -6,7 +6,7 @@ log:
     pattern: '%(asctime)s - %(filename)s [line:%(lineno)d] - %(levelname)s:%(message)s'
     output: 2
 TL_LOG: /webgui/log/
-RESERVE_REPORTS_NUM: 5
+RESERVE_REPORTS_NUM: 3
 EMAIL_SERVER: smtp.163.com
 EMAIL_USR: a670662282@163.com
 EMAIL_RECEIVE: a670662282@163.com

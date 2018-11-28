@@ -5,12 +5,12 @@ from SelenPyTest.pyselenium.models.ssh import Tl_ssh
 class BackgroudTest(unittest.TestCase):
 
     @classmethod
-    def setUpClass(self):
-        #self.logger = Log().get_logger()
-        self.ssh = Tl_ssh()
-        self.ssh.connect()
-        self.ssh.set_transport()
+    def setUpClass(cls):
+        #cls.logger = Log().get_logger()
+        cls.ssh = Tl_ssh()
+        cls.ssh.connect()
+        cls.ssh.set_transport()
 
     @classmethod
-    def tearDownClass(self):
-        self.ssh.close()
+    def tearDownClass(cls):
+        cls.ssh.close()

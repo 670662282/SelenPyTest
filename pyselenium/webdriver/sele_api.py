@@ -15,13 +15,13 @@ from selenium.webdriver.support.select import Select
 from SelenPyTest.pyselenium.models.logs import Log
 from SelenPyTest.pyselenium.data.selenium_dict import LOCATORS
 from SelenPyTest.pyselenium.untils import function
-NO_POPBOX = '一般性错误!'
-
 
 class ApiDriver:
 
     def open(self, url):
         self.driver.get(url)
+
+    @property
     def get_driver(self):
         return self.driver
 
@@ -56,6 +56,8 @@ class ApiDriver:
         return self._find_element(*self._get_locs(*args, **kwargs))
     def find_elements(self, *args, **kwargs):
         return self._find_elements(*self._get_locs(*args, **kwargs))
+    def find_element_by_css(self, loc):
+        return self.driver.find_element_by_css_selector(loc)
 
     @function.wait(5)
     def _find_element(self, *location):
@@ -82,27 +84,28 @@ class ApiDriver:
     def click_element(self, *args, **kwargs):
         self.find_element(*args, **kwargs).click()
 
-    def send_value(self, obj, str):
+    def send_values(self, str, *args, **kwargs):
+        obj = self.find_element(*args, **kwargs)
         try:
             obj.clear()
         except InvalidElementStateException as e:
             pass
         obj.send_keys(str)
 
-    def get_text(self, *loction):
-        return self.find_element(*loction).text
-    def get_attr(self, attr, *loction):
-        return self.find_element(*loction).get_attribute(attr)
-    def get_display(self, *loction):
-        return self.find_element(*loction).is_displayed()
+    def get_text(self, *args, **kwargs):
+        return self.find_element(*args, **kwargs).text
+    def get_attr(self, attr, *args, **kwargs):
+        return self.find_element(*args, **kwargs).get_attribute(attr)
+    def get_display(self, *args, **kwargs):
+        return self.find_element(*args, **kwargs).is_displayed()
 
-    def wait_element_invisibility(self, *locator):
+    def wait_element_invisibility(self, *args, **kwargs):
         WebDriverWait(self.driver, self.timeout).until_not(
-            EC.visibility_of_element_located(*locator))
+            EC.visibility_of_element_located(*self._get_locs(*args, **kwargs)))
 
-    def wait_element_visibility(self, *locator):
+    def wait_element_visibility(self, *args, **kwargs):
         WebDriverWait(self.driver, self.timeout).until(
-            EC.visibility_of_element_located(*locator))
+            EC.visibility_of_element_located(*self._get_locs(*args, **kwargs)))
 
     #需要优化
     @function.changewait(time=1)
@@ -127,6 +130,7 @@ class ApiDriver:
     return false or choice.text
     """
     def select_changeable_item(self, select_obj, which):
+        choice_info = None
         try:
             select_obj.click()
             you_choice = self.get_obj_list()[which]
@@ -136,16 +140,15 @@ class ApiDriver:
             sleep(0.5)
             you_choice.click()
         except IndexError as e:
-            self.logger.exception(e)
-            self.logger.error('list is null')
-            return False
+            self.logger.error('index is null')
+            raise
         except StaleElementReferenceException as e:
             # only choice oright pool result in  StaleElementReference
             self.logger.info('Select StaleElement')
             self.get_obj_list()[which].click()
-            return choice_info
-        else:
-            return choice_info
+
+        return choice_info
+
 
 
     """

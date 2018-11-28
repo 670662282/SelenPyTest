@@ -3,6 +3,7 @@ __pycache__
 *.pyc
 bug_and_optimize
 plan
-reports/
+report/
 Logs/
-test.py
+test.log
+test.log.*
