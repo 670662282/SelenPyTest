@@ -15,8 +15,10 @@ from selenium.webdriver.support.select import Select
 from SelenPyTest.pyselenium.models.logs import Log
 from SelenPyTest.pyselenium.data.selenium_dict import LOCATORS
 from SelenPyTest.pyselenium.untils import function
+from SelenPyTest.pyselenium.configs.config import YamlConfig
 
 class ApiDriver:
+    TIMEOUT = YamlConfig().get('TIMEOUT')
 
     def open(self, url):
         self.driver.get(url)
@@ -25,7 +27,28 @@ class ApiDriver:
     def get_driver(self):
         return self.driver
 
-    @function.wait(5)
+    @property
+    def alert_text(self):
+        """
+        Get warning box prompt information.
+        """
+        self.driver.switch_to.alert.text
+
+    @property
+    def title(self):
+        """
+        Get window title.
+        """
+        return self.driver.title
+
+    @property
+    def url(self):
+        """
+        Get the URL address of the current page.
+        """
+        return self.driver.current_url
+
+    @function.wait(TIMEOUT)
     def waits_for(self, fn, *args):
         return fn(*args)
 
@@ -59,11 +82,11 @@ class ApiDriver:
     def find_element_by_css(self, loc):
         return self.driver.find_element_by_css_selector(loc)
 
-    @function.wait(5)
+    @function.wait(TIMEOUT)
     def _find_element(self, *location):
         return self.driver.find_element(*location)
 
-    @function.wait(5)
+    @function.wait(TIMEOUT)
     def _find_elements(self, *location):
         return self.driver.find_elements(*location)
 
@@ -92,8 +115,10 @@ class ApiDriver:
             pass
         obj.send_keys(str)
 
+
     def get_text(self, *args, **kwargs):
         return self.find_element(*args, **kwargs).text
+
     def get_attr(self, attr, *args, **kwargs):
         return self.find_element(*args, **kwargs).get_attribute(attr)
     def get_display(self, *args, **kwargs):
@@ -149,8 +174,6 @@ class ApiDriver:
 
         return choice_info
 
-
-
     """
     const select item
     parameter: select_obj      --select element object
@@ -177,9 +200,6 @@ class ApiDriver:
             select_obj.click()
             raise e
 
-    @function.changewait(time=1)
-    def capture_error_closed(self):
-        function.get_png(self.driver, '_error.png')
 
     """
     SHIFT多选操作

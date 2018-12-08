@@ -56,7 +56,7 @@ class TestRunner:
         self.logger.info("new reports_path:" + new_report)
         del_list = []
         #前面pop最新的报告 所这要加1
-        if len(reports) + 1 > reserve_num or reserve_num == 0:
+        if len(reports) + 1 > reserve_num and reserve_num != 0:
             for i in range(reserve_num-1):
                 reports.pop()
             for r in reports:
@@ -96,8 +96,8 @@ class TestRunner:
         #if logfile is not None:
             #att_list.append(logfile)
 
-        Email(self.email_server, self.email_usr).send(
-            self.email_title, reportfile, self.email_receiver, att_list)
+        #Email(self.email_server, self.email_usr).send(
+            #self.email_title, self.reportfile, self.email_receiver, att_list)
 
 """
 if __name__ == '__main__':

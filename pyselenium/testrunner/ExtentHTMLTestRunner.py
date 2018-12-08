@@ -37,29 +37,9 @@ HTMLTestRunner is a counterpart to unittest's TextTestRunner. E.g.
 
 __author__ = "Wai Yip Tung"
 __update__ = "wishchen"
-__version__ = "1.0"
+__version__ = "1.1"
 
 
-"""
-Change History
-Version 1.0
-* Use extent report HTML templete create test report.
-
-Version 0.8.2
-* Show output inline instead of popup window (Viorel Lupu).
-
-Version in 0.8.1
-* Validated XHTML (Wolfgang Borgert).
-* Added description of test classes and test cases.
-
-Version in 0.8.0
-* Define Template_mixin class for customization.
-* Workaround a IE 6 bug that it does not treat <script> block as CDATA.
-
-Version in 0.7.1
-* Back port to Python 2.3 (Frank Horowitz).
-* Fix missing scroll bars in detail log (Podi).
-"""
 
 # TODO: color stderr
 # TODO: simplify javascript using ,ore than 1 class in the class attribute?
@@ -70,8 +50,10 @@ import sys
 import time
 import unittest
 import re
+import os
 from xml.sax import saxutils
-
+from collections import defaultdict
+from SelenPyTest.pyselenium.configs.config import IMAGE_PATH
 
 # ------------------------------------------------------------------------
 # The redirectors below are used to capture output during testing. Output
@@ -85,16 +67,23 @@ from xml.sax import saxutils
 class OutputRedirector(object):
     """ Wrapper to redirect stdout or stderr """
     def __init__(self, fp):
-        self.fp = fp
+        self._fp = fp
 
     def write(self, s):
-        self.fp.write(s)
+        self._fp.write(s)
+
+    @property
+    def fp(self):
+        return self._fp
+    @fp.setter
+    def fp(self, fp_):
+        self._fp = fp_
 
     def writelines(self, lines):
-        self.fp.writelines(lines)
+        self._fp.writelines(lines)
 
     def flush(self):
-        self.fp.flush()
+        self._fp.flush()
 
 stdout_redirector = OutputRedirector(sys.stdout)
 stderr_redirector = OutputRedirector(sys.stderr)
@@ -151,7 +140,7 @@ class Template_mixin(object):
     }
 
     DEFAULT_TITLE = 'Unit Test Report'
-    DEFAULT_DESCRIPTION = ''
+    DEFAULT_DESCRIPTION = 'Selenium Test Report:'
 
     # ------------------------------------------------------------------------
     # HTML Template
@@ -171,8 +160,8 @@ class Template_mixin(object):
 
     <link href='http://extentreports.com/resx/dist/css/extent.css' type='text/css' rel='stylesheet'/>
 
-    <title>%(title)s - TestReport</title>
-    %(stylesheet)s
+    <title>{title} - TestReport</title>
+    {stylesheet}
 
 </head>
 
@@ -180,19 +169,18 @@ class Template_mixin(object):
 <div id='theme-selector' alt='切换主题，默认黑色' title='切换主题'>
     <span><i class='material-icons'>desktop_windows</i></span>
 </div>
-%(heading)s
+{heading}
 
 <div class='container'>
-    %(report)s
-    %(dashboard_view)s
+    {report}
+    {dashboard_view}
 </div>
 
 </body>
-%(script_js)s
+{script_js}
 </html>
 """
     # variables: (title, generator, stylesheet, heading, heading, ending)
-
 
     # ------------------------------------------------------------------------
     # Stylesheet
@@ -217,7 +205,7 @@ class Template_mixin(object):
         </ul>
 
         <!-- report name -->
-        <span class='report-name'>Test Report: %(title)s</span>
+        <span class='report-name'>Test Report: {title}</span>
 
         <!-- report headline -->
         <span class='report-headline'></span>
@@ -226,12 +214,17 @@ class Template_mixin(object):
         <ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
             <li>
                 <a href='#!'>
-                    <span class='label suite-start-time blue darken-3'>Start_time: %(start_time)s</span>
+                    <span class='label suite-start-time blue darken-3'>Start_time: {start_time}</span>
                 </a>
             </li>
             <li>
                 <a href='#!'>
-                    <span class='label blue darken-3'>Duration: %(duration)s </span>
+                    <span class='label blue darken-3'>Duration: {duration} </span>
+                </a>
+            </li>
+            <li>
+                <a href='#!'>
+                    <span class='label blue darken-3'>result: {status} </span>
                 </a>
             </li>
         </ul>
@@ -341,8 +334,9 @@ class Template_mixin(object):
             </div>
         </section>
     """
+    #Category下的list
     SECTION_SUIT_NAME = """
-    <li><a href='#'>%(desc)s</a></li>
+    <li><a href='#'>%(name)s</a></li>
     """
 
     VIEW_CHARTS = """
@@ -404,37 +398,39 @@ class Template_mixin(object):
     """
 
     TEST_COLLECTION ="""
-    %(li_test_active)s
+
+    <li class="test displayed active has-leaf {status}" status="{status}" bdd="true" test-id="{test_collection_li_id}">
     <div class='test-heading'>
-        <span class='test-name'>%(desc)s</span>
-        <span class='test-time'>desc: %(doc)s </span>
-        %(status_span)s
+        <span class='test-name'>{desc}</span>
+        <span class='test-time'>desc: {doc} </span>
+        <span class="test-status right {status}">{status}</span>
     </div>
     <div class='test-content hide'>
-        <div class='test-desc'>Pass: %(Pass)s ;
-                                Fail: %(fail)s ;
-                                Error: %(error)s ;
+        <div class='test-desc'>Pass: {Pass} ;
+                                Fail: {fail} ;
+                                Error: {error} ;
         </div>
         <div class='test-attributes'>
             <div class='category-list'>
-                <span class='category label white-text'>%(desc)s</span>
+                <span class='category label white-text'>{desc}</span>
             </div>
         </div>
         <ul class='collapsible node-list' data-collapsible='accordion'>
-            %(test_collection_ul_list)s
+            {test_collection_ul_list}
         </ul>
     </div>
     """
     TEST_COLLECTION_UL_LIST = """
-            %(node_level)s
+
+            <li class="node level-1 leaf {status}" status="{status}" test-id="{node_level}">
             <div class='collapsible-header'>
-                <div class='node-name'>%(desc)s</div>
-                <span class='node-time'>desc: %(doc)s</span>
-                %(status_span)s
+                <div class='node-name'>{desc}</div>
+                <span class='node-time'>desc: {doc}</span>
+                <span class="test-status right {status}">{status}</span>
             </div>
             <div class='collapsible-body'>
                 <div class='category-list right'>
-                    <span class='category label white-text'>%(desc)s</span>
+                    <span class='category label white-text'>{desc}</span>
                 </div>
                 <div class='node-steps'>
                     <table class='bordered table-results'>
@@ -446,7 +442,7 @@ class Template_mixin(object):
                         </tr>
                         </thead>
                         <tbody>
-                        %(t_body)s
+                        {t_body}
                         </tbody>
                     </table>
                  </div>
@@ -539,14 +535,14 @@ class Template_mixin(object):
     """
     CATEGORY_TBODY = """
     <tr style="border: 1px solid #49cc90; background-color: rgba(73, 204, 144, .1)">
-        <td>%(start_time)s</td>
-        <td class='linked' test-id='%(name)s_%(cid)s'>%(desc)s</td>
-        <td>%(category_tbody_td)s</td>
+        <td>{start_time}</td>
+        <td class='linked' test-id='{name}_{cid}'>{desc}</td>
+        <td><span class="test-status {status}">{status}</span></td>
     </tr>
     <tr>
         <td></td>
-        <td class='linked' test-id='暂未处理'></td>
-        <td>%(category_tbody_td)s</td>
+        <td class='linked' test-id='暂未处理'>'暂未处理'</td>
+        <td><span class="test-status {status}">{status}</span></td>
     </tr>
 
     """
@@ -593,19 +589,19 @@ class Template_mixin(object):
                 <div class='col s2'>
                     <div class='card-panel r'>
                         Pass
-                        <div class='panel-lead'>%(Pass)s</div>
+                        <div class='panel-lead'>{Pass}</div>
                     </div>
                 </div>
                 <div class='col s2'>
                     <div class='card-panel r'>
                         Fail
-                        <div class='panel-lead'>%(fail)s</div>
+                        <div class='panel-lead'>{fail}</div>
                     </div>
                 </div>
                 <div class='col s2'>
                     <div class='card-panel r'>
                         Error
-                        <div class='panel-lead'>%(error)s</div>
+                        <div class='panel-lead'>{error}</div>
                     </div>
                 </div>
                 <div class='col s2'>
@@ -617,13 +613,13 @@ class Template_mixin(object):
                 <div class='col s2'>
                     <div class='card-panel r'>
                         Start
-                        <div class='panel-lead'>%(start_time)s</div>
+                        <div class='panel-lead'>{start_time}</div>
                     </div>
                 </div>
                 <div class='col s2'>
                     <div class='card-panel r'>
                         Time Taken
-                        <div class='panel-lead'>%(duration)s seconds</div>
+                        <div class='panel-lead'>{duration} seconds</div>
                     </div>
                 </div>
                 <div class='col s4'>
@@ -640,9 +636,9 @@ class Template_mixin(object):
                             </tr>
                             <tr>
                                 <td>All Suites</td>
-                                <td class="pass">%(Pass)s</td>
-                                <td class="fail">%(fail)s</td>
-                                <td class="error">%(error)s</td>
+                                <td class="pass">{Pass}</td>
+                                <td class="fail">{fail}</td>
+                                <td class="error">{error}</td>
                                 <td class="skip"></td>
                             </tr>
 
@@ -678,7 +674,7 @@ class Template_mixin(object):
             passChild: test_suite_success,
             failChild: %(fail)s,
             fatalChild: 0,
-            errorChild: 0,
+            errorChild: %(error)s,
             warningChild: 0,
             skipChild: 0,
             infoChild: 0,
@@ -761,7 +757,7 @@ class Template_mixin(object):
 
     HEADING_ATTRIBUTE_TMPL = """
     去掉
-    <p class='attribute'><strong>%(name)s:</strong> %(value)s</p>
+    <p class='attribute'><strong>{name}:</strong> {value}</p>
 """ # variables: (name, value)
 
 
@@ -875,10 +871,17 @@ class Template_mixin(object):
 
     ENDING_TMPL = """<div id='ending'>&nbsp;</div>"""
 # -------------------- The end of the Template class -------------------
+START_TIME = "Start Time"
+DURATION = "Duration"
+STATUS_ = "Status"
+
+class ReturnCode:
+    SUCCESS = 0
+    FAIL = 1
+    ERROR = 2
 
 
 TestResult = unittest.TestResult
-
 class _TestResult(TestResult):
     # note: _TestResult is a pure representation of results.
     # It lacks the output and reporting ability compares to unittest._TextTestResult.
@@ -905,10 +908,10 @@ class _TestResult(TestResult):
     def startTest(self, test):
         TestResult.startTest(self, test)
         # just one buffer for both stdout and stderr
-        # self.outputBuffer = StringIO.StringIO()
         self.outputBuffer = io.StringIO()
         stdout_redirector.fp = self.outputBuffer
         stderr_redirector.fp = self.outputBuffer
+
         self.stdout0 = sys.stdout
         self.stderr0 = sys.stderr
         sys.stdout = stdout_redirector
@@ -938,40 +941,22 @@ class _TestResult(TestResult):
     def addSuccess(self, test):
         self.success_count += 1
         TestResult.addSuccess(self, test)
-        output = self.complete_output()
-        self.result.append((0, test, output, ''))
-        if self.verbosity > 1:
-            sys.stderr.write('ok ')
-            sys.stderr.write(str(test))
-            sys.stderr.write('\n')
-        else:
-            sys.stderr.write('.')
+        self.result.append((ReturnCode.SUCCESS, test, self.complete_output(), ''))
+        sys.stderr.write('ok {}\n'.format(str(test)) if self.verbosity > 1 else '.')
 
     def addError(self, test, err):
         self.error_count += 1
         TestResult.addError(self, test, err)
         _, _exc_str = self.errors[-1]
-        output = self.complete_output()
-        self.result.append((2, test, output, _exc_str))
-        if self.verbosity > 1:
-            sys.stderr.write('E  ')
-            sys.stderr.write(str(test))
-            sys.stderr.write('\n')
-        else:
-            sys.stderr.write('E')
+        self.result.append((ReturnCode.ERROR, test, self.complete_output(), _exc_str))
+        sys.stderr.write('E {}\n'.format(str(test)) if self.verbosity > 1 else 'E')
 
     def addFailure(self, test, err):
         self.failure_count += 1
         TestResult.addFailure(self, test, err)
         _, _exc_str = self.failures[-1]
-        output = self.complete_output()
-        self.result.append((1, test, output, _exc_str))
-        if self.verbosity > 1:
-            sys.stderr.write('F  ')
-            sys.stderr.write(str(test))
-            sys.stderr.write('\n')
-        else:
-            sys.stderr.write('F')
+        self.result.append((ReturnCode.FAIL, test, self.complete_output(), _exc_str))
+        sys.stderr.write('F {}\n'.format(str(test)) if self.verbosity > 1 else 'F')
 
 
 class HTMLTestRunner(Template_mixin):
@@ -980,17 +965,9 @@ class HTMLTestRunner(Template_mixin):
     def __init__(self, stream=sys.stdout, verbosity=1, title=None, description=None):
         self.stream = stream
         self.verbosity = verbosity
-        if title is None:
-            self.title = self.DEFAULT_TITLE
-        else:
-            self.title = title
-        if description is None:
-            self.description = self.DEFAULT_DESCRIPTION
-        else:
-            self.description = description
-
+        self.title = self.DEFAULT_TITLE if title is None else title
+        self.description = self.DEFAULT_DESCRIPTION if  description is None else description
         self.startTime = datetime.datetime.now()
-
 
     def run(self, test):
         "Run the given test case or test suite."
@@ -998,7 +975,6 @@ class HTMLTestRunner(Template_mixin):
         test(result)
         self.stopTime = datetime.datetime.now()
         self.generateReport(test, result)
-        # print >>sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime)
         print(sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime))
         return result
 
@@ -1008,15 +984,14 @@ class HTMLTestRunner(Template_mixin):
         # Here at least we want to group them together by class.
         rmap = {}
         classes = []
-        for n,t,o,e in result_list:
+        for n, t, o, e in result_list:
             cls = t.__class__
-            # if not rmap.has_key(cls):
             if not cls in rmap:
                 rmap[cls] = []
                 classes.append(cls)
-            rmap[cls].append((n,t,o,e))
-        r = [(cls, rmap[cls]) for cls in classes]
-        return r
+            rmap[cls].append((n, t, o, e))
+
+        return [(cls, rmap[cls]) for cls in classes]
 
 
     def getReportAttributes(self, result):
@@ -1030,14 +1005,12 @@ class HTMLTestRunner(Template_mixin):
         if result.success_count: status.append('Pass %s'    % result.success_count)
         if result.failure_count: status.append('Failure %s' % result.failure_count)
         if result.error_count:   status.append('Error %s'   % result.error_count  )
-        if status:
-            status = ' '.join(status)
-        else:
-            status = 'none'
+
+        status = ' '.join(status) if status else 'None'
         return [
-            ('Start Time', startTime),
-            ('Duration', duration),
-            ('Status', status),
+            (START_TIME, startTime),
+            (DURATION, duration),
+            (STATUS_, status),
         ]
 
 
@@ -1051,7 +1024,7 @@ class HTMLTestRunner(Template_mixin):
         dashboard_view = self._generate_dashboardView(report_attrs, result)
         scriptJS = self._generate_script(result)
 
-        output = self.HTML_TMPL % dict(
+        output = self.HTML_TMPL.format(
             title=saxutils.escape(self.title),
             generator=generator,
             stylesheet=stylesheet,
@@ -1069,56 +1042,61 @@ class HTMLTestRunner(Template_mixin):
 
 
     def _generate_heading(self, report_attrs):
-        # 弃掉 HEADING_ATTRIBUTE_TMPL
         a_lines = []
-        startTime = ""
-        duration = ""
+        head_dict = defaultdict(str)
         for name, value in report_attrs:
-            line = self.HEADING_ATTRIBUTE_TMPL % dict(
-                    name = saxutils.escape(name),
-                    value = saxutils.escape(value),
+            line = self.HEADING_ATTRIBUTE_TMPL.format(
+                    name=saxutils.escape(name),
+                    value=saxutils.escape(value),
                 )
             a_lines.append(line)
-            startTime = value if name == "Start Time" else startTime
-            duration = value if name == "Duration" else duration
+            head_dict[name] = value
+
         # 取出来Start Time、Duration、Status
-        heading = self.NAV % dict(
+        return self.NAV.format(
             title=saxutils.escape(self.title),
-            start_time=startTime,
-            duration=duration,
+            start_time=head_dict.get(START_TIME, 'None'),
+            duration=head_dict.get(DURATION, 'None'),
+            status=head_dict.get(STATUS_, 'None'),
+            #需要实现
             description=saxutils.escape(self.description),
         )
-        return heading
 
     def _generate_script(self, result):
-        scriptJS = self.SCRIPT_JS % dict(
+        return self.SCRIPT_JS % dict(
             Pass=str(result.success_count),
             fail=str(result.failure_count),
             error=str(result.error_count),
         )
-        return scriptJS
+
 
     def _generate_dashboardView(self, report_attrs, result):
         a_lines = []
-        startTime = ""
-        duration = ""
+        head_dict = defaultdict(str)
+
         for name, value in report_attrs:
             line = self.HEADING_ATTRIBUTE_TMPL % dict(
-                    name = saxutils.escape(name),
-                    value = saxutils.escape(value),
+                    name=saxutils.escape(name),
+                    value=saxutils.escape(value),
                 )
             a_lines.append(line)
-            startTime = value if name == "Start Time" else startTime
-            duration = value if name == "Duration" else duration
-        dashboard_view = self.DASHBOARD_VIEW % dict(
+            head_dict[name] = value
+
+        return self.DASHBOARD_VIEW.format(
             Pass=str(result.success_count),
             fail=str(result.failure_count),
             error=str(result.error_count),
-            start_time=startTime,
-            duration=duration,
+            start_time=head_dict.get(START_TIME, 'None'),
+            duration=head_dict.get(DURATION, 'None'),
         )
-        return dashboard_view
 
+        # result is a list of result in 4 tuple
+        # (
+        #   result code (0: success; 1: fail; 2: error), n
+        #   TestCase object, t
+        #   Test output (byte string), o
+        #   stack trace, e
+        # )
     def _generate_report(self, result):
         rows = []
         row1s = []
@@ -1129,9 +1107,9 @@ class HTMLTestRunner(Template_mixin):
         for cid, (cls, cls_results) in enumerate(sortedResult):
             # subtotal for a class
             np = nf = ne = 0
-            for n,t,o,e in cls_results:
-                if n == 0: np += 1
-                elif n == 1: nf += 1
+            for code, obj, out, trace in cls_results:
+                if code == ReturnCode.SUCCESS: np += 1
+                elif code == ReturnCode.FAIL: nf += 1
                 else: ne += 1
 
             # format class description
@@ -1139,42 +1117,36 @@ class HTMLTestRunner(Template_mixin):
                 name = cls.__name__
             else:
                 name = "%s.%s" % (cls.__module__, cls.__name__)
-            doc = cls.__doc__ and cls.__doc__.split("\n")[0] or ""
-            # desc = doc and '%s: %s' % (name, doc) or name
+            doc = cls.__doc__ and cls.__doc__.strip('\n') or ""
+            #desc = doc and '%s: %s' % (name, doc) or name
             desc = doc and '%s' % (name) or name
 
             # section中suite name
             sectionName = self.SECTION_SUIT_NAME % dict(
-                desc=desc,
+                name=desc,
             )
             section_name.append(sectionName)
 
-
             testCollectionUlList = []
-            for tid, (n,t,o,e) in enumerate(cls_results):
-                self._generate_report_test(rows, cid, tid, n, t, o, e, testCollectionUlList)
+            for tid, (code, obj, out, trace) in enumerate(cls_results):
+                self._generate_report_test(rows, cid, tid, code, obj, out, trace, testCollectionUlList)
 
-
+            test_collection_li_id = desc + '_' + str(cid+1)
             if ne > 0:
-                liTestActive = '<li class="test displayed active has-leaf error" status="error" bdd="error" test-id="' + desc + '_' + str(cid+1) + '">'
-                statusSpan = '<span class="test-status right error">error</span>'
-                nodeLevel = '<li class="node level-1 leaf error" status="error" test-id="' + desc + '_' + str(cid + 1) + '">'
-                categoryTbodyTd = '<span class="test-status error">error</span>'
+                status=bdd=self.STATUS[ReturnCode.ERROR]
+                #nodeLevel = '<li class="node level-1 leaf error" status="error" test-id="' + desc + '_' + str(cid + 1) + '">'
             elif nf > 0:
-                liTestActive = '<li class="test displayed active has-leaf fail" status="fail" bdd="false" test-id="' + desc + '_' + str(cid + 1) + '">'
-                statusSpan = '<span class="test-status right fail">fail</span>'
-                nodeLevel = '<li class="node level-1 leaf fail" status="fail" test-id="' + desc + '_' + str(cid + 1) + '">'
-                categoryTbodyTd = '<span class="test-status fail">fail</span>'
+                status=bdd=self.STATUS[ReturnCode.FAIL]
+                #nodeLevel = '<li class="node level-1 leaf fail" status="fail" test-id="' + desc + '_' + str(cid + 1) + '">'
             else:
-                liTestActive = '<li class="test displayed active has-leaf pass" status="pass" bdd="true" test-id="' + desc + '_' + str(cid+1) + '">'
-                statusSpan = '<span class="test-status right pass">pass</span>'
-                nodeLevel = '<li class="node level-1 leaf pass" status="pass" test-id="' + desc + '_' + str(cid + 1) + '">'
-                categoryTbodyTd = '<span class="test-status pass">pass</span>'
-
-            row1 = self.TEST_COLLECTION % dict(
-                li_test_active=liTestActive,
-                status_span=statusSpan,
-                node_level=nodeLevel,
+                bdd='true'
+                status=self.STATUS[ReturnCode.SUCCESS]
+                #nodeLevel = '<li class="node level-1 leaf pass" status="pass" test-id="' + desc + '_' + str(cid + 1) + '">'
+            row1 = self.TEST_COLLECTION.format(
+                test_collection_li_id=test_collection_li_id,
+                status=status,
+                bdd=bdd,
+                #node_level=nodeLevel,
                 desc=desc,
                 doc=doc,
                 count=np+nf+ne,
@@ -1182,6 +1154,7 @@ class HTMLTestRunner(Template_mixin):
                 fail=nf,
                 error=ne,
                 test_collection_ul_list=''.join(testCollectionUlList),
+                #没有这块
                 cid='c%s' % (cid+1),
             )
             row1s.append(row1)
@@ -1190,7 +1163,7 @@ class HTMLTestRunner(Template_mixin):
                 desc=desc,
                 start_time=self.startTime,
                 cid=cid,
-                category_tbody_td=categoryTbodyTd,
+                status=status,
             )
             categoryTbody.append(category_tbody)
 
@@ -1236,47 +1209,58 @@ class HTMLTestRunner(Template_mixin):
         return report
 
 
-    def _generate_report_test(self, rows, cid, tid, n, t, o, e, testCollectionUlList):
+    def _generate_report_test(
+                self, rows,
+                cid, tid,
+                code, obj,
+                out, trace,
+                testCollectionUlList):
+
+        has_output = bool(out or trace)
+        if not has_output:
+            return
         # e.g. 'pt1.1', 'ft1.1', etc
-        has_output = bool(o or e)
-        tid = (n == 0 and 'p' or 'f') + 't%s.%s' % (cid+1,tid+1)
-        name = t.id().split('.')[-1]
-        doc = t.shortDescription() or ""
+        tid = (code == ReturnCode.SUCCESS and 'p' or 'f') + 't%s.%s' % (cid+1, tid+1)
+        name = obj.id().split('.')[-1]
+        doc = obj.shortDescription() or ""
         desc = doc and ('%s: %s' % (name, doc)) or name
         tmpl = has_output and self.TBODY or self.REPORT_TEST_NO_OUTPUT_TMPL
 
         # o and e should be byte string because they are collected from stdout and stderr?
-        if isinstance(o,str):
+        if isinstance(out, str):
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # uo = unicode(o.encode('string_escape'))
             # uo = o.decode('latin-1')
-            uo = str(o)
+            uo = str(out)
         else:
-            uo = e
-        if isinstance(e,str):
+            uo = trace
+        #???
+        if isinstance(trace, str):
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # ue = unicode(e.encode('string_escape'))
             # ue = e.decode('latin-1')
-            ue = e
+            ue = trace
         else:
-            ue = e
+            ue = trace
 
         # ss = uo[uo.rfind('screenshot'):uo.rfind('.png') + 4]
         ssreg = re.compile(r'screenshot_.+?png')
         ss = ssreg.findall(uo)
         # ss = ';'.join(ss)
-        script = self.REPORT_TEST_OUTPUT_TMPL % dict(
-            id = tid,
-            output = saxutils.escape(uo+ue),
-        )
+        #????
+        #script = self.REPORT_TEST_OUTPUT_TMPL % dict(
+        #    id = tid,
+        #    output = saxutils.escape(uo+ue),
+        #)
         images = []
         for ima in ss:
             image = self.REPORT_IMAGE % dict(
                 # screenshot = saxutils.escape(uo+ue)
                 screenshot_id=ima.split(".")[0],
-                screenshot=saxutils.escape(ima)
+                screenshot=saxutils.escape(os.path.join(IMAGE_PATH, ima))
             )
             images.append(image)
+
         images = ''.join(images)
 
         script = self.REPORT_TEST_OUTPUT_TMPL % dict(
@@ -1288,18 +1272,11 @@ class HTMLTestRunner(Template_mixin):
             script=script,
             images=images,
         )
-        if n == 1:
-            nodeLevel = '<li class="node level-1 leaf fail" status="fail" test-id="' + desc + '_' + str(tid) + '_' + str(cid + 1) + '">'
-            statusSpan = '<span class="test-status right fail">fail</span>'
-        elif n == 2:
-            nodeLevel = '<li class="node level-1 leaf error" status="error" test-id="' + desc + '_' + str(tid) + '_' + str(cid + 1) + '">'
-            statusSpan = '<span class="test-status right error">error</span>'
-        else:
-            nodeLevel = '<li class="node level-1 leaf pass" status="pass" test-id="' + desc + '_' + str(tid) + '_' + str(cid + 1) + '">'
-            statusSpan = '<span class="test-status right pass">pass</span>'
-        tcll = self.TEST_COLLECTION_UL_LIST % dict(
+        nodeLevel = desc + '_' + str(tid) + '_' + str(cid + 1)
+        status = self.STATUS[code]
+        tcll = self.TEST_COLLECTION_UL_LIST.format(
             node_level=nodeLevel,
-            status_span=statusSpan,
+            status=status,
             desc=name,
             doc=doc,
             t_body=tBody,
@@ -1310,18 +1287,18 @@ class HTMLTestRunner(Template_mixin):
         )
         row = tmpl % dict(
             tid = tid,
-            Class = (n == 0 and 'hiddenRow' or 'none'),
-            style = n == 2 and 'errorCase' or (n == 1 and 'failCase' or 'none'),
+            Class = (code == ReturnCode.SUCCESS and 'hiddenRow' or 'none'),
+            style = code == ReturnCode.ERROR and 'errorCase' or (code == ReturnCode.FAIL and 'failCase' or 'none'),
             desc = desc,
             script = script,
             # image = image[image.find("image"):(int(image.find("png"))+3)],
             images = images,
             caseid = caseid[caseid.find("case"):(int(caseid.find("case"))+9)],
-            status = self.STATUS[n],
+            status = status,
         )
         rows.append(row)
-        if not has_output:
-            return
+
+
 
     def _generate_ending(self):
         return self.ENDING_TMPL

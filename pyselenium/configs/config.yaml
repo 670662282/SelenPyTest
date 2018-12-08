@@ -1,6 +1,6 @@
 URL: http://10.10.120.3
 log:
-    backup: 5
+    backup: 3
     console_level: INFO
     file_level: INFO
     pattern: '%(asctime)s - %(filename)s [line:%(lineno)d] - %(levelname)s:%(message)s'
@@ -8,7 +8,7 @@ log:
 TL_LOG: /webgui/log/
 RESERVE_REPORTS_NUM: 3
 EMAIL_SERVER: smtp.163.com
-EMAIL_USR: a670662282@163.com
+EMAIL_USR: 670662282@qq.com
 EMAIL_RECEIVE: a670662282@163.com
 
 MAIL_TITLE: 'UI自动化测试报告'

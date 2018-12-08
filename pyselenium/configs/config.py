@@ -6,8 +6,10 @@ PYSELENIUM = os.path.join(BASE_PATH, 'pyselenium')
 CONFIG_FILE = os.path.join(PYSELENIUM, 'configs', 'config.yaml')
 LOG_PATH = os.path.join(BASE_PATH, 'demo')
 REPORT_PATH = os.path.join(LOG_PATH, 'report')
-IMAGE_PATH = REPORT_PATH
+IMAGE_PATH = os.path.join(REPORT_PATH, 'images')
 
+if not os.path.isdir(IMAGE_PATH):
+    os.mkdir(IMAGE_PATH)
 
 class YamlConfig:
     def __init__(self, config=CONFIG_FILE):

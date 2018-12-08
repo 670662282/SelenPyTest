@@ -14,13 +14,18 @@ def tearDownModule():
     print('end UITest!')
 
 class DemoTest(unit.TestCase):
-
+    """
+    This is Test a
+    """
     @parameterized.expand([
         ('test1', 'selenium'),
         ('test2', 'selenium2')
     ])
     @capture_except
     def test_login(self, fun, search_key):
+        """
+        test_login
+        """
         self.open("https://www.baidu.com")
         self.find_element_by_css('#kw')
         #self.find_element_by_css('#aa')
@@ -28,10 +33,13 @@ class DemoTest(unit.TestCase):
         self.click_element(css="#su")
         #self.click_element(css="#aa")
         #self.assertTitle(search_key)
-        #self.assertEqual(1, 2)
+        self.assertEqual(1, 2)
 
     def testAssertRaises(self):
-        pass
+        """
+        test result
+        """
+        print('cheng')
         #self.assertRaise(ValueError, fun, 1, 2)
     """
     def test_subtest(self):
@@ -45,7 +53,7 @@ class DemoTest(unit.TestCase):
         print('这里进行错误处理!')
 
 if __name__ == '__main__':
-    testRunner = TestRunner(cases="./", casecls_re='*.py', debug=True)
+    testRunner = TestRunner(cases="./", casecls_re='*.py', debug=False)
     testRunner.runner()
     report = testRunner.report_file
 
