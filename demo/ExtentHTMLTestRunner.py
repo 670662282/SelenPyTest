@@ -1,4 +1,3 @@
-#coding:utf-8
 """
 A TestRunner for use with the Python unit testing framework. It
 generates a HTML report to show the result at a glance.
@@ -43,7 +42,7 @@ __version__ = "1.0"
 """
 Change History
 Version 1.0
-* Use extent report HTML templete create test report.
+* Use extent report HTML templete create test report. 
 
 Version 0.8.2
 * Show output inline instead of popup window (Viorel Lupu).
@@ -173,7 +172,7 @@ class Template_mixin(object):
 
     <title>%(title)s - TestReport</title>
     %(stylesheet)s
-
+    
 </head>
 
 <body class='extent standard default hide-overflow dark'>
@@ -186,7 +185,7 @@ class Template_mixin(object):
     %(report)s
     %(dashboard_view)s
 </div>
-
+    
 </body>
 %(script_js)s
 </html>
@@ -246,7 +245,7 @@ class Template_mixin(object):
 
         %(view_charts)s
         %(test_list)s
-
+        
         <div class='subview-right left'>
             <div class='view-summary'>
                 <h5 class='test-name'></h5>
@@ -272,7 +271,7 @@ class Template_mixin(object):
         </div>
     </div>
     %(category_view)s
-
+    
 """
     CONTROL_SECTION = """
     <section id='controls'>
@@ -400,28 +399,28 @@ class Template_mixin(object):
                 %(test_collection)s
                 </ul>
             </div>
-    </div>
+    </div>            
     """
 
     TEST_COLLECTION ="""
-    <li class="test displayed active has-leaf {status}" status="{status}" bdd="{status}" test-id="{li_test_active}">'
+    %(li_test_active)s
     <div class='test-heading'>
-        <span class='test-name'>{desc}</span>
-        <span class='test-time'>desc: {doc} </span>
-        <span class="test-status right {status_span}">{status_span}</span>
+        <span class='test-name'>%(desc)s</span>
+        <span class='test-time'>desc: %(doc)s </span>
+        %(status_span)s
     </div>
     <div class='test-content hide'>
-        <div class='test-desc'>Pass: {Pass} ;
-                                Fail: {fail} ;
-                                Error: {error} ;
+        <div class='test-desc'>Pass: %(Pass)s ;
+                                Fail: %(fail)s ;
+                                Error: %(error)s ;
         </div>
         <div class='test-attributes'>
             <div class='category-list'>
-                <span class='category label white-text'>{desc}</span>
+                <span class='category label white-text'>%(desc)s</span>
             </div>
         </div>
         <ul class='collapsible node-list' data-collapsible='accordion'>
-            {test_collection_ul_list}
+            %(test_collection_ul_list)s
         </ul>
     </div>
     """
@@ -477,18 +476,18 @@ class Template_mixin(object):
                     <a href="#" class='search-div'>
                         <i class='material-icons'>search</i> Search
                     </a>
-
+    
                     <div class='input-field left hide'>
                         <input tyle="color: red;" id='search-tests' type='text'
                                class='validate browser-default'
                                placeholder='Search Tests...'>
                     </div>
-
+    
                 </div>
                 <!-- search -->
             </div>
         </section>
-
+        
         <div class='subview-left left'>
 
             <div class='view-summary'>
@@ -534,8 +533,8 @@ class Template_mixin(object):
             </div>
         </div>
     </div>
-
-
+                    
+        
     """
     CATEGORY_TBODY = """
     <tr style="border: 1px solid #49cc90; background-color: rgba(73, 204, 144, .1)">
@@ -548,7 +547,7 @@ class Template_mixin(object):
         <td class='linked' test-id='暂未处理'></td>
         <td>%(category_tbody_td)s</td>
     </tr>
-
+        
     """
 
     CATEGORY_ACTIVE = """
@@ -577,7 +576,7 @@ class Template_mixin(object):
                     </tr>
                     </thead>
                     <tbody>
-
+                    
                     </tbody>
                 </table>
             </div>
@@ -664,8 +663,8 @@ class Template_mixin(object):
     SCRIPT_JS = """
     <script>
         var test_suite_success = %(Pass)s;
-
-
+        
+    
         var statusGroup = {
             passParent: %(Pass)s,
             failParent: %(fail)s,
@@ -674,7 +673,7 @@ class Template_mixin(object):
             warningParent: 0,
             skipParent: 0,
             exceptionsParent: 0,
-
+    
             passChild: test_suite_success,
             failChild: %(fail)s,
             fatalChild: 0,
@@ -683,7 +682,7 @@ class Template_mixin(object):
             skipChild: 0,
             infoChild: 0,
             exceptionsChild: 0,
-
+    
             passGrandChild: 0,
             failGrandChild: 0,
             fatalGrandChild: 0,
@@ -693,12 +692,12 @@ class Template_mixin(object):
             infoGrandChild: 0,
             exceptionsGrandChild: 0,
         };
-
+    
     </script>
-
+    
     <script src='http://extentreports.com/resx/dist/js/extent.js' type='text/javascript'></script>
-
-
+    
+    
     <script type='text/javascript'>
         $(window).off("keydown");
     </script>
@@ -717,37 +716,37 @@ class Template_mixin(object):
             width: 30%;
         }
         .small_img{
-            height: 180px;
-            width: 100px;
+            height: 180px; 
+            width: 100px; 
             padding: 10px;
             float: left;
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-          }
-        .black_overlay{
-            display: none;
-            position: absolute;
-            top: 0%;
-            left: 0%;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            z-index:1001;
-            -moz-opacity: 0.8;
-            opacity:.80;
-            filter: alpha(opacity=80);
-        }
-        .big_img {
+            background-repeat: no-repeat; 
+            background-position: center center; 
+            background-size: cover; 
+          } 
+        .black_overlay{ 
+            display: none; 
+            position: absolute; 
+            top: 0%; 
+            left: 0%; 
+            width: 100%; 
+            height: 100%; 
+            background-color: white; 
+            z-index:1001; 
+            -moz-opacity: 0.8; 
+            opacity:.80; 
+            filter: alpha(opacity=80);  
+        } 
+        .big_img { 
             cursor: pointer;
-            display: none;
-            position: absolute;
+            display: none; 
+            position: absolute; 
             height: 650px;
-            left:50%;
+            left:50%; 
             top: 50%;
             margin: -300px 0px 0px -200px;
-            z-index:1002;
-            overflow: auto;
+            z-index:1002; 
+            overflow: auto; 
         }
     </style>
 """
@@ -863,7 +862,7 @@ class Template_mixin(object):
     REPORT_TEST_OUTPUT_TMPL = r"""
 %(id)s: %(output)s
 """ # variables: (id, output)
-    REPORT_TEST_OUTPUT_IMAGE = r"""
+    REPORT_TEST_OUTPUT_IMAGE = r""" 
 %(screenshot)s
 """
     REPORT_TEST_OUTPUT_CASEID = r"""
@@ -1170,7 +1169,7 @@ class HTMLTestRunner(Template_mixin):
                 statusSpan = '<span class="test-status right pass">pass</span>'
                 nodeLevel = '<li class="node level-1 leaf pass" status="pass" test-id="' + desc + '_' + str(cid + 1) + '">'
                 categoryTbodyTd = '<span class="test-status pass">pass</span>'
-
+                
             row1 = self.TEST_COLLECTION % dict(
                 li_test_active=liTestActive,
                 status_span=statusSpan,

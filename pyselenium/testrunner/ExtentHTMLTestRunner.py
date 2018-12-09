@@ -453,7 +453,7 @@ class Template_mixin(object):
         <tr class='info' status='info'>
             <td class='status info' title='info' alt='info'><i
                     class='material-icons'>low_priority</i></td>
-            <td class='timestamp'>stdo</td>
+            <td class='timestamp'>stdout</td>
             <td class='step-details'>%(script)s</td>
         </tr>
         <tr class='info' status='info'>
@@ -803,47 +803,6 @@ class Template_mixin(object):
 </tr>
 </table>
 """ # variables: (test_list, count, Pass, fail, error)
-
-    REPORT_CLASS_TMPL = r"""
-<tr class='%(style)s'>
-    <td>%(desc)s</td>
-    <td>%(count)s</td>
-    <td>%(Pass)s</td>
-    <td>%(fail)s</td>
-    <td>%(error)s</td>
-    <td><a href="javascript:showClassDetail('%(cid)s',%(count)s)">Detail</a></td>
-    <td>&nbsp;</td>
-
-</tr>
-""" # variables: (style, desc, count, Pass, fail, error, cid)
-
-
-    REPORT_TEST_WITH_OUTPUT_TMPL = r"""
-<tr id='%(tid)s' class='%(Class)s'>
-    <td class='%(style)s'><div class='testcase'>%(desc)s</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_%(tid)s')" >
-        %(status)s</a>
-
-    <div id='div_%(tid)s' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_%(tid)s').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        %(script)s
-        </pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
-    <td align='center'>
-    %(images)s
-    </td>
-</tr>
-""" # variables: (tid, Class, style, desc, status)
     REPORT_IMAGE = r"""
     <img class="small_img" src="%(screenshot)s"  onclick="document.getElementById('light_%(screenshot_id)s').style.display ='block';document.getElementById('fade_%(screenshot_id)s').style.display='block'"/>
     """
@@ -903,7 +862,7 @@ class _TestResult(TestResult):
         #   stack trace,
         # )
         self.result = []
-
+        self.subtestlist = []
 
     def startTest(self, test):
         TestResult.startTest(self, test)
@@ -918,6 +877,37 @@ class _TestResult(TestResult):
         sys.stderr = stderr_redirector
 
 
+    def addSubTest(self, test, subtest, err):
+        output = self.complete_output()
+        if err is not None:
+            if getattr(self, 'failfast', False):
+                self.stop()
+            if issubclass(err[0], test.failureException):
+                self.failure_count += 1
+                errors = self.failures
+                errors.append((subtest, self._exc_info_to_string(err, subtest)))
+                self.result.append(
+                    (ReturnCode.FAIL, test,
+                        output + '\nSubTestCase Failed:\n' + str(subtest),
+                        self._exc_info_to_string(err, subtest)))
+                sys.stderr.write('F {}\n'.format(str(subtest)) if self.verbosity > 1 else 'F')
+            else:
+                self.error_count += 1
+                errors = self.errors
+                errors.append((subtest, self._exc_info_to_string(err, subtest)))
+                self.result.append(
+                    (ReturnCode.ERROR,
+                        test, output + '\nSubTestCase Error:\n' + str(subtest),
+                        self._exc_info_to_string(err, subtest)))
+                sys.stderr.write('E {}\n'.format(str(subtest)) if self.verbosity > 1 else 'E')
+            self._mirrorOutput = True
+        else:
+            self.subtestlist.append(subtest)
+            self.subtestlist.append(test)
+            self.success_count += 1
+            self.result.append((ReturnCode.SUCCESS, test, output + '\nSubTestCase Pass:\n' + str(subtest), ''))
+            sys.stderr.write('ok {}\n'.format(str(subtest)) if self.verbosity > 1 else '.')
+
     def complete_output(self):
         """
         Disconnect output redirection and return buffer.
@@ -931,6 +921,8 @@ class _TestResult(TestResult):
         return self.outputBuffer.getvalue()
 
 
+
+
     def stopTest(self, test):
         # Usually one of addSuccess, addError or addFailure would have been called.
         # But there are some path in unittest that would bypass this.
@@ -939,10 +931,13 @@ class _TestResult(TestResult):
 
 
     def addSuccess(self, test):
-        self.success_count += 1
-        TestResult.addSuccess(self, test)
-        self.result.append((ReturnCode.SUCCESS, test, self.complete_output(), ''))
-        sys.stderr.write('ok {}\n'.format(str(test)) if self.verbosity > 1 else '.')
+        #防止subtest生成 test本身
+        if test not in self.subtestlist:
+            self.success_count += 1
+            TestResult.addSuccess(self, test)
+            self.result.append((ReturnCode.SUCCESS, test, self.complete_output(), ''))
+            sys.stderr.write('ok {}\n'.format(str(test)) if self.verbosity > 1 else '.')
+
 
     def addError(self, test, err):
         self.error_count += 1
@@ -975,7 +970,8 @@ class HTMLTestRunner(Template_mixin):
         test(result)
         self.stopTime = datetime.datetime.now()
         self.generateReport(test, result)
-        print(sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime))
+        #print(sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime))
+        print('\nTime Elapsed: %s' % (self.stopTime-self.startTime), file=sys.stderr)
         return result
 
 
@@ -1117,7 +1113,7 @@ class HTMLTestRunner(Template_mixin):
                 name = cls.__name__
             else:
                 name = "%s.%s" % (cls.__module__, cls.__name__)
-            doc = cls.__doc__ and cls.__doc__.strip('\n') or ""
+            doc = cls.__doc__ and cls.__doc__.strip('\n') or "None"
             #desc = doc and '%s: %s' % (name, doc) or name
             desc = doc and '%s' % (name) or name
 
@@ -1133,14 +1129,14 @@ class HTMLTestRunner(Template_mixin):
 
             test_collection_li_id = desc + '_' + str(cid+1)
             if ne > 0:
-                status=bdd=self.STATUS[ReturnCode.ERROR]
+                status = bdd = self.STATUS[ReturnCode.ERROR]
                 #nodeLevel = '<li class="node level-1 leaf error" status="error" test-id="' + desc + '_' + str(cid + 1) + '">'
             elif nf > 0:
-                status=bdd=self.STATUS[ReturnCode.FAIL]
+                status = bdd = self.STATUS[ReturnCode.FAIL]
                 #nodeLevel = '<li class="node level-1 leaf fail" status="fail" test-id="' + desc + '_' + str(cid + 1) + '">'
             else:
-                bdd='true'
-                status=self.STATUS[ReturnCode.SUCCESS]
+                bdd = 'true'
+                status = self.STATUS[ReturnCode.SUCCESS]
                 #nodeLevel = '<li class="node level-1 leaf pass" status="pass" test-id="' + desc + '_' + str(cid + 1) + '">'
             row1 = self.TEST_COLLECTION.format(
                 test_collection_li_id=test_collection_li_id,
@@ -1222,11 +1218,13 @@ class HTMLTestRunner(Template_mixin):
         # e.g. 'pt1.1', 'ft1.1', etc
         tid = (code == ReturnCode.SUCCESS and 'p' or 'f') + 't%s.%s' % (cid+1, tid+1)
         name = obj.id().split('.')[-1]
-        doc = obj.shortDescription() or ""
+        doc = obj.shortDescription() or 'None'
         desc = doc and ('%s: %s' % (name, doc)) or name
         tmpl = has_output and self.TBODY or self.REPORT_TEST_NO_OUTPUT_TMPL
 
+
         # o and e should be byte string because they are collected from stdout and stderr?
+        """
         if isinstance(out, str):
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # uo = unicode(o.encode('string_escape'))
@@ -1234,24 +1232,13 @@ class HTMLTestRunner(Template_mixin):
             uo = str(out)
         else:
             uo = trace
-        #???
-        if isinstance(trace, str):
-            # TODO: some problem with 'string_escape': it escape \n and mess up formating
-            # ue = unicode(e.encode('string_escape'))
-            # ue = e.decode('latin-1')
-            ue = trace
-        else:
-            ue = trace
+        """
+        uo = out
+        ue = trace
 
-        # ss = uo[uo.rfind('screenshot'):uo.rfind('.png') + 4]
         ssreg = re.compile(r'screenshot_.+?png')
         ss = ssreg.findall(uo)
-        # ss = ';'.join(ss)
-        #????
-        #script = self.REPORT_TEST_OUTPUT_TMPL % dict(
-        #    id = tid,
-        #    output = saxutils.escape(uo+ue),
-        #)
+
         images = []
         for ima in ss:
             image = self.REPORT_IMAGE % dict(
@@ -1291,9 +1278,8 @@ class HTMLTestRunner(Template_mixin):
             style = code == ReturnCode.ERROR and 'errorCase' or (code == ReturnCode.FAIL and 'failCase' or 'none'),
             desc = desc,
             script = script,
-            # image = image[image.find("image"):(int(image.find("png"))+3)],
             images = images,
-            caseid = caseid[caseid.find("case"):(int(caseid.find("case"))+9)],
+            #caseid = caseid[caseid.find("case"):(int(caseid.find("case"))+9)],
             status = status,
         )
         rows.append(row)
