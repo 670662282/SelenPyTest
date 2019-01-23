@@ -1,5 +1,5 @@
-from SelenPyTest.pyselenium import browser, unit, TestRunner, sele_api
-from SelenPyTest.pyselenium.untils.function import capture_except, get_png
+from pyselenium import browser, unit, TestRunner, sele_api
+from pyselenium.untils.function import capture_except, get_png
 
 
 if __name__ == '__main__':

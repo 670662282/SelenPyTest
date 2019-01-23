@@ -12,10 +12,10 @@ from selenium.common.exceptions import  TimeoutException,\
                                         ElementNotVisibleException,\
                                         InvalidElementStateException
 from selenium.webdriver.support.select import Select
-from SelenPyTest.pyselenium.models.logs import Log
-from SelenPyTest.pyselenium.data.selenium_dict import LOCATORS
-from SelenPyTest.pyselenium.untils import function
-from SelenPyTest.pyselenium.configs.config import YamlConfig
+from pyselenium.models.logs import Log
+from pyselenium.data.selenium_dict import LOCATORS
+from pyselenium.untils import function
+from pyselenium.configs.config import YamlConfig
 
 class ApiDriver:
     TIMEOUT = YamlConfig().get('TIMEOUT')

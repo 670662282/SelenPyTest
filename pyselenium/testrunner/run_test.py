@@ -1,15 +1,17 @@
-#coding:utf-8
-#!/usr/bin/env python3
+# coding:utf-8
+# !/usr/bin/env python3
 from .ExtentHTMLTestRunner import HTMLTestRunner
-#from SelenPyTest.demo.ExtentHTMLTestRunner import HTMLTestRunner
-from SelenPyTest.pyselenium.models.ssh import Tl_ssh
-from SelenPyTest.pyselenium.configs.config import YamlConfig
-from SelenPyTest.pyselenium.models.logs import Log
-from SelenPyTest.pyselenium.models.email import Email
+# from demo.ExtentHTMLTestRunner import HTMLTestRunner
+from pyselenium.models.ssh import Tl_ssh
+from pyselenium.configs.config import YamlConfig
+from pyselenium.models.logs import Log
+from pyselenium.models.email import Email
 import unittest
 import time
-import os, sys
+import os
+import sys
 import smtplib
+
 
 class TestRunner:
     def __init__(self, cases="./",

@@ -11,10 +11,12 @@ IMAGE_PATH = os.path.join(REPORT_PATH, 'images')
 if not os.path.isdir(IMAGE_PATH):
     os.mkdir(IMAGE_PATH)
 
+
 class YamlConfig:
     def __init__(self, config=CONFIG_FILE):
         self.reader = Reader_Factory.reader(config)
         self.config = self.reader.data
-    #框架配置默认在0节点上
+
+    # 框架配置默认在0节点上
     def get(self, element, index=0):
         return self.config[index].get(element)

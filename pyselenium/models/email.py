@@ -2,9 +2,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from email.header import Header
-from SelenPyTest.pyselenium.models.logs import Log
-from SelenPyTest.pyselenium.untils.function import get_passwd, unregister
-from SelenPyTest.common.error import EmailAddressInvaild
+from pyselenium.models.logs import Log
+from pyselenium.untils.function import get_passwd, unregister
+from common.error import EmailAddressInvaild
 import smtplib
 import os
 import re

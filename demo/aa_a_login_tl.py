@@ -3,8 +3,8 @@
 import sys
 from time import sleep
 from parameterized import parameterized
-from SelenPyTest.pyselenium import browser, unit, TestRunner, sele_api
-from SelenPyTest.pyselenium.untils.function import capture_except, get_png
+from pyselenium import browser, unit, TestRunner, sele_api
+from pyselenium.untils.function import capture_except, get_png
 
 
 def setUpModule():

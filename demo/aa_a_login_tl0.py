@@ -1,10 +1,9 @@
-#coding:utf-8
-#!/usr/bin/env python3
-import sys
-from time import sleep
+# coding:utf-8
+# !/usr/bin/env python3
+
 from parameterized import parameterized
-from SelenPyTest.pyselenium import browser, unit, TestRunner, sele_api
-from SelenPyTest.pyselenium.untils.function import capture_except, get_png
+from pyselenium import browser, unit, TestRunner, sele_api
+from pyselenium.untils.function import capture_except, get_png
 
 
 def setUpModule():

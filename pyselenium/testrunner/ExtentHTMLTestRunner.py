@@ -1,4 +1,4 @@
-#coding:utf-8
+# coding:utf-8
 """
 A TestRunner for use with the Python unit testing framework. It
 generates a HTML report to show the result at a glance.
@@ -53,7 +53,7 @@ import re
 import os
 from xml.sax import saxutils
 from collections import defaultdict
-from SelenPyTest.pyselenium.configs.config import IMAGE_PATH
+from pyselenium.configs.config import IMAGE_PATH
 
 # ------------------------------------------------------------------------
 # The redirectors below are used to capture output during testing. Output
@@ -63,6 +63,7 @@ from SelenPyTest.pyselenium.configs.config import IMAGE_PATH
 # output, use the redirectors for the cached stream.
 #
 # e.g.
+
 
 class OutputRedirector(object):
     """ Wrapper to redirect stdout or stderr """

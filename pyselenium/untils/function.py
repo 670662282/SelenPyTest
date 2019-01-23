@@ -2,8 +2,8 @@ import os
 from time import strftime, localtime, time, sleep
 from keyring.errors import PasswordDeleteError
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from SelenPyTest.pyselenium.configs.config import IMAGE_PATH, YamlConfig
-from SelenPyTest.pyselenium.models.ssh import Tl_ssh
+from pyselenium.configs.config import IMAGE_PATH, YamlConfig
+from pyselenium.models.ssh import Tl_ssh
 import functools
 try:
     import keyring
@@ -12,11 +12,13 @@ except (NameError, ImportError, RuntimeError):
 
 MAX_TIME = YamlConfig().get('TIME_OUT')
 
+
 def get_png(driver, file_name):
     pngname = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + file_name
     driver.get_screenshot_as_file(os.path.join(IMAGE_PATH, pngname))
     print('出错截图：', os.path.join(IMAGE_PATH, pngname))
     return os.path.join(IMAGE_PATH, pngname)
+
 
 def get_passwd(usr=None, pwd=None, type='email'):
     """ get password for keyring """
@@ -42,6 +44,7 @@ def register(type='email', usr=None, pwd=None):
     """save username password in keyring"""
     keyring.set_password(type, usr, pwd)
 
+
 def unregister(type='email', usr=None):
     try:
         keyring.delete_password(type, usr)
@@ -62,6 +65,7 @@ def changewait(time):
         return waits
     return _changewait
 
+
 def wait(timeout):
     def _wait(fn):
         @functools.wraps(fn)
@@ -78,6 +82,7 @@ def wait(timeout):
         return modfied_fn
     return _wait
 
+
 def capture_except(fn):
     @functools.wraps(fn)
     def capture(self, *args, **kw):
@@ -90,7 +95,7 @@ def capture_except(fn):
     return capture
 
 
-#获取测试页面的web日志 通过sftp下载
+# 获取测试页面的web日志 通过sftp下载
 def get_weblog(ip, pwd, service_file=None, local_path=None):
     ssh = Tl_ssh(ip, pwd)
     ssh.connect()
@@ -112,7 +117,7 @@ def get_weblog(ip, pwd, service_file=None, local_path=None):
     try:
         ssh.down(service_file, local_file)
     except FileNotFoundError:
-        print('soory no find {}'.format(log_name))
+        print('soory no find {}'.format(local_file))
         return None
     finally:
         ssh.close()
