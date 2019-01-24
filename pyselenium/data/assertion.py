@@ -1,7 +1,5 @@
-
-
-def httpcodeAssersion(repsonse, codes=[200]):
-    code = repsonse.status_code
+def http_code_assertion(response, codes=[200]):
+    code = response.status_code
     if isinstance(codes, str) or isinstance(codes, int):
         code = [code]
     if code not in codes:

@@ -3,7 +3,7 @@ from time import strftime, localtime, time, sleep
 from keyring.errors import PasswordDeleteError
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from pyselenium.configs.config import IMAGE_PATH, YamlConfig
-from pyselenium.models.ssh import Tl_ssh
+from pyselenium.models.ssh import MySSH
 import functools
 try:
     import keyring
@@ -14,13 +14,13 @@ MAX_TIME = YamlConfig().get('TIME_OUT')
 
 
 def get_png(driver, file_name):
-    pngname = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + file_name
-    driver.get_screenshot_as_file(os.path.join(IMAGE_PATH, pngname))
-    print('出错截图：', os.path.join(IMAGE_PATH, pngname))
-    return os.path.join(IMAGE_PATH, pngname)
+    png_name = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + file_name
+    driver.get_screenshot_as_file(os.path.join(IMAGE_PATH, png_name))
+    print('出错截图：', os.path.join(IMAGE_PATH, png_name))
+    return os.path.join(IMAGE_PATH, png_name)
 
 
-def get_passwd(usr=None, pwd=None, type='email'):
+def get_password(usr=None, pwd=None, type='email'):
     """ get password for keyring """
     if pwd is None:
         try:
@@ -40,6 +40,7 @@ def get_passwd(usr=None, pwd=None, type='email'):
 
     return pwd
 
+
 def register(type='email', usr=None, pwd=None):
     """save username password in keyring"""
     keyring.set_password(type, usr, pwd)
@@ -54,8 +55,8 @@ def unregister(type='email', usr=None):
         return True
 
 
-def changewait(time):
-    def _changewait(func):
+def change_wait(time):
+    def _change_wait(func):
         @functools.wraps(func)
         def waits(self, *args, **kw):
             self.set_wait(time)
@@ -63,7 +64,7 @@ def changewait(time):
             self.set_wait(MAX_TIME)
             return result
         return waits
-    return _changewait
+    return _change_wait
 
 
 def wait(timeout):
@@ -88,7 +89,7 @@ def capture_except(fn):
     def capture(self, *args, **kw):
         try:
             fn(self, *args, **kw)
-        except (WebDriverException, AssertionError) as e:
+        except (WebDriverException, AssertionError):
             get_png(self.driver, '_error.png')
             self.except_parse(self.driver)
             raise
@@ -96,8 +97,8 @@ def capture_except(fn):
 
 
 # 获取测试页面的web日志 通过sftp下载
-def get_weblog(ip, pwd, service_file=None, local_path=None):
-    ssh = Tl_ssh(ip, pwd)
+def get_web_log(ip, pwd, service_file=None, local_path=None):
+    ssh = MySSH(ip, pwd)
     ssh.connect()
     ssh.set_transport()
 
@@ -105,7 +106,6 @@ def get_weblog(ip, pwd, service_file=None, local_path=None):
         raise TypeError(service_file, '不是一个合法文件')
 
     file_name = os.path.basename(service_file)
-    local_file = None
     if local_path is None or os.path.isdir(local_path):
         if local_path is None:
             local_path = './log'
@@ -117,7 +117,7 @@ def get_weblog(ip, pwd, service_file=None, local_path=None):
     try:
         ssh.down(service_file, local_file)
     except FileNotFoundError:
-        print('soory no find {}'.format(local_file))
+        print('sorry, no find {}'.format(local_file))
         return None
     finally:
         ssh.close()

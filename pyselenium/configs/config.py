@@ -1,5 +1,5 @@
 import os
-from .cfread import Reader_Factory
+from .cfread import ReaderFactory
 
 BASE_PATH = os.path.split(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))[0]
 PYSELENIUM = os.path.join(BASE_PATH, 'pyselenium')
@@ -14,7 +14,7 @@ if not os.path.isdir(IMAGE_PATH):
 
 class YamlConfig:
     def __init__(self, config=CONFIG_FILE):
-        self.reader = Reader_Factory.reader(config)
+        self.reader = ReaderFactory.reader(config)
         self.config = self.reader.data
 
     # 框架配置默认在0节点上

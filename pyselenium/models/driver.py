@@ -11,6 +11,6 @@ def browser(bro):
 
 
 if __name__ == "__main__":
-    dr = browser()
+    dr = browser('chrome')
     dr.get("http://www.baidu.com")
     dr.quit()

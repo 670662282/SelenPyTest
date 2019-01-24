@@ -20,5 +20,5 @@ __author__ = "jiangchen"
 
 from .testrunner.run_test import TestRunner
 from .webdriver import sele_api
-from .models.unittest import unit, unitback
+from .models.unittest import unit
 from .models.driver import browser

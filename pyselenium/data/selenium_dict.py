@@ -13,10 +13,12 @@ LOCATORS = {
     'class_': By.CLASS_NAME,
 }
 
+
 def chrome_headless():
     ops = Options()
     ops.add_argument('--headless')
     return webdriver.Chrome(chrome_options=ops)
+
 
 BROWSERS = {
     'chrome':           webdriver.Chrome,

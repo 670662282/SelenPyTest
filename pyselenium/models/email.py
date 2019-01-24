@@ -3,8 +3,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from email.header import Header
 from pyselenium.models.logs import Log
-from pyselenium.untils.function import get_passwd, unregister
-from common.error import EmailAddressInvaild
+from pyselenium.untils.function import get_password, unregister
+from common.error import EmailAddressInvalid
 import smtplib
 import os
 import re
@@ -57,16 +57,17 @@ ADDR_SPEC = LOCAL_PART + r'@' + DOMAIN               # see 3.4.1
 # A valid address will match exactly the 3.4.1 addr-spec.
 VALID_ADDRESS_REGEXP = '^' + ADDR_SPEC + '$'
 
+
 class Email:
 
     def __init__(self,
-        server='10.10.1.3',
-        usr='',
-        pwd=None,
-        port=25,
-        encoding='utf-8',
-        email_validation=True
-        ):
+                 server='10.10.1.3',
+                 usr='',
+                 pwd=None,
+                 port=25,
+                 encoding='utf-8',
+                 email_validation=True
+                 ):
         self.logger = Log().get_logger()
         self.smtp = smtplib.SMTP()
         self.is_close = False
@@ -80,14 +81,14 @@ class Email:
         if self.email_validation is True:
             self.validate_email_with_regex(self.usr)
 
-
-    def validate_email_with_regex(self, email_address):
+    @staticmethod
+    def validate_email_with_regex(email_address):
         if not re.match(VALID_ADDRESS_REGEXP, email_address):
             emsg = '邮箱地址 "{}" 不符合 RFC 2822 标准'.format(email_address)
-            raise EmailAddressInvaild(emsg)
+            raise EmailAddressInvalid(emsg)
         # apart from the standard, I personally do not trust email addresses without dot.
         if "." not in email_address and "localhost" not in email_address.lower():
-            raise EmailAddressInvaild("邮箱地址可能少了一个点")
+            raise EmailAddressInvalid("邮箱地址可能少了一个点")
 
     def __enter__(self):
         return self
@@ -102,17 +103,17 @@ class Email:
 
     def _login(self, pwd):
         if pwd is None:
-            pwd = get_passwd(self.usr, self.pwd)
+            pwd = get_password(self.usr, self.pwd)
         self.smtp.connect(self.server, self.port)
         self.smtp.login(self.usr, pwd)
 
     # recipients attachment 可以是一个字符串 或者 字符串列表
     def send(self,
-        subject=None,
-        content=None,
-        recipients='',
-        attachments=None
-        ):
+             subject=None,
+             content=None,
+             recipients='',
+             attachments=None
+             ):
         if isinstance(recipients, str):
             recipients = [recipients]
 
@@ -137,29 +138,29 @@ class Email:
 
         if isinstance(attachments, str):
             attachments = [attachments]
-        attachlist = []
+        attach_list = []
         if attachments is not None:
             for attr in attachments:
                 if not os.path.isfile(attr):
                     raise TypeError("'{}' 不是一个有效的文件路径".format(attr))
-                attachlist.append(self._get_attach(self._open(attr),
-                    os.path.basename(attr)))
+                attach_list.append(self._get_attach(self._open(attr),
+                                                    os.path.basename(attr)))
         if content is not None:
             if os.path.isfile(content):
-                #判断文件类型是html还是普通文本
+                # 判断文件类型是html还是普通文本
                 type = 'html' if content.strip().endswith('html') else 'plain'
                 self.logger.info('email content:%s is file, type: %s', content, type)
-                attachlist.append(MIMEText(self._open(content), type, self.encoding))
+                attach_list.append(MIMEText(self._open(content), type, self.encoding))
             else:
-                attachlist.append(MIMEText(content, 'plain', self.encoding))
+                attach_list.append(MIMEText(content, 'plain', self.encoding))
 
-        #创建一个带附件的实例
-        #mixed related
+        # 创建一个带附件的实例
+        # mixed related
         message = MIMEMultipart('mixed')
         self._add_subject_header(message, subject)
         self._add_recipients_header(message, recipients)
 
-        for att in attachlist:
+        for att in attach_list:
             message.attach(att)
 
         return message
@@ -189,7 +190,6 @@ class Email:
         with open(file, 'rb') as f:
             file_content = f.read()
         return file_content
-
 
     def close(self):
         self.is_close = True

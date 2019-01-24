@@ -1,65 +1,60 @@
 # coding:utf-8
 # !/usr/bin/env python3
 from .ExtentHTMLTestRunner import HTMLTestRunner
-# from demo.ExtentHTMLTestRunner import HTMLTestRunner
-from pyselenium.models.ssh import Tl_ssh
 from pyselenium.configs.config import YamlConfig
 from pyselenium.models.logs import Log
-from pyselenium.models.email import Email
 import unittest
 import time
 import os
-import sys
-import smtplib
 
 
 class TestRunner:
     def __init__(self, cases="./",
-                casecls_re='*.py',
-                title="UITestReport",
-                report_backup=0,
-                description="Test case execution:",
-                debug=False):
+                 case_cls_re='*.py',
+                 title="UITestReport",
+                 report_backup=0,
+                 description="Test case execution:",
+                 debug=False):
 
         self.cases = cases
         self.title = title
         self.debug = debug
         self.description = description
-        self.casecls_re = casecls_re
+        self.case_cls_re = case_cls_re
         self.logger = Log().get_logger()
         cf = YamlConfig()
         self.backup = report_backup
         self.email_title = cf.get('MAIL_TITLE')
         self.email_server = cf.get('EMAIL_SERVER')
         self.email_usr = cf.get('EMAIL_USR')
-        #self.email_pwd = cf.get('EMAIL_PWD')
+        # self.email_pwd = cf.get('EMAIL_PWD')
         self.email_receiver = cf.get('EMAIL_RECEIVE')
-        self._reportfile = None
+        self._report_file = None
 
     @property
     def report_file(self):
-        return self._reportfile
+        return self._report_file
 
     def handle_reports(self, reports_path, reserve_num=0):
         """
         Sort reports for mtime
         Retain the latest reserve_num reports and return to the latest report.
-        reserve_num=0 表示不进行删除
+        reserve_num <= 0 表示不进行删除
         """
-        if reserve_num < 0: reserve_num = 0
-        if os.path.isdir(reports_path): os.chdir(reports_path)
+        if os.path.isdir(reports_path):
+            os.chdir(reports_path)
 
         reports_path = os.getcwd()
         all_file = os.listdir('.')
         self.logger.info('list : %s', all_file)
 
-        reports = [ f for f in all_file if f.strip().endswith('.html') ]
+        reports = [f for f in all_file if f.strip().endswith('.html')]
         reports.sort(key=lambda f: os.path.getmtime(f))
         new_report = reports.pop()
         self.logger.info("new reports_path:" + new_report)
         del_list = []
-        #前面pop最新的报告 所这要加1
-        if len(reports) + 1 > reserve_num and reserve_num != 0:
+        # 前面pop最新的报告 所以这要加1
+        if 0 < reserve_num < len(reports) + 1:
             for i in range(reserve_num-1):
                 reports.pop()
             for r in reports:
@@ -69,9 +64,8 @@ class TestRunner:
         self.logger.info('del report : %s', del_list)
         return os.path.join(reports_path, new_report)
 
-
     def _get_discover(self):
-        return unittest.defaultTestLoader.discover(self.cases, pattern=self.casecls_re)
+        return unittest.defaultTestLoader.discover(self.cases, pattern=self.case_cls_re)
 
     def runner(self):
         self._debug() if self.debug else self._normal()
@@ -87,20 +81,15 @@ class TestRunner:
         report_name = time.strftime("%Y-%m-%d_%H-%M-%S") + 'UITest.html'
         with open(os.path.join(reports_path, report_name), 'wb') as fp:
             runner = HTMLTestRunner(stream=fp,
-                                title=self.title,
-                                description=self.description,
-                                verbosity=2)
+                                    title=self.title,
+                                    description=self.description,
+                                    verbosity=2)
             runner.run(self._get_discover())
 
         att_list = []
-        self.reportfile = self.handle_reports(reports_path, self.backup)
-        att_list.append(self.reportfile)
-        #logfile = self.get_weblog()
-        #if logfile is not None:
-            #att_list.append(logfile)
+        self._report_file = self.handle_reports(reports_path, self.backup)
+        att_list.append(self._report_file)
 
-        #Email(self.email_server, self.email_usr).send(
-            #self.email_title, self.reportfile, self.email_receiver, att_list)
 
 """
 if __name__ == '__main__':

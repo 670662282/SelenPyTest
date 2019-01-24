@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import logging
 import os
-import time
 import threading
 from pyselenium.configs.config import YamlConfig, LOG_PATH
 from logging.handlers import TimedRotatingFileHandler
@@ -10,9 +9,7 @@ from logging.handlers import TimedRotatingFileHandler
 class Log(object):
 
     _instance_lock = threading.Lock()
-    """
-    __new__ 实现单例模式
-    """
+
     def __new__(cls, *args, **kwargs):
         if not hasattr(Log, "_instance"):
             with Log._instance_lock:
@@ -22,12 +19,13 @@ class Log(object):
 
     def __init__(self):
         self.logs = YamlConfig().get('log')
-        if self.logs is None: raise KeyError
+        if self.logs is None:
+            raise KeyError
         self.backup = self.logs.get('backup', 5)
         self.console_level = self.logs.get('console_level', 'INFO')
         self.file_level = self.logs.get('file_level', 'INFO')
         self.pattern = self.logs.get('pattern',
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+                                     '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         self.output = self.logs.get('output', 0)
         self.logger = logging.getLogger()
 
@@ -37,20 +35,20 @@ class Log(object):
         """
         # 这里进行判断，如果logger.handlers列表为空，则添加，否则，直接去写日志
         if not self.logger.handlers:
-            #set log level main on-off
+            # set log level main on-off
             self.logger.setLevel(logging.INFO)
             self.formatter = logging.Formatter(self.pattern)
             self.set_output_mode(self.output)
 
     def _file_output(self):
         """create file handle for write logs"""
-        log_file =  os.path.join(LOG_PATH, 'test.log')
+        log_file = os.path.join(LOG_PATH, 'test.log')
         file_handle = TimedRotatingFileHandler(filename=log_file,
-                                                when='D',
-                                                interval=1,
-                                                backupCount=self.backup,
-                                                delay=True,
-                                                encoding='utf-8')
+                                               when='D',
+                                               interval=1,
+                                               backupCount=self.backup,
+                                               delay=True,
+                                               encoding='utf-8')
 
         # log_file level
         file_handle.setLevel(self.file_level)

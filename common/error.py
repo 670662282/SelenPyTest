@@ -1,8 +1,15 @@
 """
 Contains all exceptions
 """
-class EmailAddressInvaild(Exception):
+
+
+class EmailAddressInvalid(Exception):
     pass
 
-class UnexpectedAleat(Exception):
+
+class UnexpectedAlert(Exception):
+    pass
+
+
+class SheetTypeError(Exception):
     pass

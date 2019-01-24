@@ -1,8 +1,8 @@
-
 from selenium.webdriver.support.events import AbstractEventListener
 from pyselenium.models.logs import Log
 from selenium.webdriver.remote.webelement import WebElement
 from time import sleep
+
 
 class MyListener(AbstractEventListener):
     """ Listener driver"""
@@ -10,11 +10,12 @@ class MyListener(AbstractEventListener):
         self.logger = Log().get_logger()
         try:
             self.element_wait = int(timeout)
-        except ValueError as e:
+        except ValueError:
             raise TypeError('timeout type error!')
 
     def before_navigate_to(self, url, driver):
         self.logger.info("Before navigate to %s" % url)
+
     def after_navigate_to(self, url, driver):
         self.logger.info("After navigate to %s" % url)
 
@@ -42,7 +43,7 @@ class MyListener(AbstractEventListener):
         self.logger.info('before_change :value=%s' % element.get_attribute('value') or 'None')
 
     def after_change_value_of(self, element, driver):
-        self.logger.info('after_change :value=%s'  % element.get_attribute('value') or 'None')
+        self.logger.info('after_change :value=%s' % element.get_attribute('value') or 'None')
 
     def _get_element_attr(self, element):
         if not isinstance(element, WebElement):
@@ -60,14 +61,14 @@ class MyListener(AbstractEventListener):
         if not element.is_displayed():
             self.logger.warning('%s 元素不可以见' % element_str)
         if not element.is_enabled():
-            self.logger.warning('%s 元素disenabled状态' % element_str)
+            self.logger.warning('%s 元素disabled状态' % element_str)
         if tag in ['checkbox', 'radio']:
             status = 'is selected' if element.lower().is_selected() else 'is not selected'
-            self.logger.info('%元素 %s状态' % (element_str, status))
+            self.logger.info('{} 元素 {} 状态'.format(element_str, status))
 
     def after_click(self, element, driver):
         pass
-        #self.logger.info(element)
+        # self.logger.info(element)
 
     def before_quit(self, driver):
         self.logger.info('页面即将关闭')
@@ -77,4 +78,4 @@ class MyListener(AbstractEventListener):
 
     def on_exception(self, exception, driver):
         pass
-        #self.logger.info(exception)
+        # self.logger.info(exception)

@@ -52,7 +52,7 @@ class ApiDriver:
     def waits_for(self, fn, *args):
         return fn(*args)
 
-    @function.changewait(5)
+    @function.change_wait(5)
     def changewait_for_5s(self, fn, *args):
         return fn(*args)
 
@@ -133,7 +133,7 @@ class ApiDriver:
             EC.visibility_of_element_located(*self._get_locs(*args, **kwargs)))
 
     #需要优化
-    @function.changewait(time=1)
+    @function.change_wait(time=1)
     def wait_for_drap(self, fn, *para):
         start_time = time()
         while True:

@@ -5,27 +5,29 @@ except (NameError, ImportError, RuntimeError):
     pass
 
 
-class Tl_ssh():
+class MySSH:
 
-    def __init__(self, ip='10.10.50.7', passwd=''):
+    def __init__(self, ip='10.10.50.7', password=''):
         self.host = (ip, 22)
         self.user = 'root'
-        self.passwd = passwd
+        self.password = password
+        self.__ts = None
         try:
             self.ssh = paramiko.SSHClient()
         except NameError as e:
             print('paramiko 加载失败 尝试命令‘pip install paramiko’安装，或者离开')
             raise e
+
     def connect(self):
         ts = paramiko.Transport(self.host)
-        ts.connect(username=self.user, password=self.passwd)
+        ts.connect(username=self.user, password=self.password)
         self.__ts = ts
 
     def set_transport(self):
         self.ssh._transport = self.__ts
 
-    def exec_cmd(self, str):
-        stdin, stdout, stderr = self.ssh.exec_command(str)
+    def exec_cmd(self, cmd):
+        stdin, stdout, stderr = self.ssh.exec_command(cmd)
         result = stdout.read()
         if not result:
             result = stderr.read()

@@ -1,13 +1,12 @@
 # coding:utf-8
 # !/usr/bin/env python3
 
-from parameterized import parameterized
-from pyselenium import browser, unit, TestRunner, sele_api
-from pyselenium.untils.function import capture_except, get_png
+from pyselenium import unit
 
 
 def setUpModule():
     print('start UITest!')
+
 
 class DemoTest2(unit.TestCase):
     """This is Test a2"""
@@ -19,14 +18,9 @@ class DemoTest2(unit.TestCase):
                 self.send_values(i, css="#kw")
                 self.click_element(css="#su")
 
-
-    def testAssertRaises2(self):
+    def test_assert_raises_2(self):
         """1231231"""
         print('test assert')
 
-        #self.assertRaise(ValueError, fun, 1, 2)
+        # self.assertRaise(ValueError, fun, 1, 2)
 
-
-
-    #Email(self.email_server, self.email_usr).send(
-        #self.email_title, '自动化测试', self.email_receiver, report)
