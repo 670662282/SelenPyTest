@@ -804,10 +804,7 @@ class TemplateMixin(object):
 """
     # variables: (test_list, count, Pass, fail, error)
     REPORT_IMAGE = r"""
-    <img class="small_img" src="%(screenshot)s" 
-      onclick="document.getElementById('light_%(screenshot_id)s').style.display ='block';
-      document.getElementById('fade_%(screenshot_id)s').style.display='block'"
-    />
+    <img class="small_img" src="%(screenshot)s" onclick="document.getElementById('light_%(screenshot_id)s').style.display ='block';document.getElementById('fade_%(screenshot_id)s').style.display='block'"/>
     """
 
     REPORT_TEST_NO_OUTPUT_TMPL = r"""

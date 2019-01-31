@@ -26,7 +26,6 @@ class DemoTest2(unit.TestCase):
         """test result"""
         print('test assert')
         self.open("http://speadmin.nxgvm.net")
-        sleep(5)
         # self.assertRaise(ValueError, fun, 1, 2)
 
     def test_assert_raises_2(self):
