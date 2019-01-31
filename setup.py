@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import io
 
-with io.open("README.md.md", encoding='utf-8') as f:
+with io.open("README.md", encoding='utf-8') as f:
     long_description = f.read()
 
 install_requests = {
