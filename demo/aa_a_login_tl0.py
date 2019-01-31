@@ -2,6 +2,11 @@
 # !/usr/bin/env python3
 
 from pyselenium import unit
+from pyselenium.untils.listener import MyListener
+from selenium.webdriver.support.events import EventFiringWebDriver
+from selenium import webdriver
+from pyselenium.models.driver import browser
+from time import sleep
 
 
 def setUpModule():
@@ -10,13 +15,19 @@ def setUpModule():
 
 class DemoTest2(unit.TestCase):
     """This is Test a2"""
-    def test_subtest(self):
-        """test subtest aaa"""
-        self.open("https://www.baidu.com")
-        for i in range(5):
-            with self.subTest(parrern=i):
-                self.send_values(i, css="#kw")
-                self.click_element(css="#su")
+
+    @classmethod
+    def setUpClass(cls):
+        ops = webdriver.ChromeOptions()
+        ops.add_argument("--proxy-server=socks5://127.0.0.1:1080")
+        cls.driver = EventFiringWebDriver(browser('chrome', chrome_options=ops), MyListener())
+
+    def test_assert_raises(self):
+        """test result"""
+        print('test assert')
+        self.open("http://speadmin.nxgvm.net")
+        sleep(5)
+        # self.assertRaise(ValueError, fun, 1, 2)
 
     def test_assert_raises_2(self):
         """1231231"""

@@ -149,3 +149,158 @@
 2019-01-31 11:53:19,684 - run_test.py [line:49] - INFO:list : ['2019-01-24_18-07-36UITest.html', '2019-01-31_11-53-05UITest.html', '2019-01-31_10-56-04UITest.html', 'images', '2019-01-31_10-17-28UITest.html']
 2019-01-31 11:53:19,685 - run_test.py [line:54] - INFO:new reports_path:2019-01-31_11-53-05UITest.html
 2019-01-31 11:53:19,686 - run_test.py [line:64] - INFO:del report : ['2019-01-24_18-07-36UITest.html']
+2019-01-31 13:09:58,911 - listener.py [line:17] - INFO:Before navigate to http://speadmin.nxgvm.net
+2019-01-31 13:09:59,430 - listener.py [line:20] - INFO:After navigate to http://speadmin.nxgvm.net
+2019-01-31 13:10:09,435 - listener.py [line:74] - INFO:页面即将关闭
+2019-01-31 13:10:09,563 - listener.py [line:77] - INFO:页面已经关闭
+2019-01-31 14:00:11,834 - listener.py [line:17] - INFO:Before navigate to http://speadmin.nxgvm.net
+2019-01-31 14:00:28,979 - listener.py [line:20] - INFO:After navigate to http://speadmin.nxgvm.net
+2019-01-31 14:00:38,983 - listener.py [line:74] - INFO:页面即将关闭
+2019-01-31 14:00:39,139 - listener.py [line:77] - INFO:页面已经关闭
+2019-01-31 14:03:19,216 - listener.py [line:17] - INFO:Before navigate to http://speadmin.nxgvm.net
+2019-01-31 14:03:20,303 - listener.py [line:20] - INFO:After navigate to http://speadmin.nxgvm.net
+2019-01-31 14:03:30,308 - listener.py [line:74] - INFO:页面即将关闭
+2019-01-31 14:03:30,390 - listener.py [line:77] - INFO:页面已经关闭
+2019-01-31 14:04:40,480 - listener.py [line:17] - INFO:Before navigate to http://speadmin.nxgvm.net
+2019-01-31 14:04:41,163 - listener.py [line:20] - INFO:After navigate to http://speadmin.nxgvm.net
+2019-01-31 14:04:51,197 - listener.py [line:74] - INFO:页面即将关闭
+2019-01-31 14:04:51,268 - listener.py [line:77] - INFO:页面已经关闭
+2019-01-31 14:11:19,880 - listener.py [line:17] - INFO:Before navigate to http://speadmin.nxgvm.net
+2019-01-31 14:11:36,464 - listener.py [line:20] - INFO:After navigate to http://speadmin.nxgvm.net
+2019-01-31 14:11:46,470 - listener.py [line:74] - INFO:页面即将关闭
+2019-01-31 14:11:46,595 - listener.py [line:77] - INFO:页面已经关闭
+2019-01-31 14:19:59,851 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2019-01-31 14:20:01,351 - listener.py [line:20] - INFO:After navigate to https://www.baidu.com
+2019-01-31 14:20:01,363 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:20:01,371 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:20:01,376 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:20:01,400 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:20:01,406 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:20:01,561 - listener.py [line:46] - INFO:after_change :value=selenium
+2019-01-31 14:20:01,580 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:20:02,187 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2019-01-31 14:20:02,395 - listener.py [line:20] - INFO:After navigate to https://www.baidu.com
+2019-01-31 14:20:02,412 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:20:02,421 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:20:02,427 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:20:02,451 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:20:02,454 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:20:02,585 - listener.py [line:46] - INFO:after_change :value=selenium2
+2019-01-31 14:20:02,592 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:20:03,179 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2019-01-31 14:20:03,397 - listener.py [line:20] - INFO:After navigate to https://www.baidu.com
+2019-01-31 14:20:03,408 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:20:03,414 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:20:03,439 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:20:03,444 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:20:03,492 - listener.py [line:46] - INFO:after_change :value=0
+2019-01-31 14:20:03,502 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:20:03,649 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:20:03,657 - listener.py [line:43] - INFO:before_change :value=0
+2019-01-31 14:20:03,725 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:20:03,729 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:20:03,809 - listener.py [line:46] - INFO:after_change :value=1
+2019-01-31 14:20:03,826 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:20:04,193 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:20:04,199 - listener.py [line:43] - INFO:before_change :value=1
+2019-01-31 14:20:04,313 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:20:04,324 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:20:04,422 - listener.py [line:46] - INFO:after_change :value=2
+2019-01-31 14:20:04,429 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:20:04,512 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:20:04,516 - listener.py [line:43] - INFO:before_change :value=2
+2019-01-31 14:20:04,577 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:20:04,582 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:20:04,653 - listener.py [line:46] - INFO:after_change :value=3
+2019-01-31 14:20:04,662 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:20:04,757 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:20:04,763 - listener.py [line:43] - INFO:before_change :value=3
+2019-01-31 14:20:04,848 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:20:04,853 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:20:04,942 - listener.py [line:46] - INFO:after_change :value=4
+2019-01-31 14:20:04,949 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:20:05,145 - listener.py [line:74] - INFO:页面即将关闭
+2019-01-31 14:20:05,374 - listener.py [line:77] - INFO:页面已经关闭
+2019-01-31 14:21:35,387 - listener.py [line:17] - INFO:Before navigate to http://speadmin.nxgvm.net
+2019-01-31 14:21:40,697 - listener.py [line:20] - INFO:After navigate to http://speadmin.nxgvm.net
+2019-01-31 14:21:45,702 - listener.py [line:74] - INFO:页面即将关闭
+2019-01-31 14:21:45,812 - listener.py [line:77] - INFO:页面已经关闭
+2019-01-31 14:22:25,401 - listener.py [line:17] - INFO:Before navigate to http://speadmin.nxgvm.net
+2019-01-31 14:22:41,933 - listener.py [line:20] - INFO:After navigate to http://speadmin.nxgvm.net
+2019-01-31 14:22:46,938 - listener.py [line:74] - INFO:页面即将关闭
+2019-01-31 14:22:47,068 - listener.py [line:77] - INFO:页面已经关闭
+2019-01-31 14:23:02,791 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2019-01-31 14:23:06,933 - listener.py [line:20] - INFO:After navigate to https://www.baidu.com
+2019-01-31 14:23:06,946 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:23:06,952 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:23:06,956 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:23:06,977 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:23:06,981 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:23:07,125 - listener.py [line:46] - INFO:after_change :value=selenium
+2019-01-31 14:23:07,138 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:23:07,950 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2019-01-31 14:23:08,169 - listener.py [line:20] - INFO:After navigate to https://www.baidu.com
+2019-01-31 14:23:08,185 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:23:08,192 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:23:08,197 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:23:08,222 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:23:08,225 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:23:08,338 - listener.py [line:46] - INFO:after_change :value=selenium2
+2019-01-31 14:23:08,346 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:23:08,894 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2019-01-31 14:23:09,289 - listener.py [line:20] - INFO:After navigate to https://www.baidu.com
+2019-01-31 14:23:09,305 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:23:09,317 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:23:09,342 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:23:09,345 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:23:09,392 - listener.py [line:46] - INFO:after_change :value=0
+2019-01-31 14:23:09,400 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:23:09,593 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:23:09,598 - listener.py [line:43] - INFO:before_change :value=0
+2019-01-31 14:23:09,661 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:23:09,666 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:23:09,739 - listener.py [line:46] - INFO:after_change :value=1
+2019-01-31 14:23:09,749 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:23:09,987 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:23:09,992 - listener.py [line:43] - INFO:before_change :value=1
+2019-01-31 14:23:10,088 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:23:10,094 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:23:10,164 - listener.py [line:46] - INFO:after_change :value=2
+2019-01-31 14:23:10,169 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:23:10,259 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:23:10,265 - listener.py [line:43] - INFO:before_change :value=2
+2019-01-31 14:23:10,337 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:23:10,340 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:23:10,403 - listener.py [line:46] - INFO:after_change :value=3
+2019-01-31 14:23:10,408 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:23:10,492 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:23:10,495 - listener.py [line:43] - INFO:before_change :value=3
+2019-01-31 14:23:10,556 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:23:10,562 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:23:10,625 - listener.py [line:46] - INFO:after_change :value=4
+2019-01-31 14:23:10,632 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:23:10,698 - listener.py [line:74] - INFO:页面即将关闭
+2019-01-31 14:23:10,914 - listener.py [line:77] - INFO:页面已经关闭
+2019-01-31 14:23:13,279 - listener.py [line:17] - INFO:Before navigate to http://speadmin.nxgvm.net
+2019-01-31 14:23:21,261 - listener.py [line:20] - INFO:After navigate to http://speadmin.nxgvm.net
+2019-01-31 14:23:26,265 - listener.py [line:74] - INFO:页面即将关闭
+2019-01-31 14:23:26,343 - listener.py [line:77] - INFO:页面已经关闭
+2019-01-31 14:23:26,345 - run_test.py [line:49] - INFO:list : ['2019-01-31_11-53-05UITest.html', '2019-01-31_10-56-04UITest.html', 'images', '2019-01-31_14-23-00UITest.html', '2019-01-31_10-17-28UITest.html']
+2019-01-31 14:23:26,345 - run_test.py [line:54] - INFO:new reports_path:2019-01-31_14-23-00UITest.html
+2019-01-31 14:23:26,346 - run_test.py [line:64] - INFO:del report : ['2019-01-31_10-17-28UITest.html']
+2019-01-31 14:27:12,953 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2019-01-31 14:27:15,359 - listener.py [line:20] - INFO:After navigate to https://www.baidu.com
+2019-01-31 14:27:15,370 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:27:15,377 - listener.py [line:40] - INFO:元素定位: (css selector, #kw)
+2019-01-31 14:27:15,381 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:27:15,404 - listener.py [line:46] - INFO:after_change :value=
+2019-01-31 14:27:15,408 - listener.py [line:43] - INFO:before_change :value=
+2019-01-31 14:27:15,561 - listener.py [line:46] - INFO:after_change :value=selenium
+2019-01-31 14:27:15,579 - listener.py [line:40] - INFO:元素定位: (css selector, #su)
+2019-01-31 14:27:15,705 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2019-01-31 14:27:15,710 - listener.py [line:17] - INFO:Before navigate to https://www.baidu.com
+2019-01-31 14:27:15,712 - listener.py [line:74] - INFO:页面即将关闭
+2019-01-31 14:27:15,916 - listener.py [line:77] - INFO:页面已经关闭
+2019-01-31 14:27:15,920 - run_test.py [line:49] - INFO:list : ['2019-01-31_11-53-05UITest.html', '2019-01-31_10-56-04UITest.html', 'images', '2019-01-31_14-23-00UITest.html', '2019-01-31_14-27-10UITest.html']
+2019-01-31 14:27:15,921 - run_test.py [line:54] - INFO:new reports_path:2019-01-31_14-27-10UITest.html
+2019-01-31 14:27:15,926 - run_test.py [line:64] - INFO:del report : ['2019-01-31_10-56-04UITest.html']

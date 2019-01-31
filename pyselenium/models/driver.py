@@ -2,9 +2,9 @@
 from pyselenium.data.selenium_dict import BROWSERS
 
 
-def browser(bro):
+def browser(bro, **kwargs):
     try:
-        return BROWSERS[bro.lower()]()
+        return BROWSERS[bro.lower()](**kwargs)
     except KeyError as e:
         raise e("Not found %s browser, please use 'chrome'\
                 'chrome_headless', 'opera', 'edge', 'ie'." % bro)

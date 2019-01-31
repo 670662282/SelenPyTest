@@ -18,3 +18,6 @@ class SheetTypeError(Exception):
 class LocationTypeError(Exception):
     pass
 
+
+class OptionsError(Exception):
+    pass

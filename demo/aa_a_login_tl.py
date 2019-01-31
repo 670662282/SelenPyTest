@@ -4,6 +4,7 @@
 from parameterized import parameterized
 from pyselenium import unit
 from pyselenium.untils.function import capture_except
+from time import sleep
 
 
 def setUpModule():
@@ -28,10 +29,13 @@ class DemoTest(unit.TestCase):
         # self.assertTitle(search_key)
         self.assertEqual(1, 2)
 
-    def test_assert_raises(self):
-        """test result"""
-        print('test assert')
-        # self.assertRaise(ValueError, fun, 1, 2)
+    def test_subtest(self):
+        """test subtest aaa"""
+        self.open("https://www.baidu.com")
+        for i in range(5):
+            with self.subTest(parrern=i):
+                self.send_values(i, css="#kw")
+                self.click_element(css="#su")
 
     def except_parse(self, driver):
         print('这里进行错误处理!')
