@@ -14,6 +14,7 @@ from selenium.common.exceptions import TimeoutException,\
 from pyselenium.data.selenium_dict import LOCATORS
 from pyselenium.untils import function
 from pyselenium.configs.config import YamlConfig
+from common.error import LocationTypeError
 
 
 class ApiDriver:
@@ -59,8 +60,8 @@ class ApiDriver:
     def set_wait(self, secs):
         self.driver.implicitly_wait(secs)
 
-    def _get_locs(self, *args, **kwargs):
-        print(len(args))
+    @staticmethod
+    def _get_locs(*args, **kwargs):
         if len(args) == 1 or len(kwargs) == 1:
             if args and not kwargs:
                 return (LOCATORS['css'], args[0])
@@ -69,7 +70,7 @@ class ApiDriver:
                 try:
                     return (LOCATORS[k], v)
                 except KeyError:
-                    raise KeyError("Please use a locator：'id_' 'name' 'class_' \
+                    raise LocationTypeError("Please use a locator：'id_' 'name' 'class_' \
                             'css' 'xpath' 'link_text' 'partial_link_text'.")
 
         raise ValueError("locator error, only one")
@@ -79,9 +80,6 @@ class ApiDriver:
 
     def find_elements(self, *args, **kwargs):
         return self._find_elements(*self._get_locs(*args, **kwargs))
-
-    def find_element_by_css(self, loc):
-        return self.driver.find_element_by_css_selector(loc)
 
     @function.wait(TIMEOUT)
     def _find_element(self, *location):

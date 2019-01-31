@@ -20,7 +20,7 @@ class DemoTest(unit.TestCase):
     def test_login(self, fun, search_key):
         """test_login"""
         self.open("https://www.baidu.com")
-        self.find_element_by_css('#kw')
+        self.find_element('#kw')
         # self.find_element_by_css('#aa')
         self.send_values(search_key, css="#kw")
         self.click_element(css="#su")

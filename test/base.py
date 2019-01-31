@@ -1,7 +1,7 @@
 import unittest
 
 
-class APIUnittest(unittest.TestCase):
+class SUnittest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -10,3 +10,4 @@ class APIUnittest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         pass
+

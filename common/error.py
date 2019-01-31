@@ -13,3 +13,8 @@ class UnexpectedAlert(Exception):
 
 class SheetTypeError(Exception):
     pass
+
+
+class LocationTypeError(Exception):
+    pass
+
