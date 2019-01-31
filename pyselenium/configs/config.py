@@ -9,7 +9,7 @@ REPORT_PATH = os.path.join(LOG_PATH, 'report')
 IMAGE_PATH = os.path.join(REPORT_PATH, 'images')
 
 if not os.path.isdir(IMAGE_PATH):
-    os.mkdir(IMAGE_PATH)
+    os.makedirs(IMAGE_PATH)
 
 
 class YamlConfig:

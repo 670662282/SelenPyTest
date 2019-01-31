@@ -6,9 +6,10 @@ name = "pypi"
 [packages]
 selenium = "*"
 pyyaml = "*"
-xrld = "*"
+xlrd = "*"
 keyring = "*"
 paramiko = "*"
+parameterized = "*"
 
 [dev-packages]
 coverage= "*"

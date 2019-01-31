@@ -872,7 +872,7 @@ class _TestResult(unittest.TestResult):
         self.outputBuffer = None
 
     def startTest(self, test):
-        super().startTest(self, test)
+        super().startTest(test)
         # just one buffer for both stdout and stderr
         self.outputBuffer = io.StringIO()
         stdout_redirector.fp = self.outputBuffer
@@ -936,20 +936,20 @@ class _TestResult(unittest.TestResult):
         # 防止subtest生成 test本身
         if test not in self.sub_test_list:
             self.success_count += 1
-            super().addSuccess(self, test)
+            super().addSuccess(test)
             self.result.append((ReturnCode.SUCCESS, test, self.complete_output(), ''))
             sys.stderr.write('ok {}\n'.format(str(test)) if self.verbosity > 1 else '.')
 
     def addError(self, test, err):
         self.error_count += 1
-        super().addError(self, test, err)
+        super().addError(test, err)
         _, _exc_str = self.errors[-1]
         self.result.append((ReturnCode.ERROR, test, self.complete_output(), _exc_str))
         sys.stderr.write('E {}\n'.format(str(test)) if self.verbosity > 1 else 'E')
 
     def addFailure(self, test, err):
         self.failure_count += 1
-        super().addFailure(self, test, err)
+        super().addFailure(test, err)
         _, _exc_str = self.failures[-1]
         self.result.append((ReturnCode.FAIL, test, self.complete_output(), _exc_str))
         sys.stderr.write('F {}\n'.format(str(test)) if self.verbosity > 1 else 'F')

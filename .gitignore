@@ -7,3 +7,4 @@ report/
 Logs/
 test.log
 test.log.*
+*.lock

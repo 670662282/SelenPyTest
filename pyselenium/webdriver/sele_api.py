@@ -1,24 +1,23 @@
 from time import sleep, time
-import re, functools
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import  TimeoutException,\
+from selenium.common.exceptions import TimeoutException,\
                                         NoSuchElementException,\
                                         StaleElementReferenceException,\
                                         WebDriverException,\
                                         ElementNotVisibleException,\
                                         InvalidElementStateException
-from selenium.webdriver.support.select import Select
-from pyselenium.models.logs import Log
+
 from pyselenium.data.selenium_dict import LOCATORS
 from pyselenium.untils import function
 from pyselenium.configs.config import YamlConfig
 
 
 class ApiDriver:
+
     TIMEOUT = YamlConfig().get('TIMEOUT')
 
     def open(self, url):
@@ -75,11 +74,12 @@ class ApiDriver:
 
         raise ValueError("locator error, only one")
 
-
     def find_element(self, *args, **kwargs):
         return self._find_element(*self._get_locs(*args, **kwargs))
+
     def find_elements(self, *args, **kwargs):
         return self._find_elements(*self._get_locs(*args, **kwargs))
+
     def find_element_by_css(self, loc):
         return self.driver.find_element_by_css_selector(loc)
 
@@ -116,12 +116,12 @@ class ApiDriver:
             pass
         obj.send_keys(str)
 
-
     def get_text(self, *args, **kwargs):
         return self.find_element(*args, **kwargs).text
 
     def get_attr(self, attr, *args, **kwargs):
         return self.find_element(*args, **kwargs).get_attribute(attr)
+
     def get_display(self, *args, **kwargs):
         return self.find_element(*args, **kwargs).is_displayed()
 
@@ -133,7 +133,7 @@ class ApiDriver:
         WebDriverWait(self.driver, self.timeout).until(
             EC.visibility_of_element_located(*self._get_locs(*args, **kwargs)))
 
-    #需要优化
+    # 需要优化
     @function.change_wait(time=1)
     def wait_for_drap(self, fn, *para):
         start_time = time()
@@ -145,7 +145,7 @@ class ApiDriver:
                     self.logger.error('drap fail')
                     return False
                 self.logger.info('fun:{}, wait..'.format(fn))
-            except ( WebDriverException, NoSuchElementException ) as e:
+            except (WebDriverException, NoSuchElementException) as e:
                 self.logger.info('drap success')
                 return True
 
@@ -185,9 +185,9 @@ class ApiDriver:
     """
     def select_const_item(self, select_obj, choice_value, const_list=None):
         select_obj.click()
-        #get elements list  as value
+        # get elements list  as value
         obj_list = self.get_obj_list()
-        #get const_list  as key
+        # get const_list  as key
         if const_list is None:
             const_list = [ x.text for x in obj_list ]
 
@@ -222,8 +222,10 @@ class ApiDriver:
         i = 0
         for element in element_list:
             if select_num is not None:
-                if select_num < 1:  raise ValueError('选择的数不能小于1')
-                if i == select_num: break
+                if select_num < 1:
+                    raise ValueError('选择的数不能小于1')
+                if i == select_num:
+                    break
             action.click(element)
             select_ele_text_list.append(element.text)
             i += 1
