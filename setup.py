@@ -17,7 +17,7 @@ setup(
     long_description=long_description,
     author='jason',
     install_requests=install_requests,
-    python_requires="3.4, 3.5, 3.6, 3.7",
+    python_requires=">=3.4",
     packages=find_packages(),
     include_package_data=True,
 )
