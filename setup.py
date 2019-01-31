@@ -7,7 +7,7 @@ with io.open("README.md", encoding='utf-8') as f:
 install_requests = {
     "selenium",
     "PyYAML",
-    "xlrd",
+    "xrld",
 }
 
 setup(
@@ -17,7 +17,7 @@ setup(
     long_description=long_description,
     author='jason',
     install_requests=install_requests,
-    python_requires=">3.3, <4",
+    python_requires="3.4, 3.5, 3.6, 3.7",
     packages=find_packages(),
     include_package_data=True,
 )
