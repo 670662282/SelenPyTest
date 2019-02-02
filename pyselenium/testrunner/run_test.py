@@ -61,7 +61,7 @@ class TestRunner:
                 if os.path.isfile(r):
                     del_list.append(r)
                     os.remove(r)
-        self.logger.info('del report : %s', del_list)
+        self.logger.info('del report : %s' % del_list)
         return os.path.join(reports_path, new_report)
 
     def _get_discover(self):

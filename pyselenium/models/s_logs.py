@@ -16,16 +16,7 @@ log_colors_config = {
 }
 
 
-class Log(object):
-
-    _instance_lock = threading.Lock()
-
-    def __new__(cls, *args, **kwargs):
-        if not hasattr(Log, "_instance"):
-            with Log._instance_lock:
-                if not hasattr(Log, "_instance"):
-                    Log._instance = object.__new__(cls)
-        return Log._instance
+class Log:
 
     def __init__(self):
         init(autoreset=True)
@@ -34,8 +25,6 @@ class Log(object):
             raise KeyError
         self.backup = self.logs.get('backup', 5)
         self.level = self.logs.get('level', 'INFO')
-        self.pattern = self.logs.get('pattern',
-                                     '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         self.output = self.logs.get('output', 0)
         self.logger = logging.getLogger('SelePyTest')
 
@@ -47,12 +36,18 @@ class Log(object):
         if not self.logger.handlers:
             # set log level main on-off
             self.logger.setLevel(self.level)
-            self.formatter = LevelFormatter(
-                self.pattern,
-                datefmt="%d %b %Y %H:%M:%S",
+            self.formatter = LevelFormatter(fmt={
+                'DEBUG': '%(log_color)sDEBUG: %(asctime)s(%(module)s:%(lineno)d) %(msg)s',
+                'INFO': '%(log_color)sINFO: %(asctime)s%(msg)s',
+                'WARNING': '%(log_color)sWARN: (%(module)s:%(lineno)d) %(asctime)s %(msg)s ',
+                'ERROR': '%(log_color)sERROR: (%(module)s:%(lineno)d) %(asctime)s %(msg)s ',
+                'CRITICAL': '%(log_color)sCRIT: (%(module)s:%(lineno)d) %(asctime)s %(msg)s ',
+            },
+                datefmt=None,
                 reset=True,
-                log_colors=log_colors_config[self.level])
-            self.set_output_mode(self.output)
+                log_colors=log_colors_config
+            )
+            self.set_output_mode()
 
         self.debug = self.log_with_color("DEBUG")
         self.info = self.log_with_color("INFO")
@@ -61,7 +56,7 @@ class Log(object):
         self.critical = self.log_with_color("CRITICAL")
 
     def coloring(self, text='', color='WHITE'):
-        if hasattr(Fore, color):
+        if hasattr(Fore, color.upper()):
             return getattr(Fore, color.upper()) + text
         else:
             print("no %s color!" % color)
@@ -111,7 +106,9 @@ class Log(object):
 
 
 if __name__ == "__main__":
+
     l = Log()
-   # if hasattr(l.logger, 'info'):
-        #l.log_info('23323')
-    #l.log_with_color("DEBUG")('dsdsd')
+    l.logger.error('232323')
+    if hasattr(l.logger, 'info'):
+        l.error('23323')
+

@@ -2,7 +2,6 @@ URL: http://10.10.120.3
 log:
     backup: 3
     level: DEBUG
-    pattern: '%(log_color)s%(bg_white)s%(asctime)s%(levelname)-8s%(reset)s %(message)s'
     output: 2
 TL_LOG: /webgui/log/
 RESERVE_REPORTS_NUM: 3
