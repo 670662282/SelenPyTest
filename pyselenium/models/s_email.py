@@ -176,7 +176,7 @@ class Email:
             self.logger.info('Email No subject')
             return
         if isinstance(subject, list):
-            subject = " ".join(list)
+            subject = " ".join(subject)
         message['Subject'] = Header(subject, self.encoding)
 
     def _get_attach(self, attach_content, attach_name):
