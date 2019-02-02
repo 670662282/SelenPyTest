@@ -60,7 +60,6 @@ class Log(object):
         self.error = self.log_with_color("ERROR")
         self.critical = self.log_with_color("CRITICAL")
 
-
     def coloring(self, text='', color='WHITE'):
         if hasattr(Fore, color):
             return getattr(Fore, color.upper()) + text
