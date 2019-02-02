@@ -46,7 +46,7 @@ class TestRunner:
 
         reports_path = os.getcwd()
         all_file = os.listdir('.')
-        self.logger.info('list : %s', all_file)
+        self.logger.info('list : %s' % all_file)
 
         reports = [f for f in all_file if f.strip().endswith('.html')]
         reports.sort(key=lambda f: os.path.getmtime(f))
