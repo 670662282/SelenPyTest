@@ -2,7 +2,7 @@
 # !/usr/bin/env python3
 from .ExtentHTMLTestRunner import HTMLTestRunner
 from pyselenium.configs.config import YamlConfig
-from pyselenium.models.logs import Log
+from pyselenium.models.s_logs import Log
 import unittest
 import time
 import os
@@ -21,7 +21,7 @@ class TestRunner:
         self.debug = debug
         self.description = description
         self.case_cls_re = case_cls_re
-        self.logger = Log().get_logger()
+        self.logger = Log()
         cf = YamlConfig()
         self.backup = report_backup
         self.email_title = cf.get('MAIL_TITLE')

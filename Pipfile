@@ -10,6 +10,8 @@ xlrd = "*"
 keyring = "*"
 paramiko = "*"
 parameterized = "*"
+colorama= "*"
+colorlog = "*"
 
 [dev-packages]
 coverage= "*"

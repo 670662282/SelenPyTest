@@ -1,12 +1,11 @@
 # coding:utf-8
 # !/usr/bin/env python3
 
-from pyselenium import unit
+from pyselenium.models import unit
 from pyselenium.untils.listener import MyListener
 from selenium.webdriver.support.events import EventFiringWebDriver
 from selenium import webdriver
 from pyselenium.models.driver import browser
-from time import sleep
 
 
 def setUpModule():

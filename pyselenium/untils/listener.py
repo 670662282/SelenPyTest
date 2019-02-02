@@ -1,5 +1,5 @@
 from selenium.webdriver.support.events import AbstractEventListener
-from pyselenium.models.logs import Log
+from pyselenium.models.s_logs import Log
 from selenium.webdriver.remote.webelement import WebElement
 from time import sleep
 
@@ -7,7 +7,7 @@ from time import sleep
 class MyListener(AbstractEventListener):
     """ Listener driver"""
     def __init__(self, timeout=0):
-        self.logger = Log().get_logger()
+        self.logger = Log()
         try:
             self.element_wait = int(timeout)
         except ValueError:

@@ -2,9 +2,8 @@
 # !/usr/bin/env python3
 
 from parameterized import parameterized
-from pyselenium import unit
+from pyselenium.models import unit
 from pyselenium.untils.function import capture_except
-from time import sleep
 
 
 def setUpModule():
