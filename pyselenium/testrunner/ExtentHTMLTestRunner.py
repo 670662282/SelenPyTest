@@ -1,7 +1,7 @@
 # coding:utf-8
 """
 A TestRunner for use with the Python unit testing framework. It
-generates a HTML report to show the result at a glance.
+generates a HTML reports to show the result at a glance.
 
 The simplest way to use this is to invoke its main method. E.g.
 
@@ -22,7 +22,7 @@ HTMLTestRunner is a counterpart to unittest's TextTestRunner. E.g.
     runner = HTMLTestRunner.HTMLTestRunner(
                 stream=fp,
                 title='My unit test',
-                description='This demonstrates the report output by HTMLTestRunner.'
+                description='This demonstrates the reports output by HTMLTestRunner.'
                 )
 
     # Use an external stylesheet.
@@ -95,9 +95,9 @@ stderr_redirector = OutputRedirector(sys.stderr)
 
 class TemplateMixin(object):
     """
-    Define a HTML template for report customerization and generation.
+    Define a HTML template for reports customerization and generation.
 
-    Overall structure of an HTML report
+    Overall structure of an HTML reports
 
     HTML
     +------------------------+
@@ -172,7 +172,7 @@ class TemplateMixin(object):
     {heading}
     
     <div class='container'>
-        {report}
+        {reports}
         {dashboard_view}
     </div>
     
@@ -206,11 +206,11 @@ class TemplateMixin(object):
                                         view='dashboard-view'><i class='material-icons'>track_changes</i></a></li> -->
         </ul>
 
-        <!-- report name -->
-        <span class='report-name'>Test Report: {title}</span>
+        <!-- reports name -->
+        <span class='reports-name'>Test Report: {title}</span>
 
-        <!-- report headline -->
-        <span class='report-headline'></span>
+        <!-- reports headline -->
+        <span class='reports-headline'></span>
 
         <!-- nav-right -->
         <ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
@@ -989,7 +989,7 @@ class HTMLTestRunner(TemplateMixin):
 
     def get_report_attributes(self, result):
         """
-        Return report attributes as a list of (name, value).
+        Return reports attributes as a list of (name, value).
         Override this to add custom attributes.
         """
         status = []

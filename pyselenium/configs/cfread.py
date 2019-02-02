@@ -23,7 +23,7 @@ class ReaderFactory:
             reader = cls.JsonReader
         elif file_path.endswith('.yaml'):
             reader = cls.YamlReader
-        elif file_path.endswith('.excel'):
+        elif file_path.endswith('.xls'):
             reader = cls.ExcelReader
         else:
             raise ValueError("can't not open to {}, please use yaml xml json".format(file_path))
@@ -106,7 +106,32 @@ class ReaderFactory:
                     self._data = list(yaml.safe_load_all(f))
             return self._data
 
-        # @dump.setter
-        def dump(self, data):
+        @data.setter
+        def data(self, data):
             with open(self.yaml, 'a', encoding='utf-8') as f:
-                yaml.dump_all(data, f, default_flow_style=False, indent=4)
+                yaml.safe_dump(data, f, default_flow_style=False, allow_unicode=True, indent=4)
+
+
+if __name__ == '__main__':
+    ya = ReaderFactory.YamlReader('test2.yaml')
+    import yaml
+    info = dict()
+    info.update({
+        'URL': "http://10.10.120.3",
+        'log': {
+            'backup': 3,
+            'level': "DEBUG",
+            "output": 2
+        },
+        'RESERVE_REPORTS_NUM': 3,
+        "EMAIL_SERVER": "smtp.163.com",
+        "EMAIL_USR": '',
+        "EMAIL_RECEIVE": '',
+        "MAIL_TITLE": u'UI自动化测试报告',
+        "IMP_TIME": 20,
+        "TIME_OUT": 30,
+    })
+    print(info)
+    ya.data = info
+
+

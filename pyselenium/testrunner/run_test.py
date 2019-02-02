@@ -38,7 +38,7 @@ class TestRunner:
     def handle_reports(self, reports_path, reserve_num=0):
         """
         Sort reports for mtime
-        Retain the latest reserve_num reports and return to the latest report.
+        Retain the latest reserve_num reports and return to the latest reports.
         reserve_num <= 0 表示不进行删除
         """
         if os.path.isdir(reports_path):
@@ -61,7 +61,7 @@ class TestRunner:
                 if os.path.isfile(r):
                     del_list.append(r)
                     os.remove(r)
-        self.logger.info('del report : %s' % del_list)
+        self.logger.info('del reports : %s' % del_list)
         return os.path.join(reports_path, new_report)
 
     def _get_discover(self):
@@ -75,7 +75,7 @@ class TestRunner:
         unit_runner.run(self._get_discover())
 
     def _normal(self):
-        reports_path = os.path.join(os.getcwd(), 'report')
+        reports_path = os.path.join(os.getcwd(), 'reports')
         if not os.path.isdir(reports_path):
             os.mkdir(reports_path)
         report_name = time.strftime("%Y-%m-%d_%H-%M-%S") + 'UITest.html'

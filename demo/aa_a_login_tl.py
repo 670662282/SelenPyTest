@@ -44,5 +44,5 @@ class DemoTest(unit.TestCase):
 if __name__ == '__main__':
     testRunner = TestRunner(cases="./", casecls_re='*.py', debug=False, report_backup=3)
     testRunner.runner()
-    report = testRunner.report_file
+    reports = testRunner.report_file
 """

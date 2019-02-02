@@ -5,6 +5,10 @@ from selenium.common.exceptions import NoSuchElementException, WebDriverExceptio
 from pyselenium.configs.config import IMAGE_PATH, YamlConfig
 from pyselenium.models.ssh import MySSH
 import functools
+from pyselenium.models.s_logs import Log
+
+logger = Log()
+
 try:
     import keyring
 except (NameError, ImportError, RuntimeError):
@@ -123,3 +127,38 @@ def get_web_log(ip, pwd, service_file=None, local_path=None):
         ssh.close()
 
     return local_file
+
+
+def create_project_scaffold(project_name):
+
+    if os.path.isdir(project_name):
+        logger.warning("Folder {} exists, please specify a new folder name".format(project_name))
+        return
+
+    logger.print_color("Start to create new project: {}".format(project_name), "YELLOW")
+
+    dir_list = {
+        os.path.join(project_name, 'reports/images'),
+        os.path.join(project_name, 'testcases'),
+        os.path.join(project_name, 'config'),
+    }
+    [os.makedirs(path) and logger.print_color("success crete dir {}".format(path), "YELLOW") for path in dir_list]
+
+    from pyselenium.configs.cfread import ReaderFactory
+
+    config = ReaderFactory.reader(os.path.join(project_name, 'config', 'config.yaml'))
+    config.data = {
+        'URL': "http://10.10.120.3",
+        'log': {
+            'backup': 3,
+            'level': "DEBUG",
+            "output": 2
+        },
+        'RESERVE_REPORTS_NUM': 3,
+        "EMAIL_SERVER": 'smtp.163.com',
+        "EMAIL_USR": '',
+        "EMAIL_RECEIVE": '',
+        "MAIL_TITLE": 'UI自动化测试报告',
+        "IMP_TIME": 20,
+        "TIME_OUT": 30,
+    }
