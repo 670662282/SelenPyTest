@@ -9,14 +9,13 @@ import xml.etree.ElementTree as xml
 import os
 from xlrd import open_workbook
 from common.error import SheetTypeError
+from collections import OrderedDict
 
 
 class ReaderFactory:
 
     @classmethod
     def reader(cls, file_path):
-        if not os.path.exists(file_path):
-            raise FileNotFoundError('{}配置文件不存在！'.format(file_path))
         if file_path.endswith('.xml'):
             reader = cls.XmlReader
         elif file_path.endswith('.json'):
@@ -95,28 +94,54 @@ class ReaderFactory:
             return self._data
 
     class YamlReader:
-        def __init__(self, file):
+        def __init__(self, file, write_mode='w'):
             self.yaml = file
             self._data = None
+            self._write_mode = write_mode
 
         @property
         def data(self):
             if not self._data:
-                with open(self.yaml, 'rb') as f:
+                with open(self.yaml, 'r', encoding='utf-8') as f:
                     self._data = list(yaml.safe_load_all(f))
             return self._data
 
         @data.setter
         def data(self, data):
-            with open(self.yaml, 'a', encoding='utf-8') as f:
-                yaml.safe_dump(data, f, default_flow_style=False, allow_unicode=True, indent=4)
+            with open(self.yaml, self._write_mode, encoding='utf-8') as f:
+                self.ordered_yaml_dump(data, f, default_flow_style=False, allow_unicode=True, indent=4)
+
+        @staticmethod
+        def ordered_yaml_dump(data, stream=None, **kwargs):
+
+            def _dict_representer(dumper, data):
+                return dumper.represent_mapping(
+                    yaml.loader.BaseResolver.DEFAULT_MAPPING_TAG,
+                    data.items())
+
+            yaml.SafeDumper.add_representer(OrderedDict, _dict_representer)
+            return yaml.dump(data, stream, yaml.SafeDumper, **kwargs)
+
+        """
+        def ordered_yaml_load(self, stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):
+            class OrderedLoader(Loader):
+                pass
+
+            def construct_mapping(loader, node):
+                loader.flatten_mapping(node)
+                return object_pairs_hook(loader.construct_pairs(node))
+
+            OrderedLoader.add_constructor(
+                yaml.loader.BaseResolver.DEFAULT_MAPPING_TAG,
+                construct_mapping)
+            return yaml.load(stream, OrderedLoader)
+        """
 
 
 if __name__ == '__main__':
-    ya = ReaderFactory.YamlReader('test2.yaml')
-    import yaml
-    info = dict()
-    info.update({
+    file_path = 'test.yaml'
+    ya = ReaderFactory.reader(file_path)
+    info = OrderedDict({
         'URL': "http://10.10.120.3",
         'log': {
             'backup': 3,
@@ -127,11 +152,18 @@ if __name__ == '__main__':
         "EMAIL_SERVER": "smtp.163.com",
         "EMAIL_USR": '',
         "EMAIL_RECEIVE": '',
-        "MAIL_TITLE": u'UI自动化测试报告',
+        "MAIL_TITLE": 'UI自动化测试报告',
         "IMP_TIME": 20,
         "TIME_OUT": 30,
     })
-    print(info)
     ya.data = info
+    print(ya.data)
+    if os.path.isfile(file_path):
+        os.remove(file_path)
+
+
+
+
+
 
 

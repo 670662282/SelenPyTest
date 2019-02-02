@@ -154,11 +154,19 @@ def create_project_scaffold(project_name):
             'level': "DEBUG",
             "output": 2
         },
-        'RESERVE_REPORTS_NUM': 3,
-        "EMAIL_SERVER": 'smtp.163.com',
-        "EMAIL_USR": '',
-        "EMAIL_RECEIVE": '',
-        "MAIL_TITLE": 'UI自动化测试报告',
-        "IMP_TIME": 20,
-        "TIME_OUT": 30,
+        'EMAIL': {
+            "EMAIL_SERVER": 'smtp.163.com',
+            "EMAIL_USR": '',
+            "EMAIL_RECEIVE": ''
+        },
+        'REPORT': {
+            'BACKUP_DAY': 3,
+            'BACKUP_COUNT': 3,
+            "MAIL_TITLE": 'UI自动化测试报告'
+        },
+        'TIME': {
+            "IMP_TIME": 20,
+            "MAX_TIME_OUT": 30
+        }
+
     }
