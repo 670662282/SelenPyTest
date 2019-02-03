@@ -5,7 +5,7 @@ from pyselenium.configs.config import YamlConfig, LOG_PATH
 from logging.handlers import TimedRotatingFileHandler
 from colorama import Fore, init
 from colorlog import LevelFormatter
-from pprint import pprint
+
 log_colors_config = {
     'DEBUG':    'cyan',
     'INFO':     'green',
@@ -62,7 +62,7 @@ class Log:
             return text
 
     def print_color(self, text, color='green'):
-        pprint(self.coloring(text, color))
+        print(self.coloring(text, color))
 
     def _file_output(self):
         """create file handle for write logs"""

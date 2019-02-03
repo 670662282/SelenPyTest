@@ -5,7 +5,7 @@ from selenium.common.exceptions import NoSuchElementException, WebDriverExceptio
 from pyselenium.configs.config import IMAGE_PATH, YamlConfig
 from pyselenium.untils.ssh import MySSH
 import functools
-from pyselenium.models.s_logs import Log
+from pyselenium.lib.s_logs import Log
 
 logger = Log()
 
@@ -22,6 +22,38 @@ def get_png(driver, file_name):
     driver.get_screenshot_as_file(os.path.join(IMAGE_PATH, png_name))
     print('出错截图：', os.path.join(IMAGE_PATH, png_name))
     return os.path.join(IMAGE_PATH, png_name)
+
+
+def find_alias(arg, compare):
+    arg = str(arg)
+    max_char_alias_len = 0
+    alias_char = None
+    if isinstance(compare, str):
+        compare = [compare]
+    elif isinstance(compare, dict):
+        compare = compare.keys()
+    elif isinstance(compare, (list, set)):
+        pass
+    else:
+        compare = str(compare)
+
+    for key in compare:
+        if key == arg:
+            return key
+        key = str(key)
+        # str conversion List of characters
+        key_char_list = ' '.join(key).split(' ')
+        count = 0
+        for i in arg:
+            if i in key_char_list:
+                count += 1
+        max_len = len(key) if len(key) > len(arg) else len(arg)
+        if count > max_len / 2 + 1 and count > max_char_alias_len:
+            alias_char = key
+            max_char_alias_len = count
+            logger.debug("alias_char:{}, max_char_alias_len: {}".format(alias_char, max_char_alias_len))
+
+    return alias_char
 
 
 def get_password(usr=None, pwd=None, type='email'):
@@ -141,6 +173,7 @@ def create_project_scaffold(project_name):
         os.path.join(project_name, 'reports/images'),
         os.path.join(project_name, 'testcases'),
         os.path.join(project_name, 'config'),
+        os.path.join(project_name, 'logs'),
     }
     [os.makedirs(path) and logger.print_color("success crete dir {}".format(path), "YELLOW") for path in dir_list]
 

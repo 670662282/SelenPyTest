@@ -2,7 +2,7 @@
 # !/usr/bin/env python3
 from .ExtentHTMLTestRunner import HTMLTestRunner
 from pyselenium.configs.config import YamlConfig
-from pyselenium.models.s_logs import Log
+from pyselenium.lib.s_logs import Log
 import unittest
 import time
 import os

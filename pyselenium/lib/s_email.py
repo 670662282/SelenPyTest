@@ -2,7 +2,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from email.header import Header
-from pyselenium.models.s_logs import Log
+from pyselenium.lib.s_logs import Log
 from pyselenium.untils.function import get_password, unregister
 from common.error import EmailAddressInvalid
 import smtplib

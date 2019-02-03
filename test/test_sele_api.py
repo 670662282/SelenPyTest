@@ -33,5 +33,8 @@ class TestSApi(SUnittest):
         })
         ya.data = info
         self.assertDictEqual(info, ya.data[0])
-        if os.path.isfile(file_path):
-            os.remove(file_path)
+
+    @classmethod
+    def tearDownClass(cls):
+        if os.path.isfile('test.yaml'):
+            os.remove('test.yaml')

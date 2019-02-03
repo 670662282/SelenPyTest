@@ -19,5 +19,7 @@ class LocationTypeError(Exception):
     pass
 
 
-class OptionsError(Exception):
+class BrowserNoFoundError(Exception):
     pass
+
+

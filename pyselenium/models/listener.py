@@ -1,5 +1,5 @@
 from selenium.webdriver.support.events import AbstractEventListener
-from pyselenium.models.s_logs import Log
+from pyselenium.lib.s_logs import Log
 from selenium.webdriver.remote.webelement import WebElement
 from time import sleep
 
