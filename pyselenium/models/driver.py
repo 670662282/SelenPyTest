@@ -1,5 +1,21 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
-from pyselenium.data.selenium_dict import BROWSERS
+
+def chrome_headless():
+    ops = Options()
+    ops.add_argument('--headless')
+    return webdriver.Chrome(chrome_options=ops)
+
+
+BROWSERS = {
+    'chrome':           webdriver.Chrome,
+    'chrome_headless':  chrome_headless,
+    'firefox':          webdriver.Firefox,
+    'ie':               webdriver.Ie,
+    'opera':            webdriver.Opera,
+    'edge':             webdriver.Edge,
+}
 
 
 def browser(bro, **kwargs):

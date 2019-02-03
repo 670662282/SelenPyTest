@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 import logging
 import os
-import threading
 from pyselenium.configs.config import YamlConfig, LOG_PATH
 from logging.handlers import TimedRotatingFileHandler
 from colorama import Fore, init
 from colorlog import LevelFormatter
-
+from pprint import pprint
 log_colors_config = {
     'DEBUG':    'cyan',
     'INFO':     'green',
@@ -24,7 +23,7 @@ class Log:
         if self.logs is None:
             raise KeyError
         self.backup = self.logs.get('backup', 5)
-        self.level = self.logs.get('level', 'INFO')
+        self.level = self.logs.get('level', 'DEBUG')
         self.output = self.logs.get('output', 0)
         self.logger = logging.getLogger('SelePyTest')
 
@@ -47,13 +46,13 @@ class Log:
                 reset=True,
                 log_colors=log_colors_config
             )
-            self.set_output_mode()
+            self.set_output_mode(2)
 
-        self.debug = self.log_with_color("DEBUG")
-        self.info = self.log_with_color("INFO")
-        self.warning = self.log_with_color("WARNING")
-        self.error = self.log_with_color("ERROR")
-        self.critical = self.log_with_color("CRITICAL")
+        self.debug = self.logger.debug
+        self.info = self.logger.info
+        self.warning = self.logger.warning
+        self.error = self.logger.error
+        self.critical = self.logger.critical
 
     def coloring(self, text='', color='WHITE'):
         if hasattr(Fore, color.upper()):
@@ -63,7 +62,7 @@ class Log:
             return text
 
     def print_color(self, text, color='green'):
-        print(self.coloring(text, color))
+        pprint(self.coloring(text, color))
 
     def _file_output(self):
         """create file handle for write logs"""
@@ -99,16 +98,19 @@ class Log:
             self._console_output()
             self._file_output()
 
+    """
     def log_with_color(self, level):
         def log_level(text):
             getattr(self.logger, level.lower())(self.coloring(text, log_colors_config[level.upper()]))
         return log_level
+    """
 
 
 if __name__ == "__main__":
+    logger = Log()
+    logger.info('232323')
+    logger.warning('2323')
+    logger.error('2323')
+    logger.debug('hahahaha')
 
-    l = Log()
-    l.logger.error('232323')
-    if hasattr(l.logger, 'info'):
-        l.error('23323')
 
