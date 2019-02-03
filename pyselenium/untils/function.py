@@ -17,7 +17,7 @@ except (NameError, ImportError, RuntimeError):
 MAX_TIME = YamlConfig().get('TIME_OUT')
 
 
-def get_png(driver, file_name):
+def get_png(driver, file_name='.png'):
     png_name = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + file_name
     driver.get_screenshot_as_file(os.path.join(IMAGE_PATH, png_name))
     print('出错截图：', os.path.join(IMAGE_PATH, png_name))
@@ -25,6 +25,8 @@ def get_png(driver, file_name):
 
 
 def find_alias(arg, compare):
+    if not arg or not compare:
+        return None
     arg = str(arg)
     max_char_alias_len = 0
     alias_char = None
@@ -163,7 +165,7 @@ def get_web_log(ip, pwd, service_file=None, local_path=None):
 
 def create_project_scaffold(project_name):
 
-    if os.path.isdir(project_name):
+    if project_name and os.path.isdir(project_name):
         logger.warning("Folder {} exists, please specify a new folder name".format(project_name))
         return
 
