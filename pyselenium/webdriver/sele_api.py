@@ -10,10 +10,23 @@ from selenium.common.exceptions import TimeoutException,\
                                         ElementNotVisibleException,\
                                         InvalidElementStateException
 
-from pyselenium.data.selenium_dict import LOCATORS
+
 from pyselenium.untils import function
 from pyselenium.configs.config import YamlConfig
 from common.error import LocationTypeError
+from selenium.webdriver.common.by import By
+
+
+LOCATORS = {
+    'css': By.CSS_SELECTOR,
+    'id_': By.ID,
+    'name': By.NAME,
+    'xpath': By.XPATH,
+    'link_text': By.LINK_TEXT,
+    'partial_link_text': By.PARTIAL_LINK_TEXT,
+    'tag': By.TAG_NAME,
+    'class_': By.CLASS_NAME,
+}
 
 
 class ApiDriver:
