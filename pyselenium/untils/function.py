@@ -3,7 +3,7 @@ from time import strftime, localtime, time, sleep
 from keyring.errors import PasswordDeleteError
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from pyselenium.configs.config import IMAGE_PATH, YamlConfig
-from pyselenium.models.ssh import MySSH
+from pyselenium.untils.ssh import MySSH
 import functools
 from pyselenium.models.s_logs import Log
 
@@ -149,10 +149,13 @@ def create_project_scaffold(project_name):
     config = ReaderFactory.reader(os.path.join(project_name, 'config', 'config.yaml'))
     config.data = {
         'URL': "http://10.10.120.3",
+        'Api': {
+            'is_listen': True
+        },
         'log': {
             'backup': 3,
             'level': "DEBUG",
-            "output": 2
+            "is_store": True
         },
         'EMAIL': {
             "EMAIL_SERVER": 'smtp.163.com',

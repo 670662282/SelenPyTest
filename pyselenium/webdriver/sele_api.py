@@ -10,7 +10,6 @@ from selenium.common.exceptions import TimeoutException,\
                                         ElementNotVisibleException,\
                                         InvalidElementStateException
 
-
 from pyselenium.untils import function
 from pyselenium.configs.config import YamlConfig
 from common.error import LocationTypeError
