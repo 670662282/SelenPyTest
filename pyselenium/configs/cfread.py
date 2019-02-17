@@ -13,7 +13,7 @@ from collections import OrderedDict
 
 
 class ReaderFactory:
-
+    # TODO yaml json csv互相转换
     @classmethod
     def reader(cls, file_path):
         if file_path.endswith('.xml'):

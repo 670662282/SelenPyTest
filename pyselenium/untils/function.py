@@ -1,4 +1,5 @@
 import os
+from collections import OrderedDict
 from time import strftime, localtime, time, sleep
 from keyring.errors import PasswordDeleteError
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
@@ -176,14 +177,14 @@ def create_project_scaffold(project_name):
         os.path.join(project_name, 'testcases'),
         os.path.join(project_name, 'config'),
         os.path.join(project_name, 'logs'),
+        os.path.join(project_name, 'runner'),
     }
     [os.makedirs(path) and logger.print_color("success crete dir {}".format(path), "YELLOW") for path in dir_list]
 
     from pyselenium.configs.cfread import ReaderFactory
 
     config = ReaderFactory.reader(os.path.join(project_name, 'config', 'config.yaml'))
-    config.data = {
-        'URL': "http://10.10.120.3",
+    config.data = OrderedDict({
         'Api': {
             'is_listen': True
         },
@@ -192,19 +193,19 @@ def create_project_scaffold(project_name):
             'level': "DEBUG",
             "is_store": True
         },
-        'EMAIL': {
+        'email': {
             "EMAIL_SERVER": 'smtp.163.com',
             "EMAIL_USR": '',
             "EMAIL_RECEIVE": ''
         },
-        'REPORT': {
+        'export': {
             'BACKUP_DAY': 3,
             'BACKUP_COUNT': 3,
             "MAIL_TITLE": 'UI自动化测试报告'
         },
-        'TIME': {
+        'wait_time': {
             "IMP_TIME": 20,
             "MAX_TIME_OUT": 30
         }
 
-    }
+    })
