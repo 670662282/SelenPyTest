@@ -94,6 +94,7 @@ stderr_redirector = OutputRedirector(sys.stderr)
 
 
 class TemplateMixin(object):
+    # TODO Template  part
     """
     Define a HTML template for reports customerization and generation.
 
@@ -837,7 +838,6 @@ START_TIME = "Start Time"
 DURATION = "Duration"
 STATUS_ = "Status"
 
-
 class ReturnCode:
     SUCCESS = 0
     FAIL = 1
@@ -1088,6 +1088,7 @@ class HTMLTestRunner(TemplateMixin):
         #   stack trace, e
         # )
     def _generate_report(self, result):
+        # TODO Refactor this function
         rows = []
         row1s = []
         section_name = []
@@ -1111,7 +1112,6 @@ class HTMLTestRunner(TemplateMixin):
             else:
                 name = "%s.%s" % (cls.__module__, cls.__name__)
             doc = cls.__doc__ and cls.__doc__.strip('\n') or "None"
-            # desc = doc and '%s: %s' % (name, doc) or name
             desc = doc and '%s' % name or name
 
             # section中suite name
@@ -1197,13 +1197,8 @@ class HTMLTestRunner(TemplateMixin):
         )
         return report
 
-    def _generate_report_test(
-                self, rows,
-                cid, tid,
-                code, obj,
-                out, trace,
-                test_collection_ul_list):
-
+    def _generate_report_test(self, rows, cid, tid, code, obj, out, trace, test_collection_ul_list):
+        # TODO parameters is greater than 7 authorized
         has_output = bool(out or trace)
         if not has_output:
             return
@@ -1285,7 +1280,7 @@ class TestProgram(unittest.TestProgram):
         # base class's testRunner parameter is not useful because it means
         # we have to instantiate HTMLTestRunner before we know self.verbosity.
         if self.testRunner is None:
-            self.testRunner = HTMLTestRunner(verbosity=self.verbosity)
+            self.testRunner = HTMLTestRunner(verbosity=1)
         unittest.TestProgram.runTests(self)
 
 

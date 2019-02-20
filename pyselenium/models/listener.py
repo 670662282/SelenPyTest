@@ -20,6 +20,7 @@ class MyListener(AbstractEventListener):
         self.logger.info("After navigate to %s" % url)
 
     def before_find(self, by, value, driver):
+        # TODO Refoact this function
         """wait element!"""
         if self.element_wait:
             for i in range(self.element_wait*10):

@@ -26,6 +26,7 @@ def get_png(driver, file_name='.png'):
 
 
 def find_alias(arg, compare):
+    # TODO Refactor this function
     if not arg or not compare:
         return None
     arg = str(arg)

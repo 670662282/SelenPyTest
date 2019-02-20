@@ -142,7 +142,7 @@ if __name__ == '__main__':
     file_path = 'test.yaml'
     ya = ReaderFactory.reader(file_path)
     info = OrderedDict({
-        'URL': "http://10.10.120.3",
+        'URL': "http://www.baidu.com",
         'log': {
             'backup': 3,
             'level': "DEBUG",

@@ -61,8 +61,8 @@ VALID_ADDRESS_REGEXP = '^' + ADDR_SPEC + '$'
 class Email:
 
     def __init__(self,
-                 server='10.10.1.3',
-                 usr='',
+                 server,
+                 usr,
                  pwd=None,
                  port=25,
                  encoding='utf-8',
@@ -93,7 +93,7 @@ class Email:
     def __enter__(self):
         return self
 
-    def __exit__(self):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         if not self.is_close:
             self.close()
 
