@@ -1,7 +1,7 @@
 # coding:utf-8
 # !/usr/bin/env python3
 
-from pyselenium.models import unit
+from pyselenium.models import unittest
 from pyselenium.models.listener import MyListener
 from selenium.webdriver.support.events import EventFiringWebDriver
 from selenium import webdriver
@@ -12,7 +12,7 @@ def setUpModule():
     print('start UITest!')
 
 
-class DemoTest2(unit.TestCase):
+class DemoTest2(unittest.TestCase):
     """This is Test a2"""
 
     @classmethod

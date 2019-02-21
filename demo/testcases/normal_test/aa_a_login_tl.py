@@ -2,7 +2,7 @@
 # !/usr/bin/env python3
 
 from parameterized import parameterized
-from pyselenium.models import unit
+from pyselenium.models import unittest
 from pyselenium.untils.function import capture_except
 
 
@@ -10,7 +10,7 @@ def setUpModule():
     print('start UITest!')
 
 
-class DemoTest(unit.TestCase):
+class DemoTest(unittest.TestCase):
     """This is Test a"""
     @parameterized.expand([
         ('test1', 'selenium'),

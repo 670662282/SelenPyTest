@@ -15,10 +15,10 @@
 # specific language governing permissions and limitations
 # under the License.
 
-__version__ = "1.0"
+__version__ = "0.1.1"
 __author__ = "jiangchen"
 
 from .testrunner.run_test import TestRunner
 from .apis import sele_api
-from pyselenium.models import unit
+from pyselenium.models import unittest as unit
 from .models.driver import browser

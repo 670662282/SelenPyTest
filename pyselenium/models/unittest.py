@@ -1,3 +1,7 @@
+import unittest
+from pyselenium.models.driver import browser
+from pyselenium.apis.sele_api import ApiDriver
+from selenium.webdriver.support.events import EventFiringWebDriver
 from selenium.webdriver.support.events import AbstractEventListener
 from pyselenium.lib.s_logs import Log
 from selenium.webdriver.remote.webelement import WebElement
@@ -80,3 +84,21 @@ class MyListener(AbstractEventListener):
     def on_exception(self, exception, driver):
         pass
         # self.logger.info(exception)
+
+
+class TestCase(unittest.TestCase, ApiDriver):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.driver = EventFiringWebDriver(browser('chrome'), MyListener())
+        # cls.driver.maximize_window()
+        cls.logger = Log()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+
+    def except_parse(self, driver):
+        print('这里进行错误处理')
+
+
