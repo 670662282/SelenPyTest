@@ -15,7 +15,6 @@ from pyselenium.configs.config import YamlConfig
 from common.error import LocationTypeError
 from selenium.webdriver.common.by import By
 
-
 LOCATORS = {
     'css': By.CSS_SELECTOR,
     'id_': By.ID,
@@ -34,10 +33,6 @@ class ApiDriver:
 
     def open(self, url):
         self.driver.get(url)
-
-    @property
-    def get_driver(self):
-        return self.driver
 
     @property
     def alert_text(self):

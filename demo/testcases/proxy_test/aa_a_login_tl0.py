@@ -1,25 +1,23 @@
 # coding:utf-8
 # !/usr/bin/env python3
 
-from pyselenium.models import unittest
-from pyselenium.models.listener import MyListener
-from selenium.webdriver.support.events import EventFiringWebDriver
+from pyselenium.models import unittests
 from selenium import webdriver
-from pyselenium.models.driver import browser
+from pyselenium.models.driver import get_driver
 
 
 def setUpModule():
     print('start UITest!')
 
 
-class DemoTest2(unittest.TestCase):
+class DemoTest2(unittests.TestCase):
     """This is Test a2"""
 
     @classmethod
     def setUpClass(cls):
         ops = webdriver.ChromeOptions()
         ops.add_argument("--proxy-server=socks5://127.0.0.1:1080")
-        cls.driver = EventFiringWebDriver(browser('chrome', chrome_options=ops), MyListener())
+        cls.driver = get_driver('chrome', chrome_options=ops)
 
     def test_assert_raises(self):
         """test result"""

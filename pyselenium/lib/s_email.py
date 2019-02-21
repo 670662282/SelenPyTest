@@ -84,8 +84,8 @@ class Email:
     @staticmethod
     def validate_email_with_regex(email_address):
         if not re.match(VALID_ADDRESS_REGEXP, email_address):
-            emsg = '邮箱地址 "{}" 不符合 RFC 2822 标准'.format(email_address)
-            raise EmailAddressInvalid(emsg)
+            e_msg = '邮箱地址 "{}" 不符合 RFC 2822 标准'.format(email_address)
+            raise EmailAddressInvalid(e_msg)
         # apart from the standard, I personally do not trust email addresses without dot.
         if "." not in email_address and "localhost" not in email_address.lower():
             raise EmailAddressInvalid("邮箱地址可能少了一个点")
