@@ -13,6 +13,7 @@ class TestRunner:
                  case_cls_re='*.py',
                  title="UITestReport",
                  report_backup=0,
+                 config_file=None,
                  description="Test case execution:",
                  debug=False):
 
@@ -21,15 +22,18 @@ class TestRunner:
         self.debug = debug
         self.description = description
         self.case_cls_re = case_cls_re
-        self.logger = Log()
-        cf = YamlConfig()
         self.backup = report_backup
-        self.email_title = cf.get('MAIL_TITLE')
-        self.email_server = cf.get('EMAIL_SERVER')
-        self.email_usr = cf.get('EMAIL_USR')
-        # self.email_pwd = cf.get('EMAIL_PWD')
-        self.email_receiver = cf.get('EMAIL_RECEIVE')
+        self.logger = Log()
         self._report_file = None
+
+        # if not debug:
+        #     email_config = YamlConfig(config_file).get('email')
+        #     if email_config is None:
+        #         raise KeyError('“”no fount email config')
+        #     self.email_title = email_config.get('MAIL_TITLE')
+        #     self.email_server = email_config.get('EMAIL_SERVER')
+        #     self.email_usr = email_config.get('EMAIL_USR')
+        #     self.email_receiver = email_config.get('EMAIL_RECEIVE')
 
     @property
     def report_file(self):
@@ -90,12 +94,3 @@ class TestRunner:
         self._report_file = self.handle_reports(reports_path, self.backup)
         att_list.append(self._report_file)
 
-
-"""
-if __name__ == '__main__':
-    casecls_re = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1].endswith('.py') else '*_tl.py'
-    print('UIAutotest is start')
-    tl_runner = TestRunner(casecls_re)
-    tl_runner.debug() if len(sys.argv) > 2 and sys.argv[2] == 'debug' else tl_runner.normal()
-    print('UIAutotest is end')
-"""

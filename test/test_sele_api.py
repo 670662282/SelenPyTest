@@ -1,6 +1,6 @@
 from pyselenium.configs.cfread import ReaderFactory
 from .base import SUnittest
-from pyselenium.webdriver.sele_api import ApiDriver
+from pyselenium.apis.sele_api import ApiDriver
 from common.error import LocationTypeError
 from collections import OrderedDict
 import os

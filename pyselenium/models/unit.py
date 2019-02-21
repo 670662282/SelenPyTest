@@ -1,7 +1,7 @@
 import unittest
 from pyselenium.models.driver import browser
 from pyselenium.lib.s_logs import Log
-from pyselenium.webdriver.sele_api import ApiDriver
+from pyselenium.apis.sele_api import ApiDriver
 from pyselenium.models.listener import MyListener
 from selenium.webdriver.support.events import EventFiringWebDriver
 

@@ -4,7 +4,7 @@ from time import strftime, localtime, time, sleep
 from keyring.errors import PasswordDeleteError
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from pyselenium.configs.config import IMAGE_PATH, YamlConfig
-from pyselenium.untils.ssh import MySSH
+
 import functools
 from pyselenium.lib.s_logs import Log
 

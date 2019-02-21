@@ -19,6 +19,6 @@ __version__ = "1.0"
 __author__ = "jiangchen"
 
 from .testrunner.run_test import TestRunner
-from .webdriver import sele_api
+from .apis import sele_api
 from pyselenium.models import unit
 from .models.driver import browser

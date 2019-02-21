@@ -16,9 +16,7 @@ class ReaderFactory:
     # TODO yaml json csv互相转换
     @classmethod
     def reader(cls, file_path):
-        if file_path.endswith('.xml'):
-            reader = cls.XmlReader
-        elif file_path.endswith('.json'):
+        if file_path.endswith('.json'):
             reader = cls.JsonReader
         elif file_path.endswith(('.yml', '.yaml')):
             reader = cls.YamlReader
@@ -37,14 +35,6 @@ class ReaderFactory:
         @property
         def data(self):
             return self.data_
-
-    class XmlReader:
-        def __init__(self, file):
-            self.tree = xml.parse(file)
-
-        @property
-        def data(self):
-            return self.tree
 
     class ExcelReader:
         """

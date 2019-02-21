@@ -1,4 +1,6 @@
 # coding:utf-8
+from pyselenium.lib.s_logs import Log
+logger = Log()
 """
 A TestRunner for use with the Python unit testing framework. It
 generates a HTML reports to show the result at a glance.
@@ -757,8 +759,7 @@ class TemplateMixin(object):
     # Heading
     #
 
-    HEADING_ATTRIBUTE_TMPL = """
-    去掉
+    HEADING_ATTRIBUTE_TMPL = """去掉
     <p class='attribute'><strong>{name}:</strong> {value}</p>"""
     # variables: (name, value)
 
@@ -838,6 +839,7 @@ START_TIME = "Start Time"
 DURATION = "Duration"
 STATUS_ = "Status"
 
+
 class ReturnCode:
     SUCCESS = 0
     FAIL = 1
@@ -867,6 +869,7 @@ class _TestResult(unittest.TestResult):
         self.result = []
         self.sub_test_list = []
         self.outputBuffer = None
+        self._mirrorOutput = False
 
     def startTest(self, test):
         super().startTest(test)
@@ -1012,7 +1015,7 @@ class HTMLTestRunner(TemplateMixin):
         generator = 'HTMLTestRunner %s' % __version__
         stylesheet = self._generate_stylesheet()
         heading = self._generate_heading(report_attrs)
-        report = self._generate_report(result)
+        reports = self._generate_report(result)
         ending = self._generate_ending()
         dashboard_view = self._generate_dashboard_view(report_attrs, result)
         script_js = self._generate_script(result)
@@ -1022,7 +1025,7 @@ class HTMLTestRunner(TemplateMixin):
             generator=generator,
             stylesheet=stylesheet,
             heading=heading,
-            report=report,
+            reports=reports,
             ending=ending,
             dashboard_view=dashboard_view,
             script_js=script_js,
