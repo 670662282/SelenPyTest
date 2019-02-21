@@ -126,12 +126,23 @@ class MyListener(AbstractEventListener):
 
 
 if __name__ == "__main__":
-    # dr = browser('chrome')
-    # dr.get("http://www.baidu.com")
-    # dr.quit()
-
+    driver = browser('chrome')
+    driver.get("http://www.baidu.com")
     from selenium.webdriver.support.color import Color
 
     print(Color.from_string('#00ff33').rgba)
     print(Color.from_string('rgb(1, 255, 3)').hex)
     print(Color.from_string('blue').rgba)
+
+    import time
+
+    time.sleep(1)
+
+    # 1.通过js改变页面控件的属性（边框粗细，颜色，线的类型）
+    js = 'q=document.getElementById("kw");q.style.border=\"1px solid red\";'
+    driver.execute_script(js)
+    # 2. js拖动到最底部
+    js = "$('.scroll_top').click(function(){$(html.body).animate({scrollTop:'0px'},800)});"
+    driver.execute_script(js)
+
+
