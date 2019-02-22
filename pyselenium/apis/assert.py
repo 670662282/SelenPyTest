@@ -78,19 +78,19 @@ def assert_element_to_be_clickable(driver, locator):
 
 def assert_number_of_windows_to_be(driver, num_windows):
     """ An expectation for the number of windows to be a certain value."""
-    if not element_to_be_clickable(num_windows)(driver):
+    if not number_of_windows_to_be(num_windows)(driver):
         raise AssertionError('number_of_windows is not equal `%s`' % num_windows)
 
 
 def assert_new_window_is_opened(driver, current_handles):
     """ An expectation that a new window will be opened and have the number of
     windows handles increase"""
-    if not element_to_be_clickable(current_handles)(driver):
+    if not new_window_is_opened(current_handles)(driver):
         raise AssertionError('new_window is not opened')
 
 
 def assert_alert_is_present(driver):
     """ Expect an alert to be present."""
-    if not element_to_be_clickable()(driver):
+    if not alert_is_present()(driver):
         raise AssertionError('present is not alert')
 
