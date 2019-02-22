@@ -144,5 +144,3 @@ if __name__ == "__main__":
     # 2. js拖动到最底部
     js = "$('.scroll_top').click(function(){$(html.body).animate({scrollTop:'0px'},800)});"
     driver.execute_script(js)
-
-
