@@ -8,6 +8,11 @@ install_requests = {
     "selenium",
     "PyYAML",
     "xrld",
+    "keyring",
+    "paramiko",
+    "parameterized",
+    "colorama",
+    "colorlog",
 }
 
 setup(
@@ -15,7 +20,7 @@ setup(
     version='0.1.1',
     description='auto test by selenium',
     long_description=long_description,
-    author='jason',
+    author='jiang_cheng',
     install_requests=install_requests,
     python_requires=">=3.4",
     packages=find_packages(),

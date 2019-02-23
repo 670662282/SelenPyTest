@@ -7,6 +7,7 @@ from pyselenium.configs.config import IMAGE_PATH, YamlConfig
 
 import functools
 from pyselenium.lib.s_logs import Log
+from pyselenium.lib.ssh import SSH
 
 logger = Log()
 
@@ -21,7 +22,7 @@ MAX_TIME = YamlConfig().get('TIME_OUT')
 def get_png(driver, file_name='.png'):
     png_name = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + file_name
     driver.get_screenshot_as_file(os.path.join(IMAGE_PATH, png_name))
-    print('出错截图：', os.path.join(IMAGE_PATH, png_name))
+    Log.print_color('出错截图：{}'.format(os.path.join(IMAGE_PATH, png_name)))
     return os.path.join(IMAGE_PATH, png_name)
 
 
@@ -65,9 +66,9 @@ def get_password(usr=None, pwd=None, type='email'):
     if pwd is None:
         try:
             pwd = keyring.get_password(type, usr)
-            print("keyring get password for ", usr)
+            Log.print_color("keyring get password for {}".format(usr), color='red')
         except NameError as e:
-            print("keyring加载失败 尝试命令‘pip install keyring’安装，或者离开")
+            Log.print_color("keyring加载失败 尝试命令‘pip install keyring’安装，或者离开", color='red')
             raise e
         if pwd is None:
             import getpass
@@ -117,7 +118,7 @@ def wait(timeout):
                     return fn(self, *args, **kwargs)
                 except (WebDriverException, NoSuchElementException, AssertionError) as e:
                     if time() - start_time > timeout:
-                        print('wait Timeout 30s!')
+                        Log.print_color('wait Timeout 30s!')
                         raise e
                     sleep(0.5)
         return modfied_fn
@@ -136,28 +137,30 @@ def capture_except(fn):
     return capture
 
 
-# 获取测试页面的web日志 通过sftp下载
-def get_web_log(ip, pwd, service_file=None, local_path=None):
-    ssh = MySSH(ip, pwd)
+def get_file_by_sftp(ip, pwd, service_file=None, local_path='./download_dir'):
+    """sftp get remote host file
+    :param ip: remote host ip
+    :param pwd: remote host pasword
+    :param service_file: remote host file path
+    :param local_path: local file store path
+    :return: local_file
+    """
+    ssh = SSH(ip, pwd)
     ssh.connect()
     ssh.set_transport()
 
-    if not os.path.isfile(service_file):
-        raise TypeError(service_file, '不是一个合法文件')
+    if local_path and os.path.isdir(local_path):
+        logger.info("Folder {} exists".format(local_path))
+    else:
+        os.makedirs(local_path)
 
     file_name = os.path.basename(service_file)
-    if local_path is None or os.path.isdir(local_path):
-        if local_path is None:
-            local_path = './log'
-            os.mkdir(local_path)
-        local_file = os.path.join(local_path, file_name)
-    else:
-        local_file = local_path
+    local_file = os.path.join(local_path, file_name)
 
     try:
         ssh.down(service_file, local_file)
     except FileNotFoundError:
-        print('sorry, no find {}'.format(local_file))
+        Log.print_color('sorry, no find {}'.format(local_file))
         return None
     finally:
         ssh.close()

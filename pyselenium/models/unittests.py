@@ -17,6 +17,7 @@ class TestCase(unittest.TestCase, ApiDriver):
         cls.driver.quit()
 
     def except_parse(self, driver):
-        print('这里进行错误处理')
+        Log.print_color('这里进行错误处理')
+
 
 
