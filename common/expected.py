@@ -1,4 +1,4 @@
-class response_code_contains:
+class ResponseCodeContains:
     """An expectation for checking the code of a response.
     codes is the contains code
     returns True if the response code matches, false otherwise.
