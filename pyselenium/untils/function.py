@@ -3,7 +3,7 @@ from collections import OrderedDict
 from time import strftime, localtime, time, sleep
 from keyring.errors import PasswordDeleteError
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from pyselenium.configs.yaml_config import IMAGE_PATH, YamlConfig
+
 
 import functools
 from pyselenium.lib.s_logs import Log
@@ -16,14 +16,13 @@ try:
 except (NameError, ImportError, RuntimeError):
     pass
 
-MAX_TIME = YamlConfig().get('TIME_OUT')
 
-
-def get_png(driver, file_name='.png'):
-    png_name = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + file_name
-    driver.get_screenshot_as_file(os.path.join(IMAGE_PATH, png_name))
-    Log.print_color('出错截图：{}'.format(os.path.join(IMAGE_PATH, png_name)))
-    return os.path.join(IMAGE_PATH, png_name)
+def get_png(driver, image_path):
+    image_name = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + os.path.basename(image_path)
+    path = os.path.join(os.path.dirname(image_path), image_name)
+    driver.get_screenshot_as_file(path)
+    Log.print_color('出错截图：{}'.format(path))
+    return path
 
 
 def find_alias(arg, compare):
@@ -94,18 +93,6 @@ def unregister(type='email', usr=None):
         return False
     else:
         return True
-
-
-def change_wait(time):
-    def _change_wait(func):
-        @functools.wraps(func)
-        def waits(self, *args, **kw):
-            self.set_wait(time)
-            result = func(self, *args, **kw)
-            self.set_wait(MAX_TIME)
-            return result
-        return waits
-    return _change_wait
 
 
 def wait(timeout):

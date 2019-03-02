@@ -58,9 +58,6 @@ class ApiDriver:
     def change_implicitly_wait_5s(self, fn, *args):
         return fn(*args)
 
-    def set_wait(self, secs):
-        self.driver.implicitly_wait(secs)
-
     @staticmethod
     def _get_locs(*args, **kwargs):
         if len(args) == 1 or len(kwargs) == 1:
@@ -124,7 +121,6 @@ class ApiDriver:
         WebDriverWait(self.driver, self.TIMEOUT).until(
             EC.visibility_of_element_located(*self._get_locs(*args, **kwargs)))
 
-    @function.change_wait(time=1)
     def wait_element_drap(self, fn, *args, **kwargs):
         start_time = time()
         while True:
