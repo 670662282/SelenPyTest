@@ -17,6 +17,6 @@ class YamlConfig:
         self.reader = ReaderFactory.reader(config)
         self.config = self.reader.data
 
-    # 框架配置默认在0节点上
+    # 默认在0节点上
     def get(self, element, index=0):
         return self.config[index].get(element)

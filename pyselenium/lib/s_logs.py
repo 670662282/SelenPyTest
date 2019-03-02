@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import logging
 import os
-from pyselenium.configs.config import YamlConfig, LOG_PATH
+from pyselenium.configs.yaml_config import YamlConfig, LOG_PATH
 from logging.handlers import TimedRotatingFileHandler
 from colorama import Fore, init
 from colorlog import LevelFormatter

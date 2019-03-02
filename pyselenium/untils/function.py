@@ -3,7 +3,7 @@ from collections import OrderedDict
 from time import strftime, localtime, time, sleep
 from keyring.errors import PasswordDeleteError
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from pyselenium.configs.config import IMAGE_PATH, YamlConfig
+from pyselenium.configs.yaml_config import IMAGE_PATH, YamlConfig
 
 import functools
 from pyselenium.lib.s_logs import Log

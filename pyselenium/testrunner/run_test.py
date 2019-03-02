@@ -1,7 +1,6 @@
 # coding:utf-8
 # !/usr/bin/env python3
 from .ExtentHTMLTestRunner import HTMLTestRunner
-from pyselenium.configs.config import YamlConfig
 from pyselenium.lib.s_logs import Log
 import unittest
 import time
@@ -13,7 +12,6 @@ class TestRunner:
                  case_cls_re='*.py',
                  title="UITestReport",
                  report_backup=0,
-                 config_file=None,
                  description="Test case execution:",
                  debug=False):
 
@@ -25,15 +23,6 @@ class TestRunner:
         self.backup = report_backup
         self.logger = Log()
         self._report_file = None
-
-        # if not debug:
-        #     email_config = YamlConfig(config_file).get('email')
-        #     if email_config is None:
-        #         raise KeyError('“”no fount email config')
-        #     self.email_title = email_config.get('MAIL_TITLE')
-        #     self.email_server = email_config.get('EMAIL_SERVER')
-        #     self.email_usr = email_config.get('EMAIL_USR')
-        #     self.email_receiver = email_config.get('EMAIL_RECEIVE')
 
     @property
     def report_file(self):
