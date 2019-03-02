@@ -1,7 +1,5 @@
 import pprint
 
-from pyselenium.lib.s_logs import Log
-
 try:
     import yaml
 except (ModuleNotFoundError, NameError, ImportError, RuntimeError) as e:

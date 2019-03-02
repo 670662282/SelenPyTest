@@ -1,5 +1,5 @@
 import os
-from .cfread import ReaderFactory
+from pyselenium.configs.cfread import ReaderFactory
 
 BASE_PATH = os.path.split(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))[0]
 PYSELENIUM = os.path.join(BASE_PATH, 'pyselenium')
