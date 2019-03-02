@@ -17,14 +17,11 @@ log_colors_config = {
 
 class Log:
 
-    def __init__(self):
+    def __init__(self, backup=3, level='DEBUG', output=0):
         init(autoreset=True)
-        self.logs = YamlConfig().get('log')
-        if self.logs is None:
-            raise KeyError
-        self.backup = self.logs.get('backup', 5)
-        self.level = self.logs.get('level', 'DEBUG')
-        self.output = self.logs.get('output', 0)
+        self.backup = backup
+        self.level = level
+        self.output = output
         self.logger = logging.getLogger('SelePyTest')
 
         """
