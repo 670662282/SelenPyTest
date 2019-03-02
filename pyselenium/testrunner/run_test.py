@@ -75,8 +75,7 @@ class TestRunner:
         self._debug() if self.debug else self._normal()
 
     def _debug(self):
-        unit_runner = unittest.TextTestRunner(verbosity=2)
-        unit_runner.run(self._get_discover())
+        unittest.TextTestRunner(verbosity=2).run(self._get_discover())
 
     def _normal(self):
         reports_path = os.path.join(os.getcwd(), 'reports')

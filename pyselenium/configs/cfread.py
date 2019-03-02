@@ -9,7 +9,6 @@ except (ModuleNotFoundError, NameError, ImportError, RuntimeError) as e:
     raise e
 
 import json
-import xml.etree.ElementTree as xml
 import os
 from xlrd import open_workbook
 from common.error import SheetTypeError
