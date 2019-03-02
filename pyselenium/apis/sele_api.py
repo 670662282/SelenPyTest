@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException, WebDriverException, InvalidElementStateException
 
-from pyselenium.lib.s_logs import Log
+from pyselenium.lib.log import get_logger
 from pyselenium.untils import function
 from common.error import LocationTypeError
 from selenium.webdriver.common.by import By
@@ -20,10 +20,11 @@ LOCATORS = {
     'tag': By.TAG_NAME,
     'class_': By.CLASS_NAME,
 }
-logger = Log()
+logger = get_logger()
 
 
 class ApiDriver:
+
     TIMEOUT = 10
 
     def open(self, url):
@@ -54,9 +55,10 @@ class ApiDriver:
     def waits_for(self, fn, *args):
         return fn(*args)
 
-    @function.change_wait(5)
-    def change_implicitly_wait_5s(self, fn, *args):
-        return fn(*args)
+    def drag_to_bottom_of_page(self):
+        # 拖动页面到最底部
+        js = "$('.scroll_top').click(function(){$(html.body).animate({scrollTop:'0px'},800)});"
+        self.driver.execute_script(js)
 
     @staticmethod
     def _get_locs(*args, **kwargs):
@@ -133,7 +135,6 @@ class ApiDriver:
             except (WebDriverException, NoSuchElementException, AssertionError):
                 logger.info('drap success %{}'.format(time() - start_time))
                 return True
-
 
     """
     SHIFT多选操作

@@ -9,6 +9,8 @@ from pyselenium.untils.function import capture_except
 def setUpModule():
     print('start UITest!')
 
+# ToDo 全局设置error.png
+
 
 class DemoTest(unittests.TestCase):
     """This is Test a"""
@@ -16,7 +18,7 @@ class DemoTest(unittests.TestCase):
         ('test1', 'selenium'),
         ('test2', 'selenium2')
     ])
-    @capture_except
+    @capture_except(png_file='reports/images/error.png', retry=2)
     def test_login(self, fun, search_key):
         """test_login"""
         self.open("https://www.baidu.com")
@@ -25,8 +27,9 @@ class DemoTest(unittests.TestCase):
         self.send_values(search_key, css="#kw")
         self.click_element(css="#su")
         # self.click_element(css="#aa")
-        # self.assertTitle(search_key)
-        self.assertEqual(1, 2)
+
+        # if fun == 'test2':
+        #     self.assertEqual(1, 2)
 
     def test_subtest(self):
         """test subtest aaa"""
@@ -36,13 +39,4 @@ class DemoTest(unittests.TestCase):
                 self.send_values(i, css="#kw")
                 self.click_element(css="#su")
 
-    def except_parse(self, driver):
-        print('这里进行错误处理!')
 
-
-"""
-if __name__ == '__main__':
-    testRunner = TestRunner(cases="./", casecls_re='*.py', debug=False, report_backup=3)
-    testRunner.runner()
-    reports = testRunner.report_file
-"""

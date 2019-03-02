@@ -6,10 +6,10 @@ from selenium.common.exceptions import NoSuchElementException, WebDriverExceptio
 
 
 import functools
-from pyselenium.lib.s_logs import Log
+from pyselenium.lib.log import get_logger, print_color
 from pyselenium.lib.ssh import SSH
 
-logger = Log()
+logger = get_logger()
 
 try:
     import keyring
@@ -20,8 +20,9 @@ except (NameError, ImportError, RuntimeError):
 def get_png(driver, image_path):
     image_name = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + os.path.basename(image_path)
     path = os.path.join(os.path.dirname(image_path), image_name)
+    print(path)
     driver.get_screenshot_as_file(path)
-    Log.print_color('出错截图：{}'.format(path))
+    print_color('出错截图：{}'.format(path))
     return path
 
 
@@ -65,9 +66,9 @@ def get_password(usr=None, pwd=None, type='email'):
     if pwd is None:
         try:
             pwd = keyring.get_password(type, usr)
-            Log.print_color("keyring get password for {}".format(usr), color='red')
+            print_color("keyring get password for {}".format(usr), color='red')
         except NameError as e:
-            Log.print_color("keyring加载失败 尝试命令‘pip install keyring’安装，或者离开", color='red')
+            print_color("keyring加载失败 尝试命令‘pip install keyring’安装，或者离开", color='red')
             raise e
         if pwd is None:
             import getpass
@@ -105,23 +106,25 @@ def wait(timeout):
                     return fn(self, *args, **kwargs)
                 except (WebDriverException, NoSuchElementException, AssertionError) as e:
                     if time() - start_time > timeout:
-                        Log.print_color('wait Timeout 30s!')
+                        print_color('wait Timeout 30s!')
                         raise e
                     sleep(0.5)
         return modfied_fn
     return _wait
 
 
-def capture_except(fn):
-    @functools.wraps(fn)
-    def capture(self, *args, **kw):
-        try:
-            fn(self, *args, **kw)
-        except (WebDriverException, AssertionError):
-            get_png(self.driver, '_error.png')
-            self.except_parse(self.driver)
-            raise
-    return capture
+def capture_except(png_file, retry=None):
+    def _capture_except(fn):
+        @functools.wraps(fn)
+        def capture(self, *args, **kw):
+            try:
+                fn(self, *args, **kw)
+            except (WebDriverException, AssertionError) as e:
+                get_png(self.driver, png_file)
+                if retry:
+                    self.except_parse(e, retry, fn, *args, **kw)
+        return capture
+    return _capture_except
 
 
 def get_file_by_sftp(ip, pwd, service_file=None, local_path='./download_dir'):
@@ -147,7 +150,7 @@ def get_file_by_sftp(ip, pwd, service_file=None, local_path='./download_dir'):
     try:
         ssh.down(service_file, local_file)
     except FileNotFoundError:
-        Log.print_color('sorry, no find {}'.format(local_file))
+        print_color('sorry, no find {}'.format(local_file), 'red')
         return None
     finally:
         ssh.close()

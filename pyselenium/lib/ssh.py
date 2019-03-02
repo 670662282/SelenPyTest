@@ -1,7 +1,11 @@
+from pyselenium.lib.log import get_logger
+
 try:
     import paramiko
 except (NameError, ImportError, RuntimeError):
     pass
+
+logger = get_logger()
 
 
 class SSH:
@@ -38,3 +42,7 @@ class SSH:
 
     def close(self):
         self.__ts.close()
+
+
+if __name__ == "__main__":
+    logger.debug('test')
