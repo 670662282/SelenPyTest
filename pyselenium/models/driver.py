@@ -64,14 +64,17 @@ class EventListener(AbstractEventListener):
     def before_find(self, by, value, driver):
         # TODO Refoact this function
         """wait element!"""
+        break_flag = False
         if self.element_wait:
             for i in range(self.element_wait*10):
                 objs = driver.find_elements(by, value)
                 if len(objs) != 0:
                     for obj in objs:
                         if obj.is_displayed:
+                            break_flag = True
                             break
-                    break
+                    if break_flag:
+                        break
                 sleep(0.1)
             else:
                 raise TimeoutError("element NoSuchElement or Invisible, locs:({}, {})".format(by, value))
