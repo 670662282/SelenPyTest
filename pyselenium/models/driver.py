@@ -71,11 +71,8 @@ class EventListener(AbstractEventListener):
                     for obj in objs:
                         if obj.is_displayed:
                             break
-                        else:
-                            sleep(0.1)
                     break
-                else:
-                    sleep(0.1)
+                sleep(0.1)
             else:
                 raise TimeoutError("element NoSuchElement or Invisible, locs:({}, {})".format(by, value))
 
@@ -83,11 +80,13 @@ class EventListener(AbstractEventListener):
         self.logger.debug('元素定位: ({}, {})'.format(by, value))
 
     def before_change_value_of(self, element, driver):
-        self.logger.debug('before_change :value=%s' % element.get_attribute('value') or 'None')
+        if element.get_attribute('value'):
+            self.logger.debug('before_change :value=%s' % element.get_attribute('value') or 'None')
 
     def after_change_value_of(self, element, driver):
         self._change_js_attr(element, driver)
-        self.logger.debug('after_change :value=%s' % element.get_attribute('value') or 'None')
+        if element.get_attribute('value'):
+            self.logger.debug('after_change :value=%s' % element.get_attribute('value') or 'None')
 
     def _get_element_attr(self, element):
         if not isinstance(element, WebElement):
@@ -117,7 +116,7 @@ class EventListener(AbstractEventListener):
                               format(element.get_attribute('id'), attr))
 
     def after_click(self, element, driver):
-        self.logger.info(element + "被点击了")
+        self.logger.info("id:{} element be clicked".format(element.get_attribute('id')))
 
     def before_quit(self, driver):
         self.logger.debug('页面即将关闭')
@@ -126,9 +125,7 @@ class EventListener(AbstractEventListener):
         self.logger.debug('页面已经关闭')
 
     def on_exception(self, exception, driver):
-        # TODO 截图
         pass
-        # self.logger.info(exception)
 
 
 if __name__ == "__main__":
@@ -140,9 +137,4 @@ if __name__ == "__main__":
     print(Color.from_string('rgb(1, 255, 3)').hex)
     print(Color.from_string('blue').rgba)
 
-    import time
 
-    time.sleep(1)
-    # js拖动到最底部
-    js = "$('.scroll_top').click(function(){$(html.body).animate({scrollTop:'0px'},800)});"
-    driver.execute_script(js)

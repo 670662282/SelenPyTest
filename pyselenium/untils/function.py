@@ -18,11 +18,9 @@ except (NameError, ImportError, RuntimeError):
 
 
 def get_png(driver, image_path):
-    image_name = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + os.path.basename(image_path)
-    path = os.path.join(os.path.dirname(image_path), image_name)
-    print(path)
+    image_name = 'screenshot_' + strftime("%Y%m%d-%H%M%S", localtime()) + '.png'
+    path = os.path.join(image_path, image_name)
     driver.get_screenshot_as_file(path)
-    print_color('出错截图：{}'.format(path))
     return path
 
 
@@ -113,14 +111,16 @@ def wait(timeout):
     return _wait
 
 
-def capture_except(png_file, retry=None):
+def capture_except(png_path=None, retry=0):
     def _capture_except(fn):
         @functools.wraps(fn)
         def capture(self, *args, **kw):
+            print(fn.__name__)
             try:
                 fn(self, *args, **kw)
             except (WebDriverException, AssertionError) as e:
-                get_png(self.driver, png_file)
+                png = png_path if png_path else self.png_path if self.png_path else '.'
+                print_color('出错截图：{}'.format(get_png(self.driver, png)))
                 if retry:
                     self.except_parse(e, retry, fn, *args, **kw)
         return capture

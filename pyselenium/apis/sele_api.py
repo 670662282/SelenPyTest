@@ -24,8 +24,15 @@ logger = get_logger()
 
 
 class ApiDriver:
-
     TIMEOUT = 10
+
+    @property
+    def png_path(self):
+        return self.png_path
+
+    @png_path.setter
+    def png_path(self, path):
+        self.png_path = path
 
     def open(self, url):
         self.driver.get(url)
@@ -35,7 +42,7 @@ class ApiDriver:
         """
         Get warning box prompt information.
         """
-        self.driver.switch_to.alert.text
+        return self.driver.switch_to.alert.text
 
     @property
     def title(self):

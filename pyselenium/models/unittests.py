@@ -5,10 +5,12 @@ from pyselenium.models.driver import get_driver
 
 
 class TestCase(unittest.TestCase, ApiDriver):
+    # must 定义不然会出现 RecursionError: maximum recursion depth exceeded
+    ApiDriver.png_path = '.'
 
     @classmethod
     def setUpClass(cls):
-        cls.driver = get_driver(is_listening=True)
+        cls.driver = get_driver()
         # cls.driver.maximize_window()
 
     @classmethod
@@ -16,11 +18,12 @@ class TestCase(unittest.TestCase, ApiDriver):
         cls.driver.quit()
 
     def except_parse(self, exception, retry, fn, *args, **kwargs):
-        print_color('这里进行错误处理')
         try:
             retry = int(retry)
         except ValueError:
-            raise TypeError('retry must int type')
+            raise TypeError('retry type error')
+        if retry < 0:
+            raise ValueError('retry must be greater than or equal 0')
 
         for i in range(1, retry+1):
             try:
