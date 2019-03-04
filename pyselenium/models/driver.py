@@ -116,7 +116,7 @@ class EventListener(AbstractEventListener):
                               format(element.get_attribute('id'), attr))
 
     def after_click(self, element, driver):
-        self.logger.info("id:{} element be clicked".format(element.get_attribute('id')))
+        self.logger.info("<id:{}> element be clicked".format(element.get_attribute('id')))
 
     def before_quit(self, driver):
         self.logger.debug('页面即将关闭')
