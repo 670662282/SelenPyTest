@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 import logging
 import os
-from pyselenium.configs.config import YamlConfig, LOG_PATH
+from pyselenium.configs.yaml_config import YamlConfig, LOG_PATH
 from logging.handlers import TimedRotatingFileHandler
 from colorama import Fore, init
 from colorlog import LevelFormatter
-from pprint import pprint
+
 log_colors_config = {
     'DEBUG':    'cyan',
     'INFO':     'green',
@@ -17,14 +17,11 @@ log_colors_config = {
 
 class Log:
 
-    def __init__(self):
+    def __init__(self, backup=3, level='DEBUG', output=0):
         init(autoreset=True)
-        self.logs = YamlConfig().get('log')
-        if self.logs is None:
-            raise KeyError
-        self.backup = self.logs.get('backup', 5)
-        self.level = self.logs.get('level', 'DEBUG')
-        self.output = self.logs.get('output', 0)
+        self.backup = backup
+        self.level = level
+        self.output = output
         self.logger = logging.getLogger('SelePyTest')
 
         """
@@ -61,8 +58,9 @@ class Log:
             print("no %s color!" % color)
             return text
 
-    def print_color(self, text, color='green'):
-        pprint(self.coloring(text, color))
+    @classmethod
+    def print_color(cls, text, color='green'):
+        print(cls.coloring(text, color))
 
     def _file_output(self):
         """create file handle for write logs"""
@@ -89,7 +87,6 @@ class Log:
         self.logger.addHandler(con_handle)
 
     def set_output_mode(self, output=0):
-
         if output == 0:
             self._console_output()
         elif output == 1:
@@ -97,13 +94,6 @@ class Log:
         else:
             self._console_output()
             self._file_output()
-
-    """
-    def log_with_color(self, level):
-        def log_level(text):
-            getattr(self.logger, level.lower())(self.coloring(text, log_colors_config[level.upper()]))
-        return log_level
-    """
 
 
 if __name__ == "__main__":

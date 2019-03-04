@@ -1,8 +1,7 @@
 # coding:utf-8
 # !/usr/bin/env python3
 from .ExtentHTMLTestRunner import HTMLTestRunner
-from pyselenium.configs.config import YamlConfig
-from pyselenium.models.s_logs import Log
+from pyselenium.lib.s_logs import Log
 import unittest
 import time
 import os
@@ -21,14 +20,8 @@ class TestRunner:
         self.debug = debug
         self.description = description
         self.case_cls_re = case_cls_re
-        self.logger = Log()
-        cf = YamlConfig()
         self.backup = report_backup
-        self.email_title = cf.get('MAIL_TITLE')
-        self.email_server = cf.get('EMAIL_SERVER')
-        self.email_usr = cf.get('EMAIL_USR')
-        # self.email_pwd = cf.get('EMAIL_PWD')
-        self.email_receiver = cf.get('EMAIL_RECEIVE')
+        self.logger = Log()
         self._report_file = None
 
     @property
@@ -71,8 +64,7 @@ class TestRunner:
         self._debug() if self.debug else self._normal()
 
     def _debug(self):
-        unit_runner = unittest.TextTestRunner(verbosity=2)
-        unit_runner.run(self._get_discover())
+        unittest.TextTestRunner(verbosity=2).run(self._get_discover())
 
     def _normal(self):
         reports_path = os.path.join(os.getcwd(), 'reports')
@@ -90,12 +82,3 @@ class TestRunner:
         self._report_file = self.handle_reports(reports_path, self.backup)
         att_list.append(self._report_file)
 
-
-"""
-if __name__ == '__main__':
-    casecls_re = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1].endswith('.py') else '*_tl.py'
-    print('UIAutotest is start')
-    tl_runner = TestRunner(casecls_re)
-    tl_runner.debug() if len(sys.argv) > 2 and sys.argv[2] == 'debug' else tl_runner.normal()
-    print('UIAutotest is end')
-"""

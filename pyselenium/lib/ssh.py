@@ -1,13 +1,12 @@
-
 try:
     import paramiko
 except (NameError, ImportError, RuntimeError):
     pass
 
 
-class MySSH:
+class SSH:
 
-    def __init__(self, ip='10.10.50.7', password=''):
+    def __init__(self, ip, password):
         self.host = (ip, 22)
         self.user = 'root'
         self.password = password
@@ -19,7 +18,7 @@ class MySSH:
             raise e
 
     def connect(self):
-        ts = paramiko.Transport(self.host)
+        ts = paramiko.Transport(*self.host)
         ts.connect(username=self.user, password=self.password)
         self.__ts = ts
 

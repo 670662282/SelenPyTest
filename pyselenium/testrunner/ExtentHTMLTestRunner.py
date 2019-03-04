@@ -1,4 +1,6 @@
 # coding:utf-8
+from pyselenium.lib.s_logs import Log
+logger = Log()
 """
 A TestRunner for use with the Python unit testing framework. It
 generates a HTML reports to show the result at a glance.
@@ -94,6 +96,7 @@ stderr_redirector = OutputRedirector(sys.stderr)
 
 
 class TemplateMixin(object):
+    # TODO Template  part
     """
     Define a HTML template for reports customerization and generation.
 
@@ -756,8 +759,7 @@ class TemplateMixin(object):
     # Heading
     #
 
-    HEADING_ATTRIBUTE_TMPL = """
-    去掉
+    HEADING_ATTRIBUTE_TMPL = """去掉
     <p class='attribute'><strong>{name}:</strong> {value}</p>"""
     # variables: (name, value)
 
@@ -867,6 +869,7 @@ class _TestResult(unittest.TestResult):
         self.result = []
         self.sub_test_list = []
         self.outputBuffer = None
+        self._mirrorOutput = False
 
     def startTest(self, test):
         super().startTest(test)
@@ -1012,7 +1015,7 @@ class HTMLTestRunner(TemplateMixin):
         generator = 'HTMLTestRunner %s' % __version__
         stylesheet = self._generate_stylesheet()
         heading = self._generate_heading(report_attrs)
-        report = self._generate_report(result)
+        reports = self._generate_report(result)
         ending = self._generate_ending()
         dashboard_view = self._generate_dashboard_view(report_attrs, result)
         script_js = self._generate_script(result)
@@ -1022,7 +1025,7 @@ class HTMLTestRunner(TemplateMixin):
             generator=generator,
             stylesheet=stylesheet,
             heading=heading,
-            report=report,
+            reports=reports,
             ending=ending,
             dashboard_view=dashboard_view,
             script_js=script_js,
@@ -1088,6 +1091,7 @@ class HTMLTestRunner(TemplateMixin):
         #   stack trace, e
         # )
     def _generate_report(self, result):
+        # TODO Refactor this function
         rows = []
         row1s = []
         section_name = []
@@ -1111,7 +1115,6 @@ class HTMLTestRunner(TemplateMixin):
             else:
                 name = "%s.%s" % (cls.__module__, cls.__name__)
             doc = cls.__doc__ and cls.__doc__.strip('\n') or "None"
-            # desc = doc and '%s: %s' % (name, doc) or name
             desc = doc and '%s' % name or name
 
             # section中suite name
@@ -1197,13 +1200,8 @@ class HTMLTestRunner(TemplateMixin):
         )
         return report
 
-    def _generate_report_test(
-                self, rows,
-                cid, tid,
-                code, obj,
-                out, trace,
-                test_collection_ul_list):
-
+    def _generate_report_test(self, rows, cid, tid, code, obj, out, trace, test_collection_ul_list):
+        # TODO parameters is greater than 7 authorized
         has_output = bool(out or trace)
         if not has_output:
             return
@@ -1285,7 +1283,7 @@ class TestProgram(unittest.TestProgram):
         # base class's testRunner parameter is not useful because it means
         # we have to instantiate HTMLTestRunner before we know self.verbosity.
         if self.testRunner is None:
-            self.testRunner = HTMLTestRunner(verbosity=self.verbosity)
+            self.testRunner = HTMLTestRunner(verbosity=1)
         unittest.TestProgram.runTests(self)
 
 

@@ -3,18 +3,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException,\
-                                        NoSuchElementException,\
-                                        StaleElementReferenceException,\
-                                        WebDriverException,\
-                                        ElementNotVisibleException,\
-                                        InvalidElementStateException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException, InvalidElementStateException
 
+from pyselenium.lib.s_logs import Log
 from pyselenium.untils import function
-from pyselenium.configs.config import YamlConfig
 from common.error import LocationTypeError
 from selenium.webdriver.common.by import By
-
 
 LOCATORS = {
     'css': By.CSS_SELECTOR,
@@ -26,18 +20,14 @@ LOCATORS = {
     'tag': By.TAG_NAME,
     'class_': By.CLASS_NAME,
 }
+logger = Log()
 
 
 class ApiDriver:
-
-    TIMEOUT = YamlConfig().get('TIMEOUT')
+    TIMEOUT = 10
 
     def open(self, url):
         self.driver.get(url)
-
-    @property
-    def get_driver(self):
-        return self.driver
 
     @property
     def alert_text(self):
@@ -65,11 +55,8 @@ class ApiDriver:
         return fn(*args)
 
     @function.change_wait(5)
-    def changewait_for_5s(self, fn, *args):
+    def change_implicitly_wait_5s(self, fn, *args):
         return fn(*args)
-
-    def set_wait(self, secs):
-        self.driver.implicitly_wait(secs)
 
     @staticmethod
     def _get_locs(*args, **kwargs):
@@ -127,27 +114,24 @@ class ApiDriver:
         return self.find_element(*args, **kwargs).is_displayed()
 
     def wait_element_invisibility(self, *args, **kwargs):
-        WebDriverWait(self.driver, self.timeout).until_not(
+        WebDriverWait(self.driver, self.TIMEOUT).until_not(
             EC.visibility_of_element_located(*self._get_locs(*args, **kwargs)))
 
     def wait_element_visibility(self, *args, **kwargs):
-        WebDriverWait(self.driver, self.timeout).until(
+        WebDriverWait(self.driver, self.TIMEOUT).until(
             EC.visibility_of_element_located(*self._get_locs(*args, **kwargs)))
 
-    # 需要优化
-    @function.change_wait(time=1)
-    def wait_for_drap(self, fn, *para):
+    def wait_element_drap(self, fn, *args, **kwargs):
         start_time = time()
         while True:
             try:
-                fn(*para)
-                sleep(1)
-                if time() - start_time > self.timeout:
-                    self.logger.error('drap fail')
+                fn(*args, **kwargs)
+                sleep(0.5)
+                if time() - start_time > self.TIMEOUT:
+                    logger.error('drap fail')
                     return False
-                self.logger.info('fun:{}, wait..'.format(fn))
-            except (WebDriverException, NoSuchElementException) as e:
-                self.logger.info('drap success')
+            except (WebDriverException, NoSuchElementException, AssertionError):
+                logger.info('drap success %{}'.format(time() - start_time))
                 return True
 
 

@@ -2,7 +2,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from email.header import Header
-from pyselenium.models.s_logs import Log
+from pyselenium.lib.s_logs import Log
 from pyselenium.untils.function import get_password, unregister
 from common.error import EmailAddressInvalid
 import smtplib
@@ -61,8 +61,8 @@ VALID_ADDRESS_REGEXP = '^' + ADDR_SPEC + '$'
 class Email:
 
     def __init__(self,
-                 server='10.10.1.3',
-                 usr='',
+                 server,
+                 usr,
                  pwd=None,
                  port=25,
                  encoding='utf-8',
@@ -84,8 +84,8 @@ class Email:
     @staticmethod
     def validate_email_with_regex(email_address):
         if not re.match(VALID_ADDRESS_REGEXP, email_address):
-            emsg = '邮箱地址 "{}" 不符合 RFC 2822 标准'.format(email_address)
-            raise EmailAddressInvalid(emsg)
+            e_msg = '邮箱地址 "{}" 不符合 RFC 2822 标准'.format(email_address)
+            raise EmailAddressInvalid(e_msg)
         # apart from the standard, I personally do not trust email addresses without dot.
         if "." not in email_address and "localhost" not in email_address.lower():
             raise EmailAddressInvalid("邮箱地址可能少了一个点")
@@ -93,7 +93,7 @@ class Email:
     def __enter__(self):
         return self
 
-    def __exit__(self):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         if not self.is_close:
             self.close()
 
@@ -127,11 +127,11 @@ class Email:
         except (smtplib.SMTPAuthenticationError, smtplib.SMTPRecipientsRefused) as e:
             self.logger.error('用户名密码验证失败！%s', e)
             if self.pwd is None:
-                print('登陆失败{}'.format(self.usr))
+                Log.print_color('登陆失败{}'.format(self.usr))
                 if unregister(usr=self.usr):
-                    print('清除{}的密码成功'.format(self.usr))
+                    Log.print_color('清除{}的密码成功'.format(self.usr))
         else:
-            print('"{}"邮件发送给{}成功'.format(subject, recipients))
+            Log.print_color('"{}"邮件发送给{}成功'.format(subject, recipients))
         self.logger.info("邮件发送给 %s", recipients)
 
     def message(self, subject, content, recipients, attachments):

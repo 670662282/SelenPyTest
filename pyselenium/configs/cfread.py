@@ -1,3 +1,5 @@
+import pprint
+
 try:
     import yaml
 except (ModuleNotFoundError, NameError, ImportError, RuntimeError) as e:
@@ -5,7 +7,6 @@ except (ModuleNotFoundError, NameError, ImportError, RuntimeError) as e:
     raise e
 
 import json
-import xml.etree.ElementTree as xml
 import os
 from xlrd import open_workbook
 from common.error import SheetTypeError
@@ -13,38 +14,36 @@ from collections import OrderedDict
 
 
 class ReaderFactory:
-
+    # TODO yaml json csv互相转换
     @classmethod
     def reader(cls, file_path):
-        if file_path.endswith('.xml'):
-            reader = cls.XmlReader
-        elif file_path.endswith('.json'):
+        if file_path.endswith('.json'):
             reader = cls.JsonReader
-        elif file_path.endswith('.yaml'):
+        elif file_path.endswith(('.yml', '.yaml')):
             reader = cls.YamlReader
-        elif file_path.endswith('.xls'):
+        elif file_path.endswith('.csv'):
             reader = cls.ExcelReader
         else:
-            raise ValueError("can't not open to {}, please use yaml xml json".format(file_path))
+            raise ValueError("can't not open to {}, please use type <yaml xml json csv>".format(file_path))
         return reader(file_path)
 
     class JsonReader:
-        def __init__(self, file):
-            self.data_ = dict()
-            with open(file, 'rb', encoding='utf-8') as f:
-                self.data_ = json.load(f)
+        def __init__(self, file, encoding='utf-8'):
+            self.data_ = OrderedDict()
+            self.json = file
+            self.encoding = encoding
 
         @property
         def data(self):
+            if not self.data_:
+                with open(self.json, 'rb', encoding=self.encoding) as fp:
+                    self.data_ = json.load(fp)
             return self.data_
 
-    class XmlReader:
-        def __init__(self, file):
-            self.tree = xml.parse(file)
-
-        @property
-        def data(self):
-            return self.tree
+        @data.setter
+        def data(self, data):
+            with open(self.json, 'a', encoding=self.encoding) as fp:
+                json.dump(data, fp, indent=2)
 
     class ExcelReader:
         """
@@ -65,36 +64,42 @@ class ReaderFactory:
         ExcelReader(excel, sheet=2)
         ExcelReader(excel, sheet='BaiDuTest')
         """
-        def __init__(self, excel, sheet=0, title_line=False):
-            self.excel = excel
+        def __init__(self, excel_path, sheet=0, title_line=False):
+            self.excel_path = excel_path
             self.sheet = sheet
             self.title_line = title_line
             self._data = list()
+            self.start_col = 1 if title_line else 0
 
         @property
         def data(self):
             sheet = None
             if not self._data:
-                workbook = open_workbook(self.excel)
-                if type(self.sheet) == str:
+                workbook = open_workbook(self.excel_path)
+                if isinstance(self.sheet, str):
                     sheet = workbook.sheet_by_name(self.sheet)
-                elif type(self.sheet) == int:
+                elif isinstance(self.sheet, int):
                     sheet = workbook.sheet_by_index(self.sheet)
                 else:
-                    raise SheetTypeError('Please pass in <type int> or <type str>, not {0}'.format(type(self.sheet)))
+                    raise SheetTypeError('Please pass in `int` or `str`, not {0}'.format(type(self.sheet)))
 
-            if self.title_line:
-                title = sheet.row_values(0)
-                for col in range(1, sheet.nrows):
-                    self._data.append(dict(zip(title, sheet.row_values(col))))
-            else:
-                for col in range(0, sheet.nrows):
-                    self._data.append(sheet.row_values(col))
-
+            for col in range(self.start_col, sheet.nrows):
+                self._data.append(self._parse_data_for_col(sheet, col))
             return self._data
 
+        def _parse_data_for_col(self, sheet, col):
+            """
+            :param sheet:
+            :param col:
+            :return: if title_line return [{A: A1, B: B1, C:C1}, {A:A2, B:B2, C:C2}]
+                    else return [[A,B,C], [A1,B1,C1], [A2,B2,C2]]
+            """
+            titles = sheet.row_values(0)
+            return dict(zip(titles, sheet.row_values(col))) \
+                if self.title_line else sheet.row_values(col)
+
     class YamlReader:
-        def __init__(self, file, write_mode='w'):
+        def __init__(self, file, write_mode='a'):
             self.yaml = file
             self._data = None
             self._write_mode = write_mode
@@ -142,7 +147,7 @@ if __name__ == '__main__':
     file_path = 'test.yaml'
     ya = ReaderFactory.reader(file_path)
     info = OrderedDict({
-        'URL': "http://10.10.120.3",
+        'URL': "http://www.baidu.com",
         'log': {
             'backup': 3,
             'level': "DEBUG",
@@ -157,7 +162,7 @@ if __name__ == '__main__':
         "TIME_OUT": 30,
     })
     ya.data = info
-    print(ya.data)
+    pprint.pprint(ya.data)
     if os.path.isfile(file_path):
         os.remove(file_path)
 
