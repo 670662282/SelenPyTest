@@ -14,7 +14,7 @@ log_colors = {
 init(autoreset=True)
 
 
-def get_logger(level=logging.DEBUG, logfile=None, log_backup=3):
+def get_logger(level=logging.DEBUG, logfile='test.log', log_backup=3):
 
     logger = logging.getLogger(__name__)
     logger.setLevel(level)
@@ -48,7 +48,7 @@ def get_logger(level=logging.DEBUG, logfile=None, log_backup=3):
         )
         file_handle.setLevel(level)
         file_handle.setFormatter(formatter)
-        handler_list.append(con_handle)
+        handler_list.append(file_handle)
 
     logger.handlers = handler_list
 

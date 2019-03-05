@@ -1,3 +1,4 @@
+import importlib
 from time import sleep
 
 from selenium import webdriver
@@ -47,7 +48,7 @@ def get_driver(bro='chrome', disabled_log=False, **kwargs):
 
 class EventListener(AbstractEventListener):
     """ Listener driver"""
-    def __init__(self, disabled_log, timeout=0):
+    def __init__(self, disabled_log, timeout=10):
         self.logger = get_logger()
         self.logger.disabled = disabled_log
         try:
@@ -62,7 +63,12 @@ class EventListener(AbstractEventListener):
         self.logger.debug("After navigate to %s" % url)
 
     def before_find(self, by, value, driver):
-        # TODO Refoact this function
+        # TODO 非预期窗口弹出处理
+        # 控件无法操作(send_，click) 无法定位的时候
+        # 进入异常恢复模式，检查各种可能的出现的对话框(从异常场景库中寻找)
+        # 确认对话框类型后进行重试 刚才失败的步骤
+        # TODO 模糊定位 通过特定相识度算法 当控件发生细微变化 这个控件依旧可以准确定位
+        # 引入规则引擎 规则-配置文件方式
         """wait element!"""
         break_flag = False
         if self.element_wait:
@@ -77,12 +83,17 @@ class EventListener(AbstractEventListener):
                         break
                 sleep(0.1)
             else:
-                raise TimeoutError("element NoSuchElement or Invisible, locs:({}, {})".format(by, value))
+                self.logger.warning("element NoSuchElement or Invisible, locs:({}, {})".format(by, value))
+                self._exception_parse()
 
     def after_find(self, by, value, driver):
         self.logger.debug('元素定位: ({}, {})'.format(by, value))
 
     def before_change_value_of(self, element, driver):
+        if driver.switch_to.active_element != element:
+            print_color('active_element != current element')
+        if self._check_element_status(element):
+            self._exception_parse()
         if element.get_attribute('value'):
             self.logger.debug('before_change :value=%s' % element.get_attribute('value') or 'None')
 
@@ -104,17 +115,32 @@ class EventListener(AbstractEventListener):
     def before_click(self, element, driver):
         self._change_js_attr(element, driver)
         element_str = self._get_element_attr(element)
-        tag = element.tag_name
-        if not element.is_displayed():
-            self.logger.warning('%s 元素不可以见' % element_str)
-        if not element.is_enabled():
-            self.logger.warning('%s 元素disabled状态' % element_str)
-        if tag in ['checkbox', 'radio']:
+
+        if element.tag_name in ['checkbox', 'radio']:
             status = 'is selected' if element.lower().is_selected() else 'is not selected'
             self.logger.debug('{} 元素 {} 状态'.format(element_str, status))
+        if self._check_element_status(element):
+            self._exception_parse()
+
+    def _check_element_status(self, element):
+        element_str = self._get_element_attr(element)
+        if not element.is_displayed():
+            self.logger.warning('%s 元素不可以见' % element_str)
+            return False
+        if not element.is_enabled():
+            self.logger.warning('%s 元素disabled状态' % element_str)
+            return False
+        return True
+
+    def _exception_parse(self):
+        pass
+        # 截图
+        # TODO 去异常库找到匹配的 异常对象 并click关闭
+        # 定位 动态加载异常库
+        importlib.import_module('no_except_window')
 
     @staticmethod
-    def _change_js_attr(element, driver, attr='1px solid red'):
+    def _change_js_attr(element, driver, attr='2px solid red'):
         driver.execute_script('q=document.getElementById("{}");q.style.border=\"{}\";'.
                               format(element.get_attribute('id'), attr))
 

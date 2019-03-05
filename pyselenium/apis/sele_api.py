@@ -23,6 +23,8 @@ LOCATORS = {
 logger = get_logger()
 
 
+# TODO 获取当前窗口 和窗口切换封装
+
 class ApiDriver:
     TIMEOUT = 10
 
