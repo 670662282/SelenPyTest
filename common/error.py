@@ -23,3 +23,16 @@ class BrowserNoFoundError(Exception):
     pass
 
 
+class NotFoundError(Exception):
+    pass
+
+
+class InvalidLocationError(Exception):
+    pass
+
+
+class FileNotFound(FileNotFoundError, NotFoundError):
+    pass
+
+
+

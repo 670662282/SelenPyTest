@@ -1,20 +1,63 @@
+import importlib
 import os
+import sys
+import functools
 from collections import OrderedDict
 from time import strftime, localtime, time, sleep
 from keyring.errors import PasswordDeleteError
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
-
-
-import functools
+from common.error import FileNotFound, InvalidLocationError
 from pyselenium.lib.log import get_logger, print_color
 from pyselenium.lib.ssh import SSH
 
 logger = get_logger()
-
 try:
     import keyring
 except (NameError, ImportError, RuntimeError):
     pass
+
+LOC_S = [
+    "id",
+    "xpath",
+    "link text",
+    "partial link text",
+    "name",
+    "tag name",
+    "class name",
+    "css selector",
+]
+
+
+def import_config_py():
+    # 定位到no_except_window.py，并把它所在的目录插入环境变量
+    sys.path.insert(0, os.path.dirname(locate_file("no_except_window.py")))
+    module = importlib.import_module('no_except_window')
+    locs = {}
+    for name, value in vars(module).items():
+        if isinstance(value, list) and value[0] in LOC_S:
+            raise InvalidLocationError("Location应该为tuple类型 loc: {}, {}".format(len(value), name, value))
+
+        if isinstance(value, tuple) and value[0] in LOC_S:
+            if len(value) == 2:
+                locs[name] = value
+            else:
+                raise InvalidLocationError("定位错误, tuple长度为{}, loc: {}, {}".format(len(value), name, value))
+    return locs
+
+
+def locate_file(file_name, start_dir_path=""):
+
+    if start_dir_path == "":
+        start_dir_path = os.getcwd()
+
+    file_path = os.path.join(start_dir_path, file_name)
+    if os.path.isfile(file_path):
+        return os.path.abspath(file_path)
+
+    if not os.path.dirname(start_dir_path) or os.path.abspath(start_dir_path) == os.path.abspath(os.sep):
+        raise FileNotFound("{} not found in {}".format(file_name, start_dir_path))
+
+    return locate_file(file_name, os.path.dirname(start_dir_path))
 
 
 def get_png(driver, image_path, img_name):

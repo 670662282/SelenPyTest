@@ -9,7 +9,7 @@ from selenium.webdriver.support.event_firing_webdriver import EventFiringWebDriv
 
 from common.error import BrowserNoFoundError
 from pyselenium.lib.log import print_color, get_logger
-from pyselenium.untils.function import find_alias
+from pyselenium.untils.function import find_alias, import_config_py
 
 
 def chrome_headless():
@@ -63,10 +63,7 @@ class EventListener(AbstractEventListener):
         self.logger.debug("After navigate to %s" % url)
 
     def before_find(self, by, value, driver):
-        # TODO 非预期窗口弹出处理
-        # 控件无法操作(send_，click) 无法定位的时候
-        # 进入异常恢复模式，检查各种可能的出现的对话框(从异常场景库中寻找)
-        # 确认对话框类型后进行重试 刚才失败的步骤
+
         # TODO 模糊定位 通过特定相识度算法 当控件发生细微变化 这个控件依旧可以准确定位
         # 引入规则引擎 规则-配置文件方式
         """wait element!"""
@@ -112,7 +109,7 @@ class EventListener(AbstractEventListener):
                         element.get_attribute('class') or 'None',
                         element.text or 'None')
 
-    def before_click(self, element, driver):
+    def before_click(self, element, c):
         self._change_js_attr(element, driver)
         element_str = self._get_element_attr(element)
 
@@ -120,7 +117,7 @@ class EventListener(AbstractEventListener):
             status = 'is selected' if element.lower().is_selected() else 'is not selected'
             self.logger.debug('{} 元素 {} 状态'.format(element_str, status))
         if self._check_element_status(element):
-            self._exception_parse()
+            self._exception_parse(driver)
 
     def _check_element_status(self, element):
         element_str = self._get_element_attr(element)
@@ -132,12 +129,32 @@ class EventListener(AbstractEventListener):
             return False
         return True
 
-    def _exception_parse(self):
+    def _exception_parse(self, driver):
         pass
-        # 截图
-        # TODO 去异常库找到匹配的 异常对象 并click关闭
+        # TODO 截图
+        # 非预期窗口弹出处理
+        # 控件无法操作(send_，click) 无法定位的时候
+        # 进入异常恢复模式，检查各种可能的出现的对话框(从异常场景库中寻找)
+        # 确认对话框类型后进行重试 刚才失败的步骤
         # 定位 动态加载异常库
-        importlib.import_module('no_except_window')
+        locs = import_config_py()
+        for name, value in locs.items():
+            elements = driver.find_elements(*value)
+            if len(elements) == 1:
+                print_color("定位到{}的元素".format(name))
+                elements[0].click()
+                break
+            if len(elements) > 1:
+                print_color("警告：异常弹框定位库定位到{}个元素".format(len(elements)), 'red')
+        else:
+            self.logger.warning("no found in no_exception_window.py")
+
+
+
+
+
+
+
 
     @staticmethod
     def _change_js_attr(element, driver, attr='2px solid red'):
