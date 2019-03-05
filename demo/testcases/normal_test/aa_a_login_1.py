@@ -2,6 +2,8 @@
 # !/usr/bin/env python3
 
 from parameterized import parameterized
+
+from pyselenium.apis.sele_api import ApiDriver
 from pyselenium.models import unittests
 from pyselenium.untils.function import capture_except
 
@@ -9,14 +11,17 @@ from pyselenium.untils.function import capture_except
 def setUpModule():
     print('start UITest!')
 
+# TODO listener 和wait装饰器  timeout 共存问题
+
 
 class DemoTest(unittests.TestCase):
+    ApiDriver.png_path = 'reports'
     """This is Test a"""
     @parameterized.expand([
         ('test1', 'selenium'),
         ('test2', 'selenium2')
     ])
-    @capture_except
+    @capture_except(png_path=r'reports\images', retry=2)
     def test_login(self, fun, search_key):
         """test_login"""
         self.open("https://www.baidu.com")
@@ -25,9 +30,11 @@ class DemoTest(unittests.TestCase):
         self.send_values(search_key, css="#kw")
         self.click_element(css="#su")
         # self.click_element(css="#aa")
-        # self.assertTitle(search_key)
-        self.assertEqual(1, 2)
 
+        if fun == 'test2':
+            self.assertEqual(1, 2)
+
+    @capture_except()
     def test_subtest(self):
         """test subtest aaa"""
         self.open("https://www.baidu.com")
@@ -35,14 +42,6 @@ class DemoTest(unittests.TestCase):
             with self.subTest(parrern=i):
                 self.send_values(i, css="#kw")
                 self.click_element(css="#su")
-
-    def except_parse(self, driver):
-        print('这里进行错误处理!')
+        self.assertEqual(2, 3)
 
 
-"""
-if __name__ == '__main__':
-    testRunner = TestRunner(cases="./", casecls_re='*.py', debug=False, report_backup=3)
-    testRunner.runner()
-    reports = testRunner.report_file
-"""

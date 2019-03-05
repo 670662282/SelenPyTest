@@ -1,6 +1,6 @@
 # coding:utf-8
-from pyselenium.lib.s_logs import Log
-logger = Log()
+from pyselenium.lib.log import get_logger
+logger = get_logger()
 """
 A TestRunner for use with the Python unit testing framework. It
 generates a HTML reports to show the result at a glance.
@@ -53,8 +53,6 @@ import re
 import os
 from xml.sax import saxutils
 from collections import defaultdict
-from pyselenium.configs.config import IMAGE_PATH
-
 # ------------------------------------------------------------------------
 # The redirectors below are used to capture output during testing. Output
 # sent to sys.stdout and sys.stderr are automatically captured. However
@@ -958,8 +956,11 @@ class _TestResult(unittest.TestResult):
 class HTMLTestRunner(TemplateMixin):
     """
     """
-    def __init__(self, stream=sys.stdout, verbosity=1, title=None, description=None):
-        self.stream = stream
+    def __init__(self, report_file, verbosity=1, title=None, description=None):
+        self.report_file = report_file
+        self.image_path = os.path.join(os.path.dirname(report_file), 'images')
+        if not os.path.exists(self.image_path):
+            os.mkdir(self.image_path)
         self.verbosity = verbosity
         self.title = self.DEFAULT_TITLE if title is None else title
         self.description = self.DEFAULT_DESCRIPTION if description is None else description
@@ -1030,7 +1031,8 @@ class HTMLTestRunner(TemplateMixin):
             dashboard_view=dashboard_view,
             script_js=script_js,
         )
-        self.stream.write(output.encode('utf8'))
+        with open(file=self.report_file, mode='wb') as stream:
+            stream.write(output.encode('utf8'))
 
     def _generate_stylesheet(self):
         return self.STYLESHEET_TMPL
@@ -1219,10 +1221,11 @@ class HTMLTestRunner(TemplateMixin):
         ss = ss_reg.findall(uo)
 
         images = []
+
         for ima in ss:
             image = self.REPORT_IMAGE % dict(
                 screenshot_id=ima.split(".")[0],
-                screenshot=saxutils.escape(os.path.join(IMAGE_PATH, ima))
+                screenshot=saxutils.escape(os.path.join(self.image_path, ima))
             )
             images.append(image)
 

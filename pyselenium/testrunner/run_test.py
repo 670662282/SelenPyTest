@@ -1,28 +1,34 @@
 # coding:utf-8
 # !/usr/bin/env python3
 from .ExtentHTMLTestRunner import HTMLTestRunner
-from pyselenium.lib.s_logs import Log
+from pyselenium.lib.log import print_color, get_logger
 import unittest
 import time
 import os
 
 
 class TestRunner:
-    def __init__(self, cases="./",
+    def __init__(self,
+                 report_path=None,
+                 cases="./",
                  case_cls_re='*.py',
                  title="UITestReport",
                  report_backup=0,
                  description="Test case execution:",
-                 debug=False):
+                 ):
 
+        self.report_path = report_path
         self.cases = cases
         self.title = title
-        self.debug = debug
         self.description = description
         self.case_cls_re = case_cls_re
         self.backup = report_backup
-        self.logger = Log()
+        self.logger = get_logger()
         self._report_file = None
+
+        if report_path:
+            if not os.path.exists(self.report_path):
+                os.makedirs(self.report_path)
 
     @property
     def report_file(self):
@@ -44,7 +50,7 @@ class TestRunner:
         reports = [f for f in all_file if f.strip().endswith('.html')]
         reports.sort(key=lambda f: os.path.getmtime(f))
         new_report = reports.pop()
-        self.logger.info("new reports_path:" + new_report)
+        print_color("new reports_path:" + new_report)
         del_list = []
         # 前面pop最新的报告 所以这要加1
         if 0 < reserve_num < len(reports) + 1:
@@ -61,24 +67,20 @@ class TestRunner:
         return unittest.defaultTestLoader.discover(self.cases, pattern=self.case_cls_re)
 
     def runner(self):
-        self._debug() if self.debug else self._normal()
+        self._normal() if self.report_path else self._no_html()
 
-    def _debug(self):
+    def _no_html(self):
         unittest.TextTestRunner(verbosity=2).run(self._get_discover())
 
     def _normal(self):
-        reports_path = os.path.join(os.getcwd(), 'reports')
-        if not os.path.isdir(reports_path):
-            os.mkdir(reports_path)
-        report_name = time.strftime("%Y-%m-%d_%H-%M-%S") + 'UITest.html'
-        with open(os.path.join(reports_path, report_name), 'wb') as fp:
-            runner = HTMLTestRunner(stream=fp,
-                                    title=self.title,
-                                    description=self.description,
-                                    verbosity=2)
-            runner.run(self._get_discover())
+        runner = HTMLTestRunner(
+            report_file=os.path.join(
+                self.report_path, time.strftime("%Y-%m-%d_%H-%M-%S") + 'UITest.html'),
+            title=self.title,
+            description=self.description,
+            verbosity=2)
+        runner.run(self._get_discover())
 
-        att_list = []
-        self._report_file = self.handle_reports(reports_path, self.backup)
-        att_list.append(self._report_file)
+        self._report_file = self.handle_reports(self.report_path, self.backup)
+
 

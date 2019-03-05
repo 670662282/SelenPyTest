@@ -2,7 +2,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from email.header import Header
-from pyselenium.lib.s_logs import Log
+from pyselenium.lib.log import get_logger, print_color
 from pyselenium.untils.function import get_password, unregister
 from common.error import EmailAddressInvalid
 import smtplib
@@ -68,7 +68,7 @@ class Email:
                  encoding='utf-8',
                  email_validation=True
                  ):
-        self.logger = Log()
+        self.logger = get_logger()
         self.smtp = smtplib.SMTP()
         self.is_close = False
         self.server = server
@@ -124,14 +124,14 @@ class Email:
             self._login(self.pwd)
             msg = self.message(subject, content, recipients, attachments)
             self.smtp.sendmail(self.usr, recipients, msg.as_string())
-        except (smtplib.SMTPAuthenticationError, smtplib.SMTPRecipientsRefused) as e:
-            self.logger.error('用户名密码验证失败！%s', e)
+        except (smtplib.SMTPAuthenticationError, smtplib.SMTPRecipientsRefused):
+            self.logger.exception('用户名密码验证失败!')
             if self.pwd is None:
-                Log.print_color('登陆失败{}'.format(self.usr))
+                print_color('登陆失败{}'.format(self.usr), 'red')
                 if unregister(usr=self.usr):
-                    Log.print_color('清除{}的密码成功'.format(self.usr))
+                    print_color('清除{}的密码成功'.format(self.usr))
         else:
-            Log.print_color('"{}"邮件发送给{}成功'.format(subject, recipients))
+            print_color('"{}"邮件发送给{}成功'.format(subject, recipients))
         self.logger.info("邮件发送给 %s", recipients)
 
     def message(self, subject, content, recipients, attachments):
