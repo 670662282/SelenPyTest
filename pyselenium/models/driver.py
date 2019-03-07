@@ -149,13 +149,6 @@ class EventListener(AbstractEventListener):
         else:
             self.logger.warning("no found in no_exception_window.py")
 
-
-
-
-
-
-
-
     @staticmethod
     def _change_js_attr(element, driver, attr='2px solid red'):
         driver.execute_script('q=document.getElementById("{}");q.style.border=\"{}\";'.

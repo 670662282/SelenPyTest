@@ -60,7 +60,7 @@ def locate_file(file_name, start_dir_path=""):
     return locate_file(file_name, os.path.dirname(start_dir_path))
 
 
-def get_png(driver, image_path, img_name):
+def get_png(driver, image_path, img_name=""):
     image_name = 'screenshot_' + strftime("%Y%m%d-%H_%M_%S_", localtime()) + str(img_name) + '.png'
     path = os.path.join(image_path, image_name)
     driver.get_screenshot_as_file(path)
