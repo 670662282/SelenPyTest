@@ -96,7 +96,7 @@ def find_alias(arg, compare):
         if count > max_len / 2 + 1 and count > max_char_alias_len:
             alias_char = key
             max_char_alias_len = count
-    logger.debug("alias_char:{}, max_char_alias_len: {}".format(alias_char, max_char_alias_len))
+    logger.debug("{} is alias_char {}, max_char_alias_len: {}".format(arg, alias_char, max_char_alias_len))
 
     return alias_char
 
