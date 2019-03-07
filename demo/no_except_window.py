@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-window1_loc = (By.CSS_SELECTOR, 'test',3)
+window1_loc = (By.CSS_SELECTOR, 'test', 3)
 window2_loc = (By.CSS_SELECTOR, 'test')
 
 

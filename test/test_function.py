@@ -9,7 +9,7 @@ class TestSApi(SUnittest):
         compare_set = {'admin', 'yellow', 'test', 'add', 123}
         compare_list = ['admin', 'yellow', 'test', 'add', 1234]
         compare_dict = {'admin': '', 'yellow': '', 'test': '', 'add': '', 1: ''}
-        compare_str = 'admin'
+        compare_str = 'adminz'
         for arg in args:
             find_alias(arg, compare_set)
             find_alias(arg, compare_list)

@@ -30,7 +30,11 @@ LOC_S = [
 
 def import_config_py():
     # 定位到no_except_window.py，并把它所在的目录插入环境变量
-    sys.path.insert(0, os.path.dirname(locate_file("no_except_window.py")))
+    file = locate_file("no_except_window.py")
+    if not file:
+        print_color('no found config.py')
+        return
+    sys.path.insert(0, os.path.dirname(file))
     module = importlib.import_module('no_except_window')
     locs = {}
     for name, value in vars(module).items():
@@ -55,7 +59,8 @@ def locate_file(file_name, start_dir_path=""):
         return os.path.abspath(file_path)
 
     if not os.path.dirname(start_dir_path) or os.path.abspath(start_dir_path) == os.path.abspath(os.sep):
-        raise FileNotFound("{} not found in {}".format(file_name, start_dir_path))
+        logger.warning("{} not found in {}".format(file_name, start_dir_path))
+        return None
 
     return locate_file(file_name, os.path.dirname(start_dir_path))
 
@@ -72,34 +77,36 @@ def find_alias(arg, compare):
     if not arg or not compare:
         return None
     arg = str(arg)
-    max_char_alias_len = 0
-    alias_char = None
+
     if isinstance(compare, str):
         compare = [compare]
-    elif isinstance(compare, dict):
+    if isinstance(compare, dict):
         compare = compare.keys()
-    elif isinstance(compare, (list, set)):
-        pass
-    else:
-        compare = str(compare)
 
+    alias_char = None
+    max_char_alias_len = 0
     for key in compare:
+        key = str(key)
         if key == arg:
             return key
-        key = str(key)
         # str conversion List of characters
-        key_char_list = ' '.join(key).split(' ')
-        count = 0
-        for i in arg:
-            if i in key_char_list:
-                count += 1
+        count = _get_alias_char_count(arg, ' '.join(key).split(' '))
+
         max_len = len(key) if len(key) > len(arg) else len(arg)
         if count > max_len / 2 + 1 and count > max_char_alias_len:
             alias_char = key
             max_char_alias_len = count
-            logger.debug("alias_char:{}, max_char_alias_len: {}".format(alias_char, max_char_alias_len))
+    logger.debug("alias_char:{}, max_char_alias_len: {}".format(alias_char, max_char_alias_len))
 
     return alias_char
+
+
+def _get_alias_char_count(arg, key_char_list):
+    count = 0
+    for i in arg:
+        if i in key_char_list:
+            count += 1
+    return count
 
 
 def get_password(usr=None, pwd=None, type='email'):
