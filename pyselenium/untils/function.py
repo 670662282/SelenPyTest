@@ -8,7 +8,7 @@ from keyring.errors import PasswordDeleteError
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from common.error import FileNotFound, InvalidLocationError
 from pyselenium.lib.log import get_logger, print_color
-from pyselenium.lib.ssh import SSH
+from pyselenium.lib.ssh_connect import SSHConnect
 
 logger = get_logger()
 try:
@@ -184,7 +184,7 @@ def get_file_by_sftp(ip, pwd, service_file=None, local_path='./download_dir'):
     :param local_path: local file store path
     :return: local_file
     """
-    ssh = SSH(ip, pwd)
+    ssh = SSHConnect(ip, pwd)
     ssh.connect()
     ssh.set_transport()
 

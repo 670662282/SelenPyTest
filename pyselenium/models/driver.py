@@ -63,7 +63,6 @@ class EventListener(AbstractEventListener):
         self.logger.debug("After navigate to %s" % url)
 
     def before_find(self, by, value, driver):
-
         # TODO 模糊定位 通过特定相识度算法 当控件发生细微变化 这个控件依旧可以准确定位
         # 引入规则引擎 规则-配置文件方式
         """wait element!"""
@@ -130,7 +129,6 @@ class EventListener(AbstractEventListener):
         return True
 
     def _exception_parse(self, driver):
-        pass
         # TODO 截图
         # 非预期窗口弹出处理
         # 控件无法操作(send_，click) 无法定位的时候

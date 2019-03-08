@@ -98,7 +98,7 @@ class ApiDriver:
     def _find_elements(self, *location):
         return self.driver.find_elements(*location)
 
-    def f5(self):
+    def refresh(self):
         self.driver.refresh()
 
     def script(self, script):

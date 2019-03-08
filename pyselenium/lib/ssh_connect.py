@@ -8,7 +8,7 @@ except (NameError, ImportError, RuntimeError):
 logger = get_logger()
 
 
-class SSH:
+class SSHConnect:
 
     def __init__(self, ip, password):
         self.host = (ip, 22)
