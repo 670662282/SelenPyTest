@@ -33,7 +33,6 @@ class DemoTest2(unittests.TestCase):
         if fun == 'test2':
             self.assertEqual(11, 22)
 
-    @unittest.skip('haha')
     @capture_except()
     def test_subtest2(self):
         """test subtest aaa"""
@@ -44,4 +43,11 @@ class DemoTest2(unittests.TestCase):
                 self.click_element(css="#su")
         self.assertEqual(22, 33)
 
-
+    @unittest.skip('haha')
+    def test_subtest3(self):
+        """test subtest aaa"""
+        self.open("https://www.baidu.com")
+        for i in range(3):
+            with self.subTest(parrern=i):
+                self.send_values(i, css="#kw")
+                self.click_element(css="#su")

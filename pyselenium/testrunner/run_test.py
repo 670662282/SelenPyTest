@@ -80,6 +80,6 @@ class TestRunner:
             verbosity=2)
         runner.run(self._get_discover())
 
-        self._report_file = self.handle_reports(self.report_path, self.backup)
+        # self._report_file = self.handle_reports(self.report_path, self.backup)
 
 
