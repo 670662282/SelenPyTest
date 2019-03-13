@@ -26,8 +26,7 @@ class TestRunner:
         self.logger = get_logger()
         self._report_file = None
 
-        if report_path:
-            if not os.path.exists(self.report_path):
+        if report_path and not os.path.exists(self.report_path):
                 os.makedirs(self.report_path)
 
     @property

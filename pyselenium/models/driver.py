@@ -1,12 +1,9 @@
-import importlib
 from time import sleep
-
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.abstract_event_listener import AbstractEventListener
 from selenium.webdriver.support.event_firing_webdriver import EventFiringWebDriver
-
 from common.error import BrowserNoFoundError
 from pyselenium.lib.log import print_color, get_logger
 from pyselenium.untils.function import find_alias, import_config_py
@@ -80,16 +77,14 @@ class EventListener(AbstractEventListener):
                 sleep(0.1)
             else:
                 self.logger.warning("element NoSuchElement or Invisible, locs:({}, {})".format(by, value))
-                self._exception_parse()
+                self._exception_parse(driver)
 
     def after_find(self, by, value, driver):
         self.logger.debug('元素定位: ({}, {})'.format(by, value))
 
     def before_change_value_of(self, element, driver):
-        if driver.switch_to.active_element != element:
-            print_color('active_element != current element')
-        if self._check_element_status(element):
-            self._exception_parse()
+        if self._element_is_invaild_status(element):
+            self._exception_parse(driver)
         if element.get_attribute('value'):
             self.logger.debug('before_change :value=%s' % element.get_attribute('value') or 'None')
 
@@ -108,25 +103,25 @@ class EventListener(AbstractEventListener):
                         element.get_attribute('class') or 'None',
                         element.text or 'None')
 
-    def before_click(self, element, c):
+    def before_click(self, element, driver):
         self._change_js_attr(element, driver)
         element_str = self._get_element_attr(element)
 
         if element.tag_name in ['checkbox', 'radio']:
             status = 'is selected' if element.lower().is_selected() else 'is not selected'
             self.logger.debug('{} 元素 {} 状态'.format(element_str, status))
-        if self._check_element_status(element):
+        if self._element_is_invaild_status(element):
             self._exception_parse(driver)
 
-    def _check_element_status(self, element):
+    def _element_is_invaild_status(self, element):
         element_str = self._get_element_attr(element)
         if not element.is_displayed():
             self.logger.warning('%s 元素不可以见' % element_str)
-            return False
+            return True
         if not element.is_enabled():
             self.logger.warning('%s 元素disabled状态' % element_str)
-            return False
-        return True
+            return True
+        return False
 
     def _exception_parse(self, driver):
         # TODO 截图

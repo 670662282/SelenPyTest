@@ -1,5 +1,6 @@
 # coding:utf-8
 # !/usr/bin/env python3
+import unittest
 
 from parameterized import parameterized
 from pyselenium.models import unittests
@@ -32,6 +33,7 @@ class DemoTest2(unittests.TestCase):
         if fun == 'test2':
             self.assertEqual(11, 22)
 
+    @unittest.skip('haha')
     @capture_except()
     def test_subtest2(self):
         """test subtest aaa"""

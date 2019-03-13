@@ -171,7 +171,10 @@ def capture_except(png_path=None, retry=0):
                 png = png_path if png_path else self.png_path if self.png_path else '.'
                 print_color('出错截图：{}'.format(get_png(self.driver, png, fn.__name__)))
                 if retry:
+                    print_color("开始异常重试模式，尝试重试次数: {}".format(retry))
                     self.except_parse(e, retry, fn, *args, **kw)
+                else:
+                    raise
         return capture
     return _capture_except
 
