@@ -50,6 +50,8 @@ class _TestResult(unittest.TextTestResult):
             'attachment': attachment,
             "meta_datas": 'datas',
             "png_path": "",
+            "retry_time": "",
+            "retry_result": "",
         }
         self.result.append(data)
 
