@@ -20,9 +20,9 @@ class DemoTest2(unittests.TestCase):
         ('test1', 'python'),
         ('test2', 'java')
     ])
-    @capture_except(png_path=r'reports\images', retry=2)
+    @capture_except(png_path=r'reports\images', retry=3)
     def test_login2(self, fun, search_key):
-        """test_login"""
+        """test_login_2"""
         self.open("https://www.baidu.com")
         self.find_element('#kw')
         # self.find_element_by_css('#aa')
@@ -35,7 +35,7 @@ class DemoTest2(unittests.TestCase):
 
     @capture_except()
     def test_subtest2(self):
-        """test subtest aaa"""
+        """test subtest_2"""
         self.open("https://www.baidu.com")
         for i in range(3):
             with self.subTest(parrern=i):

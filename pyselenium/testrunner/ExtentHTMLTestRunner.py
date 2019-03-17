@@ -1,12 +1,13 @@
 # coding:utf-8
 from pprint import pprint
+from time import time
 
-from pyselenium.lib.log import get_logger
+from pyselenium.lib.log import get_logger, print_color
 from enum import Enum
-import datetime
+
 import unittest
 import os
-from collections import defaultdict
+from collections import OrderedDict
 from enum import Enum
 
 logger = get_logger()
@@ -24,15 +25,15 @@ class _TestResult(unittest.TextTestResult):
         super(_TestResult, self).__init__(stream, descriptions, verbosity)
         self.result = []
         self.sub_test_list = []
-        self.start_time = datetime.datetime.now()
+        self.start_time = time()
 
     @property
     def test_result(self):
-        result = {
+        result = OrderedDict({
             "success": self.wasSuccessful(),
             "stat": {
                 'total': self.testsRun,
-                'total_time': datetime.datetime.now() - self.start_time,
+                'total_time': time() - self.start_time,
                 'failures': len(self.failures),
                 'errors': len(self.errors),
                 'skipped': len(self.skipped),
@@ -40,19 +41,17 @@ class _TestResult(unittest.TextTestResult):
                 'unexpectedSuccesses': len(self.unexpectedSuccesses)
             },
             "result": self.result,
-        }
+        })
         return result
 
     def _result_record(self, test, status, attachment=''):
-        data = {
+        data = OrderedDict({
             'name': test.shortDescription(),
             'status': status,
             'attachment': attachment,
-            "meta_datas": 'datas',
-            "png_path": "",
-            "retry_time": "",
-            "retry_result": "",
-        }
+            "meta_datas": 'null',
+            "except_data": test.except_data,
+        })
         self.result.append(data)
 
     def startTest(self, test):
@@ -61,11 +60,12 @@ class _TestResult(unittest.TextTestResult):
     def addSubTest(self, test, subtest, err):
         super().addSubTest(test, subtest, err)
         # self._result_record(subtest, 'subtest', self._exc_info_to_string(err, test))
-        print("")
+        # print("")
 
     def addSuccess(self, test):
         super().addSuccess(test)
         self._result_record(test, 'success')
+        logger.debug(test.except_data)
         print("")
 
     def addError(self, test, err):
@@ -76,6 +76,7 @@ class _TestResult(unittest.TextTestResult):
     def addFailure(self, test, err):
         super().addFailure(test, err)
         self._result_record(test, 'failure', self._exc_info_to_string(err, test))
+        logger.debug(test.except_data)
         print("")
 
     def addSkip(self, test, reason):
@@ -109,5 +110,5 @@ class HTMLTestRunner:
     def run(self, test):
         """ Run the given test case or test suite. """
         result = self.runner.run(test)
-        pprint(result.test_result)
+        pprint(result.test_result['result'])
 
