@@ -79,6 +79,7 @@ class TestRunner:
             description=self.description,
             verbosity=2)
         runner.run(self._get_discover())
+        runner.html_report()
 
         # self._report_file = self.handle_reports(self.report_path, self.backup)
 
