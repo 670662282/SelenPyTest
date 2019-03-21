@@ -1,5 +1,6 @@
 # coding:utf-8
 from pprint import pprint
+from time import time
 
 from pyselenium.lib.log import get_logger
 import datetime
@@ -23,7 +24,7 @@ class _TestResult(unittest.TextTestResult):
         super(_TestResult, self).__init__(stream, descriptions, verbosity)
         self.result = []
         self.sub_test_list = []
-        self.start_time = datetime.datetime.now()
+        self.start_time = time()
 
     @property
     def test_result(self):
@@ -31,7 +32,7 @@ class _TestResult(unittest.TextTestResult):
             "success": self.wasSuccessful(),
             "stat": {
                 'total': self.testsRun,
-                'total_time': datetime.datetime.now() - self.start_time,
+                'total_time': time() - self.start_time,
                 'failures': len(self.failures),
                 'errors': len(self.errors),
                 'skipped': len(self.skipped),
