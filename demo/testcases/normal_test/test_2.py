@@ -38,7 +38,7 @@ class DemoTest2(unittests.TestCase):
         """test subtest_2"""
         self.open("https://www.baidu.com")
         for i in range(3):
-            with self.subTest(parrern=i):
+            with self.subTest(msg="sub test第{}次测试".format(i), parrern=i):
                 self.send_values(i, css="#kw")
                 self.click_element(css="#su")
         self.assertEqual(22, 33)

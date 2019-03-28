@@ -99,18 +99,20 @@ class HTMLTestRunner:
     """A TestRunner for use with the Python unit testing framework. It
     generates a HTML reports to show the result at a glance.
     """
-    def __init__(self, report_file, verbosity=2, title=None, description=None):
+    def __init__(self, report_file, verbosity=2, title=None, description=None, report_template=None):
         self.report_file = report_file
+        self.report_template = report_template
         self.image_path = os.path.join(os.path.dirname(report_file), 'images')
         self.verbosity = verbosity
         self.title = title
         self.description = description
         self.runner = unittest.TextTestRunner(verbosity=verbosity, resultclass=_TestResult)
+        self.result = None
 
     def run(self, test):
         """ Run the given test case or test suite. """
-        result = self.runner.run(test)
-        pprint(result.test_result)
+        self.result = self.runner.run(test)
+        pprint(self.result.test_result)
 
     def html_report(self):
 
