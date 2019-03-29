@@ -15,9 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-__version__ = "0.1.1"
-__author__ = "jiangchen"
-
 
 from .testrunner.run_test import TestRunner
 from .apis import sele_api

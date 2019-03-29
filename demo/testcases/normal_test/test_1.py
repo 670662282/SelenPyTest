@@ -15,8 +15,10 @@ def setUpModule():
 
 
 class DemoTest(unittests.TestCase):
-    ApiDriver.png_path = 'reports'
     """This is Test a"""
+
+    ApiDriver.png_path = 'reports'
+
     @parameterized.expand([
         ('test1', 'selenium'),
         ('test2', 'selenium2')

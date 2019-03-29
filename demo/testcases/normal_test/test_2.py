@@ -15,7 +15,7 @@ def setUpModule():
 
 
 class DemoTest2(unittests.TestCase):
-    """This is Test a"""
+    """hahahaha"""
     @parameterized.expand([
         ('test1', 'python'),
         ('test2', 'java')

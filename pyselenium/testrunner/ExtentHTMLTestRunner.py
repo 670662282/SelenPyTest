@@ -1,15 +1,18 @@
 # coding:utf-8
+from copy import copy
 from pprint import pprint
-from time import time
+from time import time, sleep
 
 from pyselenium.lib.log import get_logger
 from enum import Enum
 import datetime
 import unittest
 import os
+import platform
 from collections import defaultdict
 from enum import Enum
 from jinja2 import Template, escape
+from __init__ import __version__
 logger = get_logger()
 
 
@@ -26,14 +29,21 @@ class _TestResult(unittest.TextTestResult):
         self.result = []
         self.sub_test_list = []
         self.start_time = time()
+        self.successes = 0
 
     @property
     def test_result(self):
         result = {
-            "success": self.wasSuccessful(),
+            "platform": {
+                "SelePyTest_version": __version__,
+                "python_version": "{} {}".format(platform.python_implementation(), platform.python_version()),
+                "platform_os": platform.platform()
+            },
             "stat": {
                 'total': self.testsRun,
                 'total_time': time() - self.start_time,
+                'now_time': str(datetime.datetime.now()),
+                'success': self.successes,
                 'failures': len(self.failures),
                 'errors': len(self.errors),
                 'skipped': len(self.skipped),
@@ -45,9 +55,13 @@ class _TestResult(unittest.TextTestResult):
         return result
 
     def _result_record(self, test, status, attachment=''):
+        if self.wasSuccessful():
+            self.successes += 1
         data = {
             'name': test.shortDescription(),
+            'suite_docs': test.__doc__ and test.__doc__.splitlines()[0] or "",
             'status': status,
+            'was_success': self.wasSuccessful(),
             'attachment': attachment,
             "meta_datas": 'datas',
             "png_path": "",
@@ -112,6 +126,7 @@ class HTMLTestRunner:
     def run(self, test):
         """ Run the given test case or test suite. """
         self.result = self.runner.run(test)
+        sleep(4)
         pprint(self.result.test_result)
 
     def html_report(self):
@@ -123,14 +138,14 @@ class HTMLTestRunner:
             logger.debug("use default html report template")
         else:
             logger.info("use html report template: {}".format(self.report_template))
-
+        summary = copy(self.result.test_result)
         with open(self.report_template, 'r', encoding='utf-8') as f_template:
             template_content = f_template.read()
             with open(self.report_file, 'w', encoding='utf-8') as f_report:
                 rendered_content = Template(
                     template_content,
                     extensions=["jinja2.ext.loopcontrols"]
-                ).render(self.result.test_result)
+                ).render(summary)
                 f_report.write(rendered_content)
 
         # pprint(result.test_result)

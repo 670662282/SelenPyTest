@@ -52,7 +52,7 @@
         </ul>
 
         <!-- report name -->
-        <span class='report-name'>Test Report: adawang</span>
+        <span class='report-name'>Test Report: {{ html_report_name }}</span>
 
         <!-- report headline -->
         <span class='report-headline'></span>
@@ -61,22 +61,22 @@
         <ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
             <li>
                 <a href='#!'>
-                    <span class='label suite-start-time blue darken-3'>{{ stat.total_time }}</span>
+                    <span class='label suite-start-time blue darken-3'>{{ time.start_datetime }}</span>
                 </a>
             </li>
             <li>
                 <a href='#!'>
-                    <span class='label blue darken-3'>SelePyTest 2.0 </span>
+                    <span class='label blue darken-3'>SelePyTest {{ platform.httprunner_version }} </span>
                 </a>
             </li>
             <li>
                 <a href='#!'>
-                    <span class='label blue darken-3'>3.7 </span>
+                    <span class='label blue darken-3'>{{ platform.python_version }} </span>
                 </a>
             </li>
             <li>
                 <a href='#!'>
-                    <span class='label blue darken-3'>windows</span>
+                    <span class='label blue darken-3'>{{ platform.platform }}</span>
                 </a>
             </li>
         </ul>
@@ -115,7 +115,7 @@
                         <i class='material-icons'>local_offer</i> Category
                     </a>
                     <ul id='category-toggle' class='dropdown-content'>
-                        {% for test_suite_summary in result %}
+                        {% for test_suite_summary in details %}
                             <li><a href='#'>{{ test_suite_summary.name }}</a>
                             </li>
                         {% endfor %}
@@ -172,7 +172,7 @@
                             </div>
                             <div class='block text-small'>
                             <span class='tooltipped' data-position='top'><span
-                                    class='strong'>success:5-adawang</span> test(s) passed</span>
+                                    class='strong'>{{ stat.successes }}</span> test(s) passed</span>
                                 <span class='tooltipped' data-position='top'><span
                                         class='strong'>{{ stat.failures }}</span> test(s) failed</span>
                             </div>
@@ -644,7 +644,7 @@
                 <div class='col s2'>
                     <div class='card-panel r'>
                         Start
-                        <div class='panel-lead'>{{ stat.total_time }}</div>
+                        <div class='panel-lead'>{{ time.start_datetime }}</div>
                     </div>
                 </div>
                 <div class='col s2'>
