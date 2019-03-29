@@ -80,7 +80,7 @@ class TestRunner:
             verbosity=2)
         runner.run(self._get_discover())
         runner.html_report()
-
-        # self._report_file = self.handle_reports(self.report_path, self.backup)
+        # 处理多余backup数量的测试报告
+        self._report_file = self.handle_reports(self.report_path, self.backup)
 
 

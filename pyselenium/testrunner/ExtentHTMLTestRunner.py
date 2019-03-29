@@ -23,6 +23,16 @@ class Result(Enum):
 
 
 class _TestResult(unittest.TextTestResult):
+    """Holder for test result information.
+
+    Test results are automatically managed by the TestCase and TestSuite
+    classes, and do not need to be explicitly manipulated by writers of tests.
+
+    Each instance holds the total number of tests run, and collections of
+    failures and errors that occurred among those test runs. The collections
+    contain tuples of (testcase, exceptioninfo), where exceptioninfo is the
+    formatted traceback of the error that occurred.
+    """
 
     def __init__(self, stream, descriptions, verbosity):
         super(_TestResult, self).__init__(stream, descriptions, verbosity)
@@ -30,6 +40,7 @@ class _TestResult(unittest.TextTestResult):
         self.sub_test_list = []
         self.start_time = time()
         self.successes = 0
+        self.start_at = None
 
     @property
     def test_result(self):
@@ -43,7 +54,7 @@ class _TestResult(unittest.TextTestResult):
                 'total': self.testsRun,
                 'total_time': time() - self.start_time,
                 'now_time': str(datetime.datetime.now()),
-                'success': self.successes,
+                'successes': self.successes,
                 'failures': len(self.failures),
                 'errors': len(self.errors),
                 'skipped': len(self.skipped),
@@ -59,19 +70,44 @@ class _TestResult(unittest.TextTestResult):
             self.successes += 1
         data = {
             'name': test.shortDescription(),
-            'suite_docs': test.__doc__ and test.__doc__.splitlines()[0] or "",
+            'duration': self.duration,
+            'test_suite_docs': test.__doc__ and test.__doc__.splitlines()[0] or "",
             'status': status,
-            'was_success': self.wasSuccessful(),
+            'success': self.wasSuccessful(),
             'attachment': attachment,
-            "meta_datas": 'datas',
-            "png_path": "",
-            "retry_time": "",
-            "retry_result": "",
+            "except_data": test.except_data,
+
         }
         self.result.append(data)
 
+    @property
+    def duration(self):
+        """Duration time of a single test case
+
+        :return: duration time
+        """
+        return time() - self.start_at
+
+    def printErrors(self):
+        """Called by TestRunner after test run"""
+        pass
+
+    def startTestRun(self):
+        """Called once before any tests are executed.
+
+        See startTest for a method called before each test.
+        """
+        self.start_at = time()
+
     def startTest(self, test):
+        """Called when the given test is about to be run"""
         super().startTest(test)
+
+    def stopTestRun(self):
+        """Called once after all tests are executed.
+
+        See stopTest for a method called after each test.
+        """
 
     def addSubTest(self, test, subtest, err):
         super().addSubTest(test, subtest, err)
@@ -126,7 +162,7 @@ class HTMLTestRunner:
     def run(self, test):
         """ Run the given test case or test suite. """
         self.result = self.runner.run(test)
-        sleep(4)
+        sleep(2)
         pprint(self.result.test_result)
 
     def html_report(self):

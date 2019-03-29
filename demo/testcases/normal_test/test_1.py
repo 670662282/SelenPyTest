@@ -23,7 +23,7 @@ class DemoTest(unittests.TestCase):
         ('test1', 'selenium'),
         ('test2', 'selenium2')
     ])
-    @capture_except(png_path=r'reports\images', retry=1)
+    @capture_except(png_path=r'reports\images', retry=2)
     def test_login(self, fun, search_key):
         """test_login_1"""
         self.open("https://www.baidu.com")
