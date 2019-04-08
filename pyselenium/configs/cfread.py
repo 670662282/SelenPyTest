@@ -157,7 +157,7 @@ if __name__ == '__main__':
         "EMAIL_SERVER": "smtp.163.com",
         "EMAIL_USR": '',
         "EMAIL_RECEIVE": '',
-        "MAIL_TITLE": 'UI自动化测试报告',
+        "MAIL_TITLE": '自动化测试报告',
         "IMP_TIME": 20,
         "TIME_OUT": 30,
     })
