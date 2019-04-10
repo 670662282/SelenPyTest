@@ -21,7 +21,7 @@ class ReaderFactory:
             reader = cls.JsonReader
         elif file_path.endswith(('.yml', '.yaml')):
             reader = cls.YamlReader
-        elif file_path.endswith('.csv'):
+        elif file_path.endswith(('.csv', '.xlsx')):
             reader = cls.ExcelReader
         else:
             raise ValueError("can't not open to {}, please use type <yaml xml json csv>".format(file_path))
