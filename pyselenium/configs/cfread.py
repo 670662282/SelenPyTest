@@ -82,9 +82,7 @@ class ReaderFactory:
                     sheet = workbook.sheet_by_index(self.sheet)
                 else:
                     raise SheetTypeError('Please pass in `int` or `str`, not {0}'.format(type(self.sheet)))
-
-            for col in range(self.start_col, sheet.nrows):
-                self._data.append(self._parse_data_for_col(sheet, col))
+            self._data = [self._parse_data_for_col(sheet, col) for col in range(self.start_col, sheet.nrows)]
             return self._data
 
         def _parse_data_for_col(self, sheet, col):
